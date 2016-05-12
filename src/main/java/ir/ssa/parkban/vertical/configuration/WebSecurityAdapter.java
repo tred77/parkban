@@ -1,5 +1,6 @@
 package ir.ssa.parkban.vertical.configuration;
 
+import ir.ssa.parkban.vertical.configuration.filter.CORSFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
@@ -10,7 +11,10 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import javax.servlet.Filter;
 
 /**
  * @author hym
@@ -28,10 +32,10 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.
-                authorizeRequests().antMatchers("/customLogin", "/css/**", "/image/**").permitAll()
+        http.addFilterBefore(new CORSFilter(), ChannelProcessingFilter.class).
+                authorizeRequests().antMatchers("/customLogin", "/css/**", "/image/**", "/**").permitAll()
                 .anyRequest().authenticated()
-        .and().formLogin().loginPage("/customLogin")
+        .and().formLogin()/*.loginPage("/customLogin")*/
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .successHandler(authenticationSuccessHandler)
