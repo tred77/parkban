@@ -28,6 +28,17 @@ public class CitySection {
     @JoinColumn(name = "CITY_ID")
     private City city;
 
+    public CitySection(Long id, String name, String address, Long cityId) {
+        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.city = new City();
+        this.city.setId(cityId);
+    }
+
+    public CitySection() {
+    }
+
     public Long getId() {
         return id;
     }
