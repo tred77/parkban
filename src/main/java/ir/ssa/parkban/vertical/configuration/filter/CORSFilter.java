@@ -13,11 +13,10 @@ import java.io.IOException;
 @Component
 public class CORSFilter implements Filter {
 
-    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
     }
 
-    @Override
+
     public void doFilter(ServletRequest request, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletResponse response = (HttpServletResponse) res;
         response.setHeader("Access-Control-Allow-Origin", "*");

@@ -15,7 +15,6 @@ public class ParkTimeServiceImpl implements ParkTimeService{
     @Autowired
     ParkTimeDAO parkTimeDAO;
 
-    @Override
     public void addNewParkTime(ParkTime parkTime) {
         parkTimeDAO.save(parkTime);
     }

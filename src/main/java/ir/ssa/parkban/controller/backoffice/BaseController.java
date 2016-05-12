@@ -1,13 +1,17 @@
 package ir.ssa.parkban.controller.backoffice;
 
+import ir.ssa.parkban.controller.dto.entity.RoleDto;
+import ir.ssa.parkban.controller.dto.entity.UserDto;
 import ir.ssa.parkban.domain.entities.CitySection;
+import ir.ssa.parkban.domain.entities.Role;
 import ir.ssa.parkban.domain.filters.ParkRegionFilter;
+import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,6 +22,9 @@ import java.util.List;
 public class BaseController {
     @Autowired
     ParkTimeService parkTimeService;
+
+    @Autowired
+    BaseInformationService baseInformationService;
 
     /* park price */
 
@@ -31,5 +38,74 @@ public class BaseController {
                                         new CitySection(new Long(3),"پونک","پونک",new Long(10))};
         return Arrays.asList(citySections);
 
+    }
+
+    @RequestMapping(value = "/index")
+    public List<CitySection> index(){
+        CitySection[] citySections = {new CitySection(new Long(1),"ولیعصر","ولیعصر",new Long(10)),
+                new CitySection(new Long(2),"ونک","ونک",new Long(10)),
+                new CitySection(new Long(3),"پونک","پونک",new Long(10))};
+        return Arrays.asList(citySections);
+
+    }
+
+    /* user section    */
+
+    @RequestMapping(value = "/insertUser")
+    public UserDto insertUser(UserDto user){
+
+        user=new UserDto();
+        user.setActive(true);
+        user.setFirstName("Behrouz");
+        user.setLastName("Zamani");
+        user.setActive(true);
+
+        // add roles
+        RoleDto role1 = new RoleDto();
+        role1.setName("Admin1");
+        RoleDto role2 = new RoleDto();
+        role2.setName("Admin2");
+        RoleDto role3 = new RoleDto();
+        role3.setName("Admin3");
+
+        baseInformationService.insertRole(role1);
+        baseInformationService.insertRole(role2);
+        baseInformationService.insertRole(role3);
+
+
+
+        user.setRoles(baseInformationService.findAllRoles());
+
+        return baseInformationService.insertUser(user);
+    }
+
+    @RequestMapping(value = "/updateUser")
+    public void updateUser(UserDto user){
+        baseInformationService.updateUser(user);
+    }
+
+    @RequestMapping(value = "/deleteUser")
+    public void deleteUser(UserDto user){
+        baseInformationService.deleteUser(user);
+    }
+
+    @RequestMapping(value = "/findAllUser")
+    public List<UserDto> findAllUser(){
+       return baseInformationService.findAllUser();
+    }
+
+    @RequestMapping(value = "/insertRole")
+    public RoleDto insertRole(RoleDto roleDto){
+        return baseInformationService.insertRole(roleDto);
+    }
+
+    @RequestMapping(value = "/updateRole")
+    public void updateRole(RoleDto roleDto){
+        baseInformationService.updateRole(roleDto);
+    }
+
+    @RequestMapping(value = "/deleteRole")
+    public void deleteRole(RoleDto roleDto){
+        baseInformationService.deleteRole(roleDto);
     }
 }
