@@ -4,6 +4,9 @@ import ir.ssa.parkban.vertical.exceptions.ParkBanRunTimeException;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Behrouz-ZD on 5/13/2016.
  */

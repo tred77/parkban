@@ -4,7 +4,7 @@ import ir.ssa.parkban.controller.dto.entity.*;
 import ir.ssa.parkban.domain.entities.*;
 import ir.ssa.parkban.repository.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
-import ir.ssa.parkban.vertical.util.ObjectMapper;
+import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
