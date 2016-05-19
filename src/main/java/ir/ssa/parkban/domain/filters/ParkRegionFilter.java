@@ -2,11 +2,12 @@ package ir.ssa.parkban.domain.filters;
 
 import ir.ssa.parkban.domain.entities.City;
 import ir.ssa.parkban.domain.enums.FilterOperation;
+import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 
 /**
  * @author hym
  */
-public class ParkRegionFilter extends BaseFilter{
+public class ParkRegionFilter extends BaseFilter {
 
     private City city;
 

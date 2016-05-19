@@ -7,7 +7,7 @@ import ir.ssa.parkban.domain.entities.User;
 import ir.ssa.parkban.repository.RoleDAO;
 import ir.ssa.parkban.repository.UserDAO;
 import ir.ssa.parkban.service.bean.BaseInformationService;
-import ir.ssa.parkban.vertical.util.ObjectMapper;
+import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -17,9 +17,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author hym

@@ -23,9 +23,9 @@ public enum FilterOperation {
     }
 
     public static FilterOperation getFilterOperation(String val){
-        return null; /*Arrays.stream(FilterOperation.values())
+        return Arrays.stream(FilterOperation.values())
                 .filter(e -> e.value.equals(val))
                 .findFirst()
-                .orElseThrow(() -> new RuntimeException("Illegal Filter Operation Type"));*/
+                .orElseThrow(() -> new RuntimeException("Illegal Filter Operation Type"));
     }
 }

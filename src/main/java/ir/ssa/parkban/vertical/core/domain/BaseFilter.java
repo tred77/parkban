@@ -1,4 +1,4 @@
-package ir.ssa.parkban.domain.filters;
+package ir.ssa.parkban.vertical.core.domain;
 
 import ir.ssa.parkban.domain.enums.FilterOperation;
 
@@ -9,6 +9,20 @@ public class BaseFilter {
 
     private Long id;
     private FilterOperation idOp;
+
+    private PagingInfo pagingInfo;
+
+    public void setIdOp(FilterOperation idOp) {
+        this.idOp = idOp;
+    }
+
+    public PagingInfo getPagingInfo() {
+        return pagingInfo;
+    }
+
+    public void setPagingInfo(PagingInfo pagingInfo) {
+        this.pagingInfo = pagingInfo;
+    }
 
     public Long getId() {
         return id;
@@ -25,4 +39,7 @@ public class BaseFilter {
     public void setIdOp(String idOp) {
         this.idOp = FilterOperation.getFilterOperation(idOp);
     }
+
+
+
 }
