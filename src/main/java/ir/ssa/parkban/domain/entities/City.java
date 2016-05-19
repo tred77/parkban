@@ -2,6 +2,7 @@ package ir.ssa.parkban.domain.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * @author hym
@@ -10,14 +11,17 @@ import javax.validation.constraints.Size;
 public class City {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "base_seq")
-    @SequenceGenerator(name = "base_seq", sequenceName = "BASE_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "city_seq")
+    @SequenceGenerator(name = "city_seq", sequenceName = "CITY_SEQ")
     @Column(name = "ID")
     private Long id;
 
     @Size(max = 30)
     @Column(name = "NAME")
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Region> regions;
 
     public Long getId() {
         return id;
@@ -33,5 +37,13 @@ public class City {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Region> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(Set<Region> regions) {
+        this.regions = regions;
     }
 }

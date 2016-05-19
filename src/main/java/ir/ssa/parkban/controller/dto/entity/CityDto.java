@@ -1,12 +1,15 @@
 package ir.ssa.parkban.controller.dto.entity;
 
+import java.util.List;
+
 /**
- * Created by Behrouz-ZD on 5/13/2016.
+ * Created by Behrouz-ZD on 5/19/2016.
  */
-public class RoleDto {
+public class CityDto {
 
     private Long id;
     private String name;
+    private List<RegionDto> regions;
 
     public Long getId() {
         return id;
@@ -24,6 +27,11 @@ public class RoleDto {
         this.name = name;
     }
 
+    public List<RegionDto> getRegions() {
+        return regions;
+    }
+
+    public void setRegions(List<RegionDto> regions) {
+        this.regions = regions;
+    }
 }
-
-
