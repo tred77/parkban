@@ -70,4 +70,5 @@ public class UserDto {
     public void setRoles(List<RoleDto> roles) {
         this.roles = roles;
     }
+
 }

@@ -24,15 +24,15 @@ public class ParkTime {
     private Date parkDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CITY_SECTION")
-    private CitySection citySection;
+    @JoinColumn(name = "REGION_ID")
+    private Region region;
 
-    public ParkTime(String vehicleNumber, Date parkDateTime, Long citySectionId) {
+    public ParkTime(String vehicleNumber, Date parkDateTime, Long regionId) {
         this.vehicleNumber = vehicleNumber;
         this.parkDateTime = parkDateTime;
-        CitySection citySection = new CitySection();
-        citySection.setId(citySectionId);
-        this.citySection = citySection;
+        Region region = new Region();
+        region.setId(regionId);
+        this.region = region;
     }
 
     public Long getId() {
@@ -59,11 +59,11 @@ public class ParkTime {
         this.parkDateTime = parkDateTime;
     }
 
-    public CitySection getCitySection() {
-        return citySection;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setCitySection(CitySection citySection) {
-        this.citySection = citySection;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 }

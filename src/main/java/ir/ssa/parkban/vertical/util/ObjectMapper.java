@@ -30,18 +30,18 @@ public class ObjectMapper {
 
     }
 
-    /*public static <T> List<T> mapList(Object source, Class<T> destinationClass){
+    public static <T,U> List<U> map(List<T> source, Class<U> destinationClass){
 
         if(source == null || destinationClass == null)
             return null;
 
         try {
-            List<T> destination = new ArrayList<T>();
+            List<U> destination = new ArrayList<U>();
             Mapper mapper = new DozerBeanMapper();
             for(int i=0;i<source.size();i++){
                 Object des = destinationClass.newInstance();
                 mapper.map(source,des);
-                destination.add((T)des);
+                destination.add((U)des);
             }
 
 
@@ -52,5 +52,5 @@ public class ObjectMapper {
             throw new ParkBanRunTimeException();
         }
 
-    }*/
+    }
 }

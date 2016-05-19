@@ -1,9 +1,10 @@
 package ir.ssa.parkban.controller.backoffice;
 
+import ir.ssa.parkban.controller.dto.entity.CityDto;
+import ir.ssa.parkban.controller.dto.entity.RegionDto;
 import ir.ssa.parkban.controller.dto.entity.RoleDto;
 import ir.ssa.parkban.controller.dto.entity.UserDto;
-import ir.ssa.parkban.domain.entities.CitySection;
-import ir.ssa.parkban.domain.entities.Role;
+import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.filters.ParkRegionFilter;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
@@ -26,26 +27,27 @@ public class BaseController {
     @Autowired
     BaseInformationService baseInformationService;
 
+
     /* park price */
 
 
     /* park region */
 
     @RequestMapping(value = "/parkRegionList")
-    public List<CitySection> getParkRegionList(ParkRegionFilter parkRegionFilter){
-        CitySection[] citySections = {new CitySection(new Long(1),"ولیعصر","ولیعصر",new Long(10)),
-                                        new CitySection(new Long(2),"ونک","ونک",new Long(10)),
-                                        new CitySection(new Long(3),"پونک","پونک",new Long(10))};
-        return Arrays.asList(citySections);
+    public List<Region> getParkRegionList(ParkRegionFilter parkRegionFilter){
+        Region[] regions = {new Region(new Long(1),"ولیعصر","ولیعصر",new Long(10)),
+                                        new Region(new Long(2),"ونک","ونک",new Long(10)),
+                                        new Region(new Long(3),"پونک","پونک",new Long(10))};
+        return Arrays.asList(regions);
 
     }
 
     @RequestMapping(value = "/index")
-    public List<CitySection> index(){
-        CitySection[] citySections = {new CitySection(new Long(1),"ولیعصر","ولیعصر",new Long(10)),
-                new CitySection(new Long(2),"ونک","ونک",new Long(10)),
-                new CitySection(new Long(3),"پونک","پونک",new Long(10))};
-        return Arrays.asList(citySections);
+    public List<Region> index(){
+        Region[] regions = {new Region(new Long(1),"ولیعصر","ولیعصر",new Long(10)),
+                new Region(new Long(2),"ونک","ونک",new Long(10)),
+                new Region(new Long(3),"پونک","پونک",new Long(10))};
+        return Arrays.asList(regions);
 
     }
 
@@ -108,4 +110,54 @@ public class BaseController {
     public void deleteRole(RoleDto roleDto){
         baseInformationService.deleteRole(roleDto);
     }
+
+
+    /** City Section */
+
+    @RequestMapping(value = "/insertCity")
+    public void insertCity(CityDto cityDto){
+
+
+
+        CityDto city = new CityDto();
+        city.setName("Sanandaj");
+
+        CityDto city1 = new CityDto();
+        city1.setName("Marand");
+
+        city = baseInformationService.insertCity(city);
+        city1 = baseInformationService.insertCity(city1);
+
+        List<RegionDto> regions = new ArrayList<RegionDto>();
+
+        for(int i=0;i<10;i++){
+            regions.add(new RegionDto());
+            regions.get(i).setName("Region " + i);
+            regions.get(i).setAddress("Region Address " + i);
+            regions.get(i).setCity(city);
+        }
+
+        RegionDto regionDto = baseInformationService.insertRegion(regions.get(0));
+
+        //baseInformationService.insertRegions(regions);
+
+
+
+        regions = baseInformationService.findAllRegion();
+
+        //RegionDto regionDto = baseInformationService.findRegionById(new Long(51));
+
+    }
+
+    @RequestMapping(value = "/updateCity")
+    public void updateCity(CityDto cityDto){
+        baseInformationService.updateCity(cityDto);
+    }
+
+    @RequestMapping(value = "/deleteCity")
+    public void deleteCity(CityDto cityDto){
+        baseInformationService.deleteCity(cityDto);
+    }
+
+
 }
