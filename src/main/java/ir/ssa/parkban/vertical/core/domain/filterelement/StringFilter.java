@@ -5,14 +5,14 @@ package ir.ssa.parkban.vertical.core.domain.filterelement;
  */
 public class StringFilter {
 
-    private FilterOperation elementOp;
+    private StringFilterOperation elementOp;
     private String[] values;
 
-    public FilterOperation getElementOp() {
+    public StringFilterOperation getElementOp() {
         return elementOp;
     }
 
-    public void setElementOp(FilterOperation elementOp) {
+    public void setElementOp(StringFilterOperation elementOp) {
         this.elementOp = elementOp;
     }
 

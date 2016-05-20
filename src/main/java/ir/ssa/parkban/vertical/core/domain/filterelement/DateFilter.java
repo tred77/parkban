@@ -7,14 +7,14 @@ import java.util.Date;
  */
 public class DateFilter {
 
-    private FilterOperation elementOp;
+    private DateFilterOperation elementOp;
     private Date[] values;
 
-    public FilterOperation getElementOp() {
+    public DateFilterOperation getElementOp() {
         return elementOp;
     }
 
-    public void setElementOp(FilterOperation elementOp) {
+    public void setElementOp(DateFilterOperation elementOp) {
         this.elementOp = elementOp;
     }
 

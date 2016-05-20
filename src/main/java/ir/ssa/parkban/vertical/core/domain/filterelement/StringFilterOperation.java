@@ -1,18 +1,19 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
+import com.mysema.query.types.Path;
+import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.expr.StringExpression;
+
 import java.util.Arrays;
 
 /**
  * @author hym
  */
-public enum StringFilterOperation implements FilterOperation {
+public enum StringFilterOperation implements ExpressionCriteriaProvider<String>{
 
     EQUAL("eq"),
-    GREATER_THAN("gt"),
-    LESS_THAN("lt"),
     LIKE("lk"),
-    LIKE_START("lks"),
-    LIKE_END("lke");
+    NOT_LIKE("nlk");
 
     private String value;
     StringFilterOperation(String val) {
@@ -31,7 +32,27 @@ public enum StringFilterOperation implements FilterOperation {
 
 
     @Override
-    public String getType() {
-        return value;
+    public BooleanExpression getCriteriaExpression(Path<String> path, String[] values) {
+        StringExpression stringExpression = (StringExpression) path;
+        BooleanExpression result = null;
+        switch (this) {
+            case EQUAL:
+                if(values != null && values.length > 0 && values[0] != null)
+                    result = stringExpression.eq(values[0]);
+                break;
+            case LIKE:
+                if(values != null && values.length > 0 && values[0] != null)
+                    result = stringExpression.like(values[0]);
+                break;
+            case NOT_LIKE:
+                if(values != null && values.length > 0 && values[0] != null)
+                    result = stringExpression.notLike(values[0]);
+                break;
+            default:
+                //throw new RuntimeException("No matched operation for String Operation");
+                // TODO do log here
+                ;
+        }
+        return result;
     }
 }

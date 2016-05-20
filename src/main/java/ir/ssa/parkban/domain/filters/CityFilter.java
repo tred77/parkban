@@ -24,7 +24,6 @@ public class CityFilter extends BaseFilter{
     @Override
     public BooleanExpression getCriteriaExpression() {
         QCity city = QCity.city;
-        BooleanExpression nameExpression = city.name.eq(this.name.getValues()[0]);
-        return nameExpression;
+        return name.getElementOp().getCriteriaExpression(city.name,name.getValues());
     }
 }

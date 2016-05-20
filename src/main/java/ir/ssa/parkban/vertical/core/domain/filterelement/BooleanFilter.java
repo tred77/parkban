@@ -5,14 +5,14 @@ package ir.ssa.parkban.vertical.core.domain.filterelement;
  */
 public class BooleanFilter {
 
-    private FilterOperation elementOp;
+    private BooleanFilterOperation elementOp;
     private Boolean[] values;
 
-    public FilterOperation getElementOp() {
+    public BooleanFilterOperation getElementOp() {
         return elementOp;
     }
 
-    public void setElementOp(FilterOperation elementOp) {
+    public void setElementOp(BooleanFilterOperation elementOp) {
         this.elementOp = elementOp;
     }
 

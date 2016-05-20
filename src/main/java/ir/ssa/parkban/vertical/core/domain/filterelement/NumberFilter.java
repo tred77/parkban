@@ -1,18 +1,21 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
+import com.mysema.query.types.expr.BooleanExpression;
+import ir.ssa.parkban.vertical.core.domain.FilterCriteriaProvider;
+
 /**
  * Created by hadoop on 5/20/16.
  */
-public class NumberFilter {
+public class NumberFilter implements FilterCriteriaProvider{
 
-    private FilterOperation elementOp;
+    private NumberFilterOperation elementOp;
     private Number[] values;
 
-    public FilterOperation getElementOp() {
+    public NumberFilterOperation getElementOp() {
         return elementOp;
     }
 
-    public void setElementOp(FilterOperation elementOp) {
+    public void setElementOp(NumberFilterOperation elementOp) {
         this.elementOp = elementOp;
     }
 
@@ -22,5 +25,10 @@ public class NumberFilter {
 
     public void setValues(Number[] values) {
         this.values = values;
+    }
+
+    @Override
+    public BooleanExpression getCriteriaExpression() {
+        return null;
     }
 }

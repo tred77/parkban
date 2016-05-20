@@ -1,11 +1,15 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
+import com.mysema.query.types.Path;
+import com.mysema.query.types.expr.BooleanExpression;
+
 import java.util.Arrays;
+import java.util.Date;
 
 /**
  * @author hym
  */
-public enum DateFilterOperation implements FilterOperation {
+public enum DateFilterOperation implements ExpressionCriteriaProvider<Date> {
 
     EQUAL("eq"),
     GREATER_THAN("gt"),
@@ -29,7 +33,7 @@ public enum DateFilterOperation implements FilterOperation {
 
 
     @Override
-    public String getType() {
-        return value;
+    public BooleanExpression getCriteriaExpression(Path<Date> path, Date[] values) {
+        return null;
     }
 }

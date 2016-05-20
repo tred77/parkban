@@ -1,11 +1,14 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
+import com.mysema.query.types.Path;
+import com.mysema.query.types.expr.BooleanExpression;
+
 import java.util.Arrays;
 
 /**
  * @author hym
  */
-public enum NumberFilterOperation implements FilterOperation {
+public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> {
 
     EQUAL("eq"),
     GREATER_THAN("gt"),
@@ -26,9 +29,8 @@ public enum NumberFilterOperation implements FilterOperation {
                 .orElseThrow(() -> new RuntimeException("Illegal Filter Operation Type"));
     }
 
-
     @Override
-    public String getType() {
-        return value;
+    public BooleanExpression getCriteriaExpression(Path<Number> path, Number[] values) {
+        return null;
     }
 }

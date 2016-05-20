@@ -1,11 +1,14 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
+import com.mysema.query.types.Path;
+import com.mysema.query.types.expr.BooleanExpression;
+
 import java.util.Arrays;
 
 /**
  * @author hym
  */
-public enum BooleanFilterOperation implements FilterOperation {
+public enum BooleanFilterOperation implements ExpressionCriteriaProvider<Boolean> {
 
     EQUAL("eq"),
     IS("is");
@@ -27,7 +30,7 @@ public enum BooleanFilterOperation implements FilterOperation {
 
 
     @Override
-    public String getType() {
-        return value;
+    public BooleanExpression getCriteriaExpression(Path<Boolean> path, Boolean[] values) {
+        return null;
     }
 }
