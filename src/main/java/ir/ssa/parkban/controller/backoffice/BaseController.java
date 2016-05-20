@@ -6,6 +6,7 @@ import ir.ssa.parkban.controller.dto.entity.RoleDto;
 import ir.ssa.parkban.controller.dto.entity.UserDto;
 import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.filters.ParkRegionFilter;
+import ir.ssa.parkban.domain.filters.UserFilter;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,18 +36,14 @@ public class BaseController {
 
     @RequestMapping(value = "/parkRegionList")
     public List<Region> getParkRegionList(ParkRegionFilter parkRegionFilter){
-        Region[] regions = {new Region(new Long(1),"ولیعصر","ولیعصر",new Long(10)),
-                                        new Region(new Long(2),"ونک","ونک",new Long(10)),
-                                        new Region(new Long(3),"پونک","پونک",new Long(10))};
+        Region[] regions = null;
         return Arrays.asList(regions);
 
     }
 
     @RequestMapping(value = "/index")
     public List<Region> index(){
-        Region[] regions = {new Region(new Long(1),"ولیعصر","ولیعصر",new Long(10)),
-                new Region(new Long(2),"ونک","ونک",new Long(10)),
-                new Region(new Long(3),"پونک","پونک",new Long(10))};
+        Region[] regions = null;
         return Arrays.asList(regions);
 
     }
@@ -93,7 +90,7 @@ public class BaseController {
 
     @RequestMapping(value = "/findAllUser")
     public List<UserDto> findAllUser(){
-       return baseInformationService.findAllUser();
+       return baseInformationService.findAllUser(new UserFilter());
     }
 
     @RequestMapping(value = "/insertRole")
@@ -143,7 +140,7 @@ public class BaseController {
 
 
 
-        regions = baseInformationService.findAllRegion();
+        regions = baseInformationService.findAllRegion(new UserFilter());
 
         //RegionDto regionDto = baseInformationService.findRegionById(new Long(51));
 

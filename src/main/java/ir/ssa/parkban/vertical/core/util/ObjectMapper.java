@@ -67,7 +67,7 @@ public class ObjectMapper {
             Mapper mapper = new DozerBeanMapper();
             for(int i=0;i<source.size();i++){
                 Object des = destinationClass.newInstance();
-                mapper.map(source,des);
+                mapper.map(source.get(i),des);
                 destination.add((U)des);
             }
 

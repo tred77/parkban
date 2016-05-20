@@ -2,18 +2,14 @@ package ir.ssa.parkban.service.impl;
 
 import ir.ssa.parkban.controller.dto.entity.*;
 import ir.ssa.parkban.domain.entities.*;
+import ir.ssa.parkban.domain.filters.RoleFilter;
+import ir.ssa.parkban.domain.filters.UserFilter;
 import ir.ssa.parkban.repository.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.vertical.core.domain.FilterCriteriaProvider;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -37,6 +33,18 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     @Autowired
     ParkPriceDAO parkPriceDAO;
 
+    @Autowired
+    ParkbanDAO parkbanDAO;
+
+    @Autowired
+    VehicleOwnerDAO vehicleOwnerDAO;
+
+    @Autowired
+    VehicleDAO vehicleDAO;
+
+    @Autowired
+    ParkChargeDAO parkChargeDAO;
+
     public UserDto insertUser(UserDto userDto) {
 
         User user = ObjectMapper.map(userDto, User.class);
@@ -52,13 +60,9 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         userDAO.delete(ObjectMapper.map(userDto, User.class));
     }
 
-    public List<UserDto> findAllUser() {
-        List<User> users = userDAO.findAll(new Specification<User>() {
-            public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return null;
-            }
-        });
-        return ObjectMapper.map(users,UserDto.class);
+    public List<UserDto> findAllUser(FilterCriteriaProvider filter) {
+        return ObjectMapper.map(userDAO.findAll(filter.getCriteriaExpression()),UserDto.class);
+
     }
 
     public RoleDto insertRole(RoleDto roleDto) {
@@ -75,6 +79,8 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     public List<RoleDto> findAllRoles(FilterCriteriaProvider roleFilter){
+        if(roleFilter==null)
+            roleFilter = new RoleFilter();
         return ObjectMapper.map(roleDAO.findAll(roleFilter.getCriteriaExpression()),RoleDto.class);
     }
 
@@ -102,13 +108,8 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         cityDAO.delete(city);
     }
 
-    public List<CityDto> findAllCity() {
-        List<City> cities = (List<City>)cityDAO.findAll(new Specification<City>() {
-            public Predicate toPredicate(Root<City> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return null;
-            }
-        });
-        return ObjectMapper.map(cities,CityDto.class);
+    public List<CityDto> findAllCity(FilterCriteriaProvider filter) {
+        return ObjectMapper.map(cityDAO.findAll(filter.getCriteriaExpression()),CityDto.class);
     }
 
     public CityDto findCityById(long id) {
@@ -140,14 +141,8 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         regionDAO.delete(region);
     }
 
-    public List<RegionDto> findAllRegion() {
-        List<Region> regions = (List<Region>)regionDAO.findAll(new Specification<Region>() {
-
-            public Predicate toPredicate(Root<Region> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return null;
-            }
-        });
-        return ObjectMapper.map(regions,RegionDto.class);
+    public List<RegionDto> findAllRegion(FilterCriteriaProvider filter) {
+        return ObjectMapper.map(regionDAO.findAll(filter.getCriteriaExpression()),RegionDto.class);
     }
 
     public RegionDto findRegionById(long id) {
@@ -184,20 +179,139 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     @Override
-    public List<ParkPriceDto> findAllParkPrice() {
-
-        List<ParkPrice> parkPrices = parkPriceDAO.findAll(new Specification<ParkPrice>() {
-            @Override
-            public Predicate toPredicate(Root<ParkPrice> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return null;
-            }
-        });
-
-        return ObjectMapper.map(parkPrices,ParkPriceDto.class);
+    public List<ParkPriceDto> findAllParkPrice(FilterCriteriaProvider filter) {
+        return ObjectMapper.map(parkPriceDAO.findAll(filter.getCriteriaExpression()),ParkPriceDto.class);
     }
 
     @Override
     public ParkPriceDto findParkPriceById(long id) {
         return ObjectMapper.map(parkPriceDAO.findOne(id),ParkPriceDto.class);
+    }
+
+
+    /** Parkban */
+
+
+    @Override
+    public ParkbanDto insertParkban(ParkbanDto parkbanDto) {
+        Parkban parkban = ObjectMapper.map(parkbanDto,Parkban.class);
+        parkbanDAO.save(parkban);
+        return ObjectMapper.map(parkban,ParkbanDto.class);
+    }
+
+    @Override
+    public void updateParkban(ParkbanDto parkbanDto) {
+        Parkban parkban = ObjectMapper.map(parkbanDto,Parkban.class);
+        parkbanDAO.save(parkban);
+    }
+
+    @Override
+    public void deleteParkban(ParkbanDto parkbanDto) {
+        Parkban parkban = ObjectMapper.map(parkbanDto,Parkban.class);
+        parkbanDAO.delete(parkban);
+    }
+
+    @Override
+    public List<ParkbanDto> findAllParkban(FilterCriteriaProvider filter) {
+        return ObjectMapper.map(parkbanDAO.findAll(filter.getCriteriaExpression()),ParkbanDto.class);
+    }
+
+    @Override
+    public ParkbanDto findParkbanById(long id) {
+        return ObjectMapper.map(parkbanDAO.findOne(id),ParkbanDto.class);
+    }
+
+    /** VehicleOwner */
+
+    @Override
+    public VehicleOwnerDto insertVehicleOwner(VehicleOwnerDto vehicleOwnerDto) {
+        VehicleOwner vehicleOwner = ObjectMapper.map(vehicleOwnerDto,VehicleOwner.class);
+        vehicleOwnerDAO.save(vehicleOwner);
+        return ObjectMapper.map(vehicleOwner,VehicleOwnerDto.class);
+    }
+
+    @Override
+    public void updateVehicleOwner(VehicleOwnerDto vehicleOwnerDto) {
+        VehicleOwner vehicleOwner = ObjectMapper.map(vehicleOwnerDto,VehicleOwner.class);
+        vehicleOwnerDAO.save(vehicleOwner);
+    }
+
+    @Override
+    public void deleteVehicleOwner(VehicleOwnerDto vehicleOwnerDto) {
+        VehicleOwner vehicleOwner = ObjectMapper.map(vehicleOwnerDto,VehicleOwner.class);
+        vehicleOwnerDAO.delete(vehicleOwner);
+    }
+
+    @Override
+    public List<VehicleOwnerDto> findAllVehicleOwner(FilterCriteriaProvider filter) {
+        return ObjectMapper.map(vehicleOwnerDAO.findAll(filter.getCriteriaExpression()),VehicleOwnerDto.class);
+    }
+
+    @Override
+    public VehicleOwnerDto findVehicleOwnerById(long id) {
+        return ObjectMapper.map(parkbanDAO.findOne(id),VehicleOwnerDto.class);
+    }
+
+    /** Vehicle */
+
+    @Override
+    public VehicleDto insertVehicle(VehicleDto VehicleDto) {
+        Vehicle vehicle = ObjectMapper.map(VehicleDto,Vehicle.class);
+        vehicleDAO.save(vehicle);
+        return ObjectMapper.map(vehicle,VehicleDto.class);
+    }
+
+    @Override
+    public void updateVehicle(VehicleDto VehicleDto) {
+        Vehicle vehicle = ObjectMapper.map(VehicleDto,Vehicle.class);
+        vehicleDAO.save(vehicle);
+    }
+
+    @Override
+    public void deleteVehicle(VehicleDto VehicleDto) {
+        Vehicle vehicle = ObjectMapper.map(VehicleDto,Vehicle.class);
+        vehicleDAO.delete(vehicle);
+
+    }
+
+    @Override
+    public List<VehicleDto> findAllVehicle(FilterCriteriaProvider filter) {
+        return ObjectMapper.map(vehicleDAO.findAll(filter.getCriteriaExpression()),VehicleDto.class);
+    }
+
+    @Override
+    public VehicleDto findVehicleById(long id) {
+        return ObjectMapper.map(vehicleDAO.findOne(id),VehicleDto.class);
+    }
+
+    /** ParkCharge */
+
+    @Override
+    public ParkChargeDto insertParkCharge(ParkChargeDto parkChargeDto) {
+        ParkCharge parkCharge = ObjectMapper.map(parkChargeDto,ParkCharge.class);
+        parkChargeDAO.save(parkCharge);
+        return ObjectMapper.map(parkCharge,ParkChargeDto.class);
+    }
+
+    @Override
+    public void updateParkCharge(ParkChargeDto parkChargeDto) {
+        ParkCharge parkCharge = ObjectMapper.map(parkChargeDto,ParkCharge.class);
+        parkChargeDAO.save(parkCharge);
+    }
+
+    @Override
+    public void deleteParkCharge(ParkChargeDto parkChargeDto) {
+        ParkCharge parkCharge = ObjectMapper.map(parkChargeDto,ParkCharge.class);
+        parkChargeDAO.delete(parkCharge);
+    }
+
+    @Override
+    public List<ParkChargeDto> findAllParkCharge(FilterCriteriaProvider filter) {
+        return ObjectMapper.map(parkChargeDAO.findAll(filter.getCriteriaExpression()),ParkChargeDto.class);
+    }
+
+    @Override
+    public ParkChargeDto findParkChargeById(long id) {
+        return ObjectMapper.map(parkChargeDAO.findOne(id), ParkChargeDto.class);
     }
 }

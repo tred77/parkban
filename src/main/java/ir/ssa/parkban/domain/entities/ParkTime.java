@@ -1,5 +1,7 @@
 package ir.ssa.parkban.domain.entities;
 
+import ir.ssa.parkban.domain.enums.ParkTimeStatus;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Date;
@@ -8,13 +10,8 @@ import java.util.Date;
  * @author hym
  */
 @Entity(name = "TBL_PARK_TIME")
-public class ParkTime {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "park_time_seq")
-    @SequenceGenerator(name = "park_time_seq", sequenceName = "PARK_TIME_SEQ")
-    @Column(name = "ID")
-    private Long id;
+@SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "PARK_TIME_SEQ")
+public class ParkTime extends DomainEntity {
 
     @Size(max = 10)
     @Column(name = "VEHICLE_NUMBER")
@@ -27,6 +24,20 @@ public class ParkTime {
     @JoinColumn(name = "REGION_ID")
     private Region region;
 
+    // parkban id
+
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private ParkTimeStatus parkTimeStatus;
+
+    public ParkTimeStatus getParkTimeStatus() {
+        return parkTimeStatus;
+    }
+
+    public void setParkTimeStatus(ParkTimeStatus parkTimeStatus) {
+        this.parkTimeStatus = parkTimeStatus;
+    }
+
     public ParkTime(String vehicleNumber, Date parkDateTime, Long regionId) {
         this.vehicleNumber = vehicleNumber;
         this.parkDateTime = parkDateTime;
@@ -35,13 +46,6 @@ public class ParkTime {
         this.region = region;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getVehicleNumber() {
         return vehicleNumber;

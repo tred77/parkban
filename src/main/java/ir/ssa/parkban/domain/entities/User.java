@@ -12,14 +12,8 @@ import java.util.Set;
 @NamedEntityGraphs({
         @NamedEntityGraph(name = "user.all", attributeNodes = { @NamedAttributeNode("roles") }),
         @NamedEntityGraph(name = "user.detail", attributeNodes = { @NamedAttributeNode("roles") }) })
-
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
-    @SequenceGenerator(name = "user_seq", sequenceName = "USER_SEQ")
-    @Column(name = "id")
-    private Long id;
+@SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "USER_SEQ")
+public class User extends DomainEntity {
 
 
     @Size(max = 30)
@@ -44,14 +38,6 @@ public class User {
     @ManyToMany
     @JoinTable(name = "user_roll", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<Role> roles;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
