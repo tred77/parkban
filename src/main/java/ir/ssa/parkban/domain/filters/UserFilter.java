@@ -1,6 +1,7 @@
 package ir.ssa.parkban.domain.filters;
 
 import com.mysema.query.types.path.EntityPathBase;
+import ir.ssa.parkban.domain.entities.QUser;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
@@ -53,6 +54,6 @@ public class UserFilter extends BaseFilter {
 
     @Override
     protected EntityPathBase getEntityPath() {
-        return null;
+        return QUser.user;
     }
 }

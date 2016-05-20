@@ -1,6 +1,7 @@
 package ir.ssa.parkban.domain.filters;
 
-import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.path.EntityPathBase;
+import ir.ssa.parkban.domain.entities.QParkban;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 
 /**
@@ -19,7 +20,7 @@ public class ParkbanFilter extends BaseFilter{
     }
 
     @Override
-    public BooleanExpression getCriteriaExpression() {
-        return null;
+    protected EntityPathBase getEntityPath() {
+        return QParkban.parkban;
     }
 }

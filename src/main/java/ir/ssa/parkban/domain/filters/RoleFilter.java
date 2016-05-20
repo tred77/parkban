@@ -1,6 +1,7 @@
 package ir.ssa.parkban.domain.filters;
 
 import com.mysema.query.types.path.EntityPathBase;
+import ir.ssa.parkban.domain.entities.QRole;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
@@ -21,6 +22,6 @@ public class RoleFilter extends BaseFilter{
 
     @Override
     protected EntityPathBase getEntityPath() {
-        return null;
+        return QRole.role;
     }
 }
