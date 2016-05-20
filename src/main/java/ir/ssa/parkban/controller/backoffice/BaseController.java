@@ -76,7 +76,7 @@ public class BaseController {
 
 
 
-        user.setRoles(baseInformationService.findAllRoles());
+        user.setRoles(baseInformationService.findAllRoles(null));
 
         return baseInformationService.insertUser(user);
     }

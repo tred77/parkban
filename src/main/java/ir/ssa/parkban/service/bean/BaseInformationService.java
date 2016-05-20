@@ -1,6 +1,8 @@
 package ir.ssa.parkban.service.bean;
 
 import ir.ssa.parkban.controller.dto.entity.*;
+import ir.ssa.parkban.vertical.core.domain.BaseFilter;
+import ir.ssa.parkban.vertical.core.domain.FilterCriteriaProvider;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -31,7 +33,7 @@ public interface BaseInformationService {
     @Transactional
     void deleteRole(RoleDto roleDto);
 
-    List<RoleDto> findAllRoles();
+    List<RoleDto> findAllRoles(FilterCriteriaProvider filter);
 
 
     /*   City Section  */

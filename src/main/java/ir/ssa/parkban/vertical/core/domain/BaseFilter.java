@@ -1,20 +1,16 @@
 package ir.ssa.parkban.vertical.core.domain;
 
-import ir.ssa.parkban.domain.enums.FilterOperation;
+import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 
 /**
  * @author hym
  */
-public class BaseFilter {
+public abstract class BaseFilter implements FilterCriteriaProvider{
 
-    private Long id;
-    private FilterOperation idOp;
+    private NumberFilter id;
 
     private PagingInfo pagingInfo;
 
-    public void setIdOp(FilterOperation idOp) {
-        this.idOp = idOp;
-    }
 
     public PagingInfo getPagingInfo() {
         return pagingInfo;
@@ -24,22 +20,11 @@ public class BaseFilter {
         this.pagingInfo = pagingInfo;
     }
 
-    public Long getId() {
+    public NumberFilter getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(NumberFilter id) {
         this.id = id;
     }
-
-    public FilterOperation getIdOp() {
-        return idOp;
-    }
-
-    public void setIdOp(String idOp) {
-        this.idOp = FilterOperation.getFilterOperation(idOp);
-    }
-
-
-
 }

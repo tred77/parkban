@@ -1,5 +1,6 @@
 package ir.ssa.parkban.vertical.core.util;
 
+import com.google.common.collect.Lists;
 import ir.ssa.parkban.vertical.exceptions.ParkBanRunTimeException;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
@@ -34,6 +35,32 @@ public class ObjectMapper {
 
         if(source == null || destinationClass == null)
             return null;
+
+        try {
+            List<U> destination = new ArrayList<U>();
+            Mapper mapper = new DozerBeanMapper();
+            for(int i=0;i<source.size();i++){
+                Object des = destinationClass.newInstance();
+                mapper.map(source,des);
+                destination.add((U)des);
+            }
+
+
+            return destination;
+        } catch (InstantiationException e) {
+            throw new ParkBanRunTimeException();
+        } catch (IllegalAccessException e) {
+            throw new ParkBanRunTimeException();
+        }
+
+    }
+
+    public static <T,U> List<U> map(Iterable<T> src, Class<U> destinationClass){
+
+        if(src == null || destinationClass == null)
+            return null;
+
+        List<T> source = Lists.newArrayList(src);
 
         try {
             List<U> destination = new ArrayList<U>();

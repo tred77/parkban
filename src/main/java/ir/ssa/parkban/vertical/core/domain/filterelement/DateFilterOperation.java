@@ -1,31 +1,35 @@
-package ir.ssa.parkban.domain.enums;
+package ir.ssa.parkban.vertical.core.domain.filterelement;
 
 import java.util.Arrays;
 
 /**
  * @author hym
  */
-public enum FilterOperation {
+public enum DateFilterOperation implements FilterOperation {
 
     EQUAL("eq"),
     GREATER_THAN("gt"),
     LESS_THAN("lt"),
-    LIKE("lk"),
-    LIKE_START("lks"),
-    LIKE_END("lke");
+    BETWEEN("bw");
 
     private String value;
-    FilterOperation(String val) {
+    DateFilterOperation(String val) {
     }
 
     public String getValue() {
         return value;
     }
 
-    public static FilterOperation getFilterOperation(String val){
-        return Arrays.stream(FilterOperation.values())
+    public static DateFilterOperation getFilterOperation(String val){
+        return Arrays.stream(DateFilterOperation.values())
                 .filter(e -> e.value.equals(val))
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Illegal Filter Operation Type"));
+    }
+
+
+    @Override
+    public String getType() {
+        return value;
     }
 }

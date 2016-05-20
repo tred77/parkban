@@ -4,6 +4,7 @@ import ir.ssa.parkban.controller.dto.entity.*;
 import ir.ssa.parkban.domain.entities.*;
 import ir.ssa.parkban.repository.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
+import ir.ssa.parkban.vertical.core.domain.FilterCriteriaProvider;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -73,13 +74,8 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         roleDAO.delete(ObjectMapper.map(roleDto, Role.class));
     }
 
-    public List<RoleDto> findAllRoles(){
-        List<Role> roles = (List<Role>)roleDAO.findAll(new Specification<Role>() {
-            public Predicate toPredicate(Root<Role> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-                return null;
-            }
-        });
-        return ObjectMapper.map(roles,RoleDto.class);
+    public List<RoleDto> findAllRoles(FilterCriteriaProvider roleFilter){
+        return ObjectMapper.map(roleDAO.findAll(roleFilter.getCriteriaExpression()),RoleDto.class);
     }
 
     /** City Section */

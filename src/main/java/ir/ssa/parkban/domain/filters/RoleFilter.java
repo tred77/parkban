@@ -1,15 +1,13 @@
 package ir.ssa.parkban.domain.filters;
 
 import com.mysema.query.types.expr.BooleanExpression;
-import ir.ssa.parkban.domain.entities.QCity;
-import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
-import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
 /**
- * @author hym
+ * Created by hadoop on 5/20/16.
  */
-public class CityFilter extends BaseFilter{
+public class RoleFilter extends BaseFilter{
 
     private StringFilter name;
 
@@ -23,8 +21,6 @@ public class CityFilter extends BaseFilter{
 
     @Override
     public BooleanExpression getCriteriaExpression() {
-        QCity city = QCity.city;
-        BooleanExpression nameExpression = city.name.eq(this.name.getValues()[0]);
-        return nameExpression;
+        return null;
     }
 }

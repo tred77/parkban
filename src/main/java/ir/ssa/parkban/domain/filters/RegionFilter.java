@@ -5,21 +5,13 @@ import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
 /**
- * @author hym
+ * Created by hadoop on 5/20/16.
  */
-public class ParkRegionFilter extends BaseFilter {
+public class RegionFilter extends BaseFilter {
 
-    private CityFilter city;
     private StringFilter name;
     private StringFilter address;
-
-    public CityFilter getCity() {
-        return city;
-    }
-
-    public void setCity(CityFilter city) {
-        this.city = city;
-    }
+    private CityFilter city;
 
     public StringFilter getName() {
         return name;
@@ -35,6 +27,14 @@ public class ParkRegionFilter extends BaseFilter {
 
     public void setAddress(StringFilter address) {
         this.address = address;
+    }
+
+    public CityFilter getCity() {
+        return city;
+    }
+
+    public void setCity(CityFilter city) {
+        this.city = city;
     }
 
     @Override
