@@ -5,7 +5,7 @@ import ir.ssa.parkban.controller.dto.entity.RegionDto;
 import ir.ssa.parkban.controller.dto.entity.RoleDto;
 import ir.ssa.parkban.controller.dto.entity.UserDto;
 import ir.ssa.parkban.domain.entities.Region;
-import ir.ssa.parkban.domain.filters.ParkRegionFilter;
+import ir.ssa.parkban.domain.filters.RegionFilter;
 import ir.ssa.parkban.domain.filters.UserFilter;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
@@ -35,7 +35,7 @@ public class BaseController {
     /* park region */
 
     @RequestMapping(value = "/parkRegionList")
-    public List<Region> getParkRegionList(ParkRegionFilter parkRegionFilter){
+    public List<Region> getParkRegionList(RegionFilter parkRegionFilter){
         Region[] regions = null;
         return Arrays.asList(regions);
 
