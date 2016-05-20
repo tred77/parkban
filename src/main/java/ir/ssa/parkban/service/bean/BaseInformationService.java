@@ -1,9 +1,7 @@
 package ir.ssa.parkban.service.bean;
 
 import ir.ssa.parkban.controller.dto.entity.*;
-import ir.ssa.parkban.domain.filters.UserFilter;
-import ir.ssa.parkban.vertical.core.domain.BaseFilter;
-import ir.ssa.parkban.vertical.core.domain.FilterCriteriaProvider;
+import ir.ssa.parkban.domain.filters.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,7 +21,7 @@ public interface BaseInformationService {
     @Transactional
     void deleteUser(UserDto userDto);
 
-    List<UserDto> findAllUser(FilterCriteriaProvider filter);
+    List<UserDto> findAllUser(UserFilter filter);
 
     @Transactional
     RoleDto insertRole(RoleDto roleDto);
@@ -34,7 +32,7 @@ public interface BaseInformationService {
     @Transactional
     void deleteRole(RoleDto roleDto);
 
-    List<RoleDto> findAllRoles(FilterCriteriaProvider filter);
+    List<RoleDto> findAllRoles(RoleFilter filter);
 
 
     /*   City Section  */
@@ -50,7 +48,7 @@ public interface BaseInformationService {
     @Transactional
     void deleteCity(CityDto cityDto);
 
-    List<CityDto> findAllCity(FilterCriteriaProvider filter);
+    List<CityDto> findAllCity(CityFilter filter);
 
     CityDto findCityById(long id);
 
@@ -69,7 +67,7 @@ public interface BaseInformationService {
     @Transactional
     void deleteRegion(RegionDto regionDto);
 
-    List<RegionDto> findAllRegion(FilterCriteriaProvider filter);
+    List<RegionDto> findAllRegion(RegionFilter filter);
 
     RegionDto findRegionById(long id);
 
@@ -88,7 +86,7 @@ public interface BaseInformationService {
     @Transactional
     void deleteParkPrice(ParkPriceDto parkPriceDto);
 
-    List<ParkPriceDto> findAllParkPrice(FilterCriteriaProvider filter);
+    List<ParkPriceDto> findAllParkPrice(ParkPriceFilter filter);
 
     ParkPriceDto findParkPriceById(long id);
 
@@ -105,7 +103,7 @@ public interface BaseInformationService {
     @Transactional
     void deleteParkban(ParkbanDto  parkbanDto);
 
-    List<ParkbanDto> findAllParkban(FilterCriteriaProvider filter);
+    List<ParkbanDto> findAllParkban(ParkbanFilter filter);
 
     ParkbanDto findParkbanById(long id);
 
@@ -121,7 +119,7 @@ public interface BaseInformationService {
     @Transactional
     void deleteVehicleOwner(VehicleOwnerDto vehicleOwnerDto);
 
-    List<VehicleOwnerDto> findAllVehicleOwner(FilterCriteriaProvider filter);
+    List<VehicleOwnerDto> findAllVehicleOwner(VehicleOwnerFilter filter);
 
     VehicleOwnerDto findVehicleOwnerById(long id);
 
@@ -136,7 +134,7 @@ public interface BaseInformationService {
     @Transactional
     void deleteVehicle(VehicleDto VehicleDto);
 
-    List<VehicleDto> findAllVehicle(FilterCriteriaProvider filter);
+    List<VehicleDto> findAllVehicle(VehicleFilter filter);
 
     VehicleDto findVehicleById(long id);
 
@@ -151,7 +149,7 @@ public interface BaseInformationService {
     @Transactional
     void deleteParkCharge(ParkChargeDto parkChargeDto);
 
-    List<ParkChargeDto> findAllParkCharge(FilterCriteriaProvider filter);
+    List<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter);
 
     ParkChargeDto findParkChargeById(long id);
 
