@@ -140,7 +140,7 @@ public class BaseController {
 
 
 
-        regions = baseInformationService.findAllRegion(new UserFilter());
+        regions = baseInformationService.findAllRegion(new RegionFilter());
 
         //RegionDto regionDto = baseInformationService.findRegionById(new Long(51));
 

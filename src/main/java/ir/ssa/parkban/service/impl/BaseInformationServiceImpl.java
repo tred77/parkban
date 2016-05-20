@@ -2,11 +2,9 @@ package ir.ssa.parkban.service.impl;
 
 import ir.ssa.parkban.controller.dto.entity.*;
 import ir.ssa.parkban.domain.entities.*;
-import ir.ssa.parkban.domain.filters.RoleFilter;
-import ir.ssa.parkban.domain.filters.UserFilter;
+import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.repository.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
-import ir.ssa.parkban.vertical.core.domain.FilterCriteriaProvider;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,7 +58,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         userDAO.delete(ObjectMapper.map(userDto, User.class));
     }
 
-    public List<UserDto> findAllUser(FilterCriteriaProvider filter) {
+    public List<UserDto> findAllUser(UserFilter filter) {
         return ObjectMapper.map(userDAO.findAll(filter.getCriteriaExpression()),UserDto.class);
 
     }
@@ -78,7 +76,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         roleDAO.delete(ObjectMapper.map(roleDto, Role.class));
     }
 
-    public List<RoleDto> findAllRoles(FilterCriteriaProvider roleFilter){
+    public List<RoleDto> findAllRoles(RoleFilter roleFilter){
         if(roleFilter==null)
             roleFilter = new RoleFilter();
         return ObjectMapper.map(roleDAO.findAll(roleFilter.getCriteriaExpression()),RoleDto.class);
@@ -108,7 +106,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         cityDAO.delete(city);
     }
 
-    public List<CityDto> findAllCity(FilterCriteriaProvider filter) {
+    public List<CityDto> findAllCity(CityFilter filter) {
         return ObjectMapper.map(cityDAO.findAll(filter.getCriteriaExpression()),CityDto.class);
     }
 
@@ -141,7 +139,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         regionDAO.delete(region);
     }
 
-    public List<RegionDto> findAllRegion(FilterCriteriaProvider filter) {
+    public List<RegionDto> findAllRegion(RegionFilter filter) {
         return ObjectMapper.map(regionDAO.findAll(filter.getCriteriaExpression()),RegionDto.class);
     }
 
@@ -179,7 +177,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     @Override
-    public List<ParkPriceDto> findAllParkPrice(FilterCriteriaProvider filter) {
+    public List<ParkPriceDto> findAllParkPrice(ParkPriceFilter filter) {
         return ObjectMapper.map(parkPriceDAO.findAll(filter.getCriteriaExpression()),ParkPriceDto.class);
     }
 
@@ -212,7 +210,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     @Override
-    public List<ParkbanDto> findAllParkban(FilterCriteriaProvider filter) {
+    public List<ParkbanDto> findAllParkban(ParkbanFilter filter) {
         return ObjectMapper.map(parkbanDAO.findAll(filter.getCriteriaExpression()),ParkbanDto.class);
     }
 
@@ -243,7 +241,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     @Override
-    public List<VehicleOwnerDto> findAllVehicleOwner(FilterCriteriaProvider filter) {
+    public List<VehicleOwnerDto> findAllVehicleOwner(VehicleOwnerFilter filter) {
         return ObjectMapper.map(vehicleOwnerDAO.findAll(filter.getCriteriaExpression()),VehicleOwnerDto.class);
     }
 
@@ -275,7 +273,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     @Override
-    public List<VehicleDto> findAllVehicle(FilterCriteriaProvider filter) {
+    public List<VehicleDto> findAllVehicle(VehicleFilter filter) {
         return ObjectMapper.map(vehicleDAO.findAll(filter.getCriteriaExpression()),VehicleDto.class);
     }
 
@@ -306,7 +304,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     @Override
-    public List<ParkChargeDto> findAllParkCharge(FilterCriteriaProvider filter) {
+    public List<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter) {
         return ObjectMapper.map(parkChargeDAO.findAll(filter.getCriteriaExpression()),ParkChargeDto.class);
     }
 
