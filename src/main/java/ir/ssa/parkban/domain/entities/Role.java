@@ -8,25 +8,12 @@ import javax.validation.constraints.Size;
  */
 
 @Entity(name = "TBL_ROLE")
-public class Role {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_seq")
-    @SequenceGenerator(name = "role_seq", sequenceName = "ROLE_SEQ")
-    @Column(name = "id")
-    private Long id;
+@SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "ROLE_SEQ")
+public class Role extends DomainEntity {
 
     @Size(max = 30)
     @Column(name = "name")
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

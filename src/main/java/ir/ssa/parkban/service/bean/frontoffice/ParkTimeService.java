@@ -1,6 +1,7 @@
 package ir.ssa.parkban.service.bean.frontoffice;
 
 import ir.ssa.parkban.controller.dto.entity.ParkTimeDto;
+import ir.ssa.parkban.domain.entities.ParkTime;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -9,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface ParkTimeService {
 
     @Transactional
-    ParkTimeDto insertParkTime(ParkTimeDto parkTimeDto);
-
+    ParkTimeDto insertParkTime(ParkTimeDto parkTime);
 
 }

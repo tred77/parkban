@@ -8,13 +8,9 @@ import java.util.Set;
  * @author hym
  */
 @Entity(name = "TBL_REGION")
-public class Region {
+@SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "REGION_SEQ")
+public class Region extends DomainEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "region_seq")
-    @SequenceGenerator(name = "region_seq", sequenceName = "REGION_SEQ")
-    @Column(name = "ID")
-    private Long id;
 
     @Size(max = 50)
     @Column(name = "NAME")
@@ -31,23 +27,7 @@ public class Region {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
     private Set<ParkPrice> parkPrices;
 
-    public Region(Long id, String name, String address, Long cityId) {
-        this.id = id;
-        this.name = name;
-        this.address = address;
-        this.city = new City();
-        this.city.setId(cityId);
-    }
-
     public Region() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {

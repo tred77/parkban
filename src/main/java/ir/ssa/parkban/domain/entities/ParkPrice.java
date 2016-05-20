@@ -8,13 +8,8 @@ import javax.validation.constraints.Size;
  */
 
 @Entity(name = "TBL_PARK_PRICE")
-public class ParkPrice {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "park_price_seq")
-    @SequenceGenerator(name = "park_price_seq", sequenceName = "PARK_PRICE_SEQ")
-    @Column(name = "ID")
-    private Long id;
+@SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "PARK_PRICE_SEQ")
+public class ParkPrice extends DomainEntity {
 
     @Size(max = 30)
     @Column(name = "NAME")
@@ -30,15 +25,6 @@ public class ParkPrice {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "REGION_ID")
     private Region region;
-
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
