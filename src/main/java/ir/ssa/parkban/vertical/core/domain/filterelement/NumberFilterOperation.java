@@ -1,7 +1,8 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
-import com.mysema.query.types.Path;
 import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.expr.NumberExpression;
+import com.mysema.query.types.expr.SimpleExpression;
 
 import java.util.Arrays;
 
@@ -30,7 +31,27 @@ public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> 
     }
 
     @Override
-    public BooleanExpression getCriteriaExpression(Path<Number> path, Number[] values) {
-        return null;
+    public BooleanExpression getCriteriaExpression(SimpleExpression<Number> path, Number[] values) {
+        NumberExpression expression = (NumberExpression) path;
+        BooleanExpression result = null;
+        switch (this) {
+            case EQUAL:
+                if(values != null && values.length > 0 && values[0] != null)
+                    result = expression.eq(values[0]);
+                break;
+            case GREATER_THAN:
+                if(values != null && values.length > 0 && values[0] != null)
+                    result = expression.gt(values[0]);
+                break;
+            case LESS_THAN:
+                if(values != null && values.length > 0 && values[0] != null)
+                    result = expression.lt(values[0]);
+                break;
+            default:
+                //throw new RuntimeException("No matched operation for String Operation");
+                // TODO do log here
+                ;
+        }
+        return result;
     }
 }

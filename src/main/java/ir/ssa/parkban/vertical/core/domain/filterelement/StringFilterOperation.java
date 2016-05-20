@@ -1,7 +1,7 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
-import com.mysema.query.types.Path;
 import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.expr.SimpleExpression;
 import com.mysema.query.types.expr.StringExpression;
 
 import java.util.Arrays;
@@ -32,7 +32,7 @@ public enum StringFilterOperation implements ExpressionCriteriaProvider<String>{
 
 
     @Override
-    public BooleanExpression getCriteriaExpression(Path<String> path, String[] values) {
+    public BooleanExpression getCriteriaExpression(SimpleExpression<String> path, String[] values) {
         StringExpression stringExpression = (StringExpression) path;
         BooleanExpression result = null;
         switch (this) {

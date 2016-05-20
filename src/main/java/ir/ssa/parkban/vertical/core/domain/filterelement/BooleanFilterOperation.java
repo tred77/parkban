@@ -1,7 +1,7 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
-import com.mysema.query.types.Path;
 import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.expr.SimpleExpression;
 
 import java.util.Arrays;
 
@@ -10,8 +10,7 @@ import java.util.Arrays;
  */
 public enum BooleanFilterOperation implements ExpressionCriteriaProvider<Boolean> {
 
-    EQUAL("eq"),
-    IS("is");
+    EQUAL("eq");
 
     private String value;
     BooleanFilterOperation(String val) {
@@ -30,7 +29,19 @@ public enum BooleanFilterOperation implements ExpressionCriteriaProvider<Boolean
 
 
     @Override
-    public BooleanExpression getCriteriaExpression(Path<Boolean> path, Boolean[] values) {
-        return null;
+    public BooleanExpression getCriteriaExpression(SimpleExpression<Boolean> path, Boolean[] values) {
+        BooleanExpression expression = (BooleanExpression) path;
+        BooleanExpression result = null;
+        switch (this) {
+            case EQUAL:
+                if(values != null && values.length > 0 && values[0] != null)
+                    result = expression.eq(values[0]);
+                break;
+            default:
+                //throw new RuntimeException("No matched operation for String Operation");
+                // TODO do log here
+                ;
+        }
+        return result;
     }
 }

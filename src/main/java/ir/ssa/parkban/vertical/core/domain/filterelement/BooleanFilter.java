@@ -1,9 +1,12 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
+import com.mysema.query.types.expr.BooleanExpression;
+import com.mysema.query.types.expr.SimpleExpression;
+
 /**
  * Created by hadoop on 5/20/16.
  */
-public class BooleanFilter {
+public class BooleanFilter implements  Filter{
 
     private BooleanFilterOperation elementOp;
     private Boolean[] values;
@@ -22,5 +25,10 @@ public class BooleanFilter {
 
     public void setValues(Boolean[] values) {
         this.values = values;
+    }
+
+    @Override
+    public BooleanExpression getCriteriaExpression(SimpleExpression expression) {
+        return elementOp.getCriteriaExpression(expression, values);
     }
 }
