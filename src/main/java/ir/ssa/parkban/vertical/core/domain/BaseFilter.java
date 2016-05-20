@@ -6,7 +6,7 @@ import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.vertical.core.domain.filterelement.Filter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * @author hym
@@ -37,23 +37,36 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
     protected abstract EntityPathBase getEntityPath();
 
     @Override
-    public BooleanExpression getCriteriaExpression() {
-        EntityPathBase qentity = getEntityPath();
+    public BooleanExpression getCriteriaExpression(EntityPathBase... entityPath) {
+        EntityPathBase qentity = null;
+        if(entityPath != null && entityPath.length == 1){
+            qentity = entityPath[0];
+        }else {
+            qentity = getEntityPath();
+        }
         BooleanExpression result = null;
         Class aClass = this.getClass();
-        Field[] fields = aClass.getFields();
-        for(Field field : fields){
+        Method[] methods = aClass.getMethods();
+        for(Method method : methods){
             try {
-                Object o = field.get(this);
-                if(o instanceof Filter){
-                    Filter filter = (Filter) o;
-                    if(result != null)
-                        result.and(filter.getCriteriaExpression(getFieldPath(qentity, field.getName().toString())));
-                    else
-                        result = filter.getCriteriaExpression(getFieldPath(qentity, field.getName().toString()));
+                if(method.getName().toString().startsWith("get")) {
+                    Object o = method.invoke(this);
+                    if(o instanceof  BaseFilter){
+                        if (result != null)
+                            result.and(((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, method.getName().toString().substring(3).toLowerCase())));
+                        else
+                            result = ((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, method.getName().toString().substring(3).toLowerCase()));
+                    }
+                    else if (o instanceof Filter) {
+                        Filter filter = (Filter) o;
+                        if (result != null)
+                            result.and(filter.getCriteriaExpression(getFieldPath(qentity, method.getName().toString().substring(3).toLowerCase())));
+                        else
+                            result = filter.getCriteriaExpression(getFieldPath(qentity, method.getName().toString().substring(3).toLowerCase()));
+                    }
                 }
 
-            } catch (IllegalAccessException e) {
+            } catch (Exception e) {
                 // TODO log this
             }
         }
@@ -69,6 +82,15 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
         } catch (Exception e) {
             // TODO log this
             throw new RuntimeException("QDSL field path error");
+        }
+    }
+
+    private EntityPathBase getEntityPath(EntityPathBase entityPath, String name){
+        try {
+            return (EntityPathBase) entityPath.getClass().getField(name).get(entityPath);
+        } catch (Exception e) {
+            // TODO log this
+            throw new RuntimeException("QDSL entity path error");
         }
     }
 

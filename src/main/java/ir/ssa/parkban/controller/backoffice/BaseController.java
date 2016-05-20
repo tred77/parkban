@@ -5,10 +5,14 @@ import ir.ssa.parkban.controller.dto.entity.RegionDto;
 import ir.ssa.parkban.controller.dto.entity.RoleDto;
 import ir.ssa.parkban.controller.dto.entity.UserDto;
 import ir.ssa.parkban.domain.entities.Region;
+import ir.ssa.parkban.domain.filters.CityFilter;
 import ir.ssa.parkban.domain.filters.RegionFilter;
+import ir.ssa.parkban.domain.filters.RoleFilter;
 import ir.ssa.parkban.domain.filters.UserFilter;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
+import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -72,10 +76,18 @@ public class BaseController {
         baseInformationService.insertRole(role3);
 
 
+        RoleFilter roleFilter = new RoleFilter();
+        StringFilter name = new StringFilter();
+        name.setElementOp(StringFilterOperation.EQUAL);
+        name.setValues(new String[]{"Admin1"});
+        roleFilter.setName(name);
 
-        user.setRoles(baseInformationService.findAllRoles(null));
+        user.setRoles(baseInformationService.findAllRoles(roleFilter));
 
-        return baseInformationService.insertUser(user);
+        baseInformationService.insertUser(user);
+
+        return baseInformationService.findAllUser(new UserFilter()).get(0);
+
     }
 
     @RequestMapping(value = "/updateUser")
@@ -112,7 +124,7 @@ public class BaseController {
     /** City Section */
 
     @RequestMapping(value = "/insertCity")
-    public void insertCity(CityDto cityDto){
+    public List<RegionDto> insertCity(CityDto cityDto){
 
 
 
@@ -132,15 +144,25 @@ public class BaseController {
             regions.get(i).setName("Region " + i);
             regions.get(i).setAddress("Region Address " + i);
             regions.get(i).setCity(city);
+            baseInformationService.insertRegion(regions.get(i));
         }
 
-        RegionDto regionDto = baseInformationService.insertRegion(regions.get(0));
+        //RegionDto regionDto = baseInformationService.insertRegion(regions.get(0));
 
         //baseInformationService.insertRegions(regions);
 
 
+        CityFilter cityFilter = new CityFilter();
+        StringFilter stringFilter = new StringFilter();
+        stringFilter.setElementOp(StringFilterOperation.EQUAL);
+        stringFilter.setValues(new String[]{"Sanandaj"});
+        cityFilter.setName(stringFilter);
 
-        regions = baseInformationService.findAllRegion(new UserFilter());
+        RegionFilter regionFilter = new RegionFilter();
+        regionFilter.setCity(cityFilter);
+
+
+        return baseInformationService.findAllRegion(regionFilter);
 
         //RegionDto regionDto = baseInformationService.findRegionById(new Long(51));
 

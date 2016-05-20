@@ -1,5 +1,6 @@
 package ir.ssa.parkban.domain.filters;
 
+import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.QRegion;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
