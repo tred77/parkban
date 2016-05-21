@@ -162,7 +162,7 @@ public class BaseController {
         regionFilter.setCity(cityFilter);
 
 
-        return baseInformationService.findAllRegion(regionFilter);
+        return baseInformationService.findAllRegion(new RegionFilter());
 
         //RegionDto regionDto = baseInformationService.findRegionById(new Long(51));
 
