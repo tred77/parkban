@@ -39,9 +39,8 @@ public class BaseController {
     /* park region */
 
     @RequestMapping(value = "/parkRegionList")
-    public List<Region> getParkRegionList(RegionFilter parkRegionFilter){
-        Region[] regions = null;
-        return Arrays.asList(regions);
+    public List<RegionDto> getParkRegionList(RegionFilter parkRegionFilter){
+        return baseInformationService.findAllRegion(new RegionFilter());
 
     }
 

@@ -5,9 +5,18 @@ import ir.ssa.parkban.domain.entities.*;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.repository.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
+import ir.ssa.parkban.vertical.core.domain.springcustom.CustomCrudMethodMetadata;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
+import org.springframework.aop.framework.Advised;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.data.jpa.repository.support.CrudMethodMetadata;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
+
+import java.io.Serializable;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -140,6 +149,48 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     public List<RegionDto> findAllRegion(RegionFilter filter) {
+
+        //if(regionDAO instanceof SimpleJpaRepository){
+
+                EntityGraph entityGraph = new EntityGraph() {
+
+                    @Override
+                    public Class<? extends Annotation> annotationType() {
+                        return EntityGraph.class;
+                    }
+
+                    @Override
+                    public String value() {
+                        return "";
+                    }
+
+                    @Override
+                    public EntityGraphType type() {
+                        return EntityGraph.EntityGraphType.FETCH;
+                    }
+
+                    @Override
+                    public String[] attributePaths() {
+                        return new String[]{"city"};
+                    }
+                };
+
+            //repository.set
+            Method method = null;
+        try {
+            method = regionDAO.getClass().getMethod("findAll");
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+        CrudMethodMetadata crudMethodMetadata = new CustomCrudMethodMetadata(entityGraph, method);
+
+        try {
+            ((SimpleJpaRepository<Object, Serializable>)((Advised)regionDAO).getTargetSource().getTarget()).setRepositoryMethodMetadata(crudMethodMetadata);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //}
+
         return ObjectMapper.map(regionDAO.findAll(filter.getCriteriaExpression()),RegionDto.class);
     }
 
