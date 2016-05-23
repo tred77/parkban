@@ -122,6 +122,12 @@ public class BaseController {
 
     /** City Section */
 
+    @RequestMapping(value = "/cityList")
+    public List<CityDto> getCityList(CityFilter cityFilter){
+        return baseInformationService.findAllCity(cityFilter);
+
+    }
+
     @RequestMapping(value = "/insertCity")
     public List<RegionDto> insertCity(CityDto cityDto){
 

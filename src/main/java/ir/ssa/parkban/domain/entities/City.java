@@ -15,7 +15,7 @@ public class City extends DomainEntity {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
     private Set<Region> regions;
 
     public String getName() {

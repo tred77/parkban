@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.core.domain.springcustom;
+package ir.ssa.parkban.vertical.core.domain.springcustom.springdata;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.support.CrudMethodMetadata;
