@@ -21,7 +21,7 @@ public class Region extends DomainEntity {
     private String address;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CITY_ID")
+    @JoinColumn(name = "CITY_ID", referencedColumnName = "ID")
     private City city;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
