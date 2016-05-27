@@ -7,6 +7,8 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.Filter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author hym
@@ -14,9 +16,18 @@ import java.lang.reflect.Method;
 public abstract class BaseFilter implements FilterCriteriaProvider{
 
     private NumberFilter id;
-
     private PagingInfo pagingInfo;
+    private List<String> entityGraphPaths;
 
+    public List<String> getEntityGraphPaths() {
+        return entityGraphPaths;
+    }
+
+    public void addGraphPath(String path){
+        if(entityGraphPaths == null)
+            entityGraphPaths = new ArrayList<>();
+        entityGraphPaths.add(path);
+    }
 
     public PagingInfo getPagingInfo() {
         return pagingInfo;

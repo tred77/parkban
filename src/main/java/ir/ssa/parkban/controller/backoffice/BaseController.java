@@ -44,6 +44,18 @@ public class BaseController {
 
     }
 
+    @RequestMapping(value = "/insertRegion")
+    public RegionDto insertRegion(RegionDto region){
+        region = new RegionDto();
+        CityDto cityDto = new CityDto();
+        cityDto.setName("Tehran");
+        region.setCity(cityDto);
+        region.setName("Vanak");
+        region.setAddress("vanak address");
+        baseInformationService.insertRegion(region);
+        return region;
+    }
+
     @RequestMapping(value = "/index")
     public List<Region> index(){
         Region[] regions = null;
@@ -121,6 +133,11 @@ public class BaseController {
 
 
     /** City Section */
+
+    @RequestMapping(value = "/findCities")
+    public List<CityDto> findCities(){
+        return baseInformationService.findAllCity(new CityFilter());
+    }
 
     @RequestMapping(value = "/insertCity")
     public List<RegionDto> insertCity(CityDto cityDto){

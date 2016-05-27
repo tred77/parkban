@@ -149,49 +149,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     public List<RegionDto> findAllRegion(RegionFilter filter) {
-
-        //if(regionDAO instanceof SimpleJpaRepository){
-
-                EntityGraph entityGraph = new EntityGraph() {
-
-                    @Override
-                    public Class<? extends Annotation> annotationType() {
-                        return EntityGraph.class;
-                    }
-
-                    @Override
-                    public String value() {
-                        return "";
-                    }
-
-                    @Override
-                    public EntityGraphType type() {
-                        return EntityGraph.EntityGraphType.FETCH;
-                    }
-
-                    @Override
-                    public String[] attributePaths() {
-                        return new String[]{"city"};
-                    }
-                };
-
-            //repository.set
-            Method method = null;
-        try {
-            method = regionDAO.getClass().getMethod("findAll");
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-        CrudMethodMetadata crudMethodMetadata = new CustomCrudMethodMetadata(entityGraph, method);
-
-        try {
-            ((SimpleJpaRepository<Object, Serializable>)((Advised)regionDAO).getTargetSource().getTarget()).setRepositoryMethodMetadata(crudMethodMetadata);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        //}
-
-        return ObjectMapper.map(regionDAO.findAll(filter.getCriteriaExpression()),RegionDto.class);
+        return ObjectMapper.map(regionDAO.customFindAll(filter),RegionDto.class);
     }
 
     public RegionDto findRegionById(long id) {
