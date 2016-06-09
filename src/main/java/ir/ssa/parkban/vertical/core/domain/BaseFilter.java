@@ -15,12 +15,18 @@ import java.util.List;
  */
 public abstract class BaseFilter implements FilterCriteriaProvider{
 
+    private final static String default_entity_path = "id";
+
     private NumberFilter id;
     private PagingInfo pagingInfo;
     private List<String> entityGraphPaths;
 
-    public List<String> getEntityGraphPaths() {
-        return entityGraphPaths;
+    public String[] getEntityGraphPaths() {
+        if(entityGraphPaths == null || entityGraphPaths.size() == 0){
+            entityGraphPaths = new ArrayList<>();
+            entityGraphPaths.add(default_entity_path);
+        }
+        return entityGraphPaths.toArray(new String[entityGraphPaths.size()]);
     }
 
     public void addGraphPath(String path){

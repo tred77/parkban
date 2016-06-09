@@ -5,7 +5,8 @@ import ir.ssa.parkban.domain.entities.*;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.repository.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
-import ir.ssa.parkban.vertical.core.domain.springcustom.CustomCrudMethodMetadata;
+import ir.ssa.parkban.service.bean.BaseService;
+import ir.ssa.parkban.vertical.core.domain.springcustom.springdata.CustomCrudMethodMetadata;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.aop.framework.Advised;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,6 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     ParkChargeDAO parkChargeDAO;
 
     public UserDto insertUser(UserDto userDto) {
-
         User user = ObjectMapper.map(userDto, User.class);
         user= userDAO.save(user);
         return ObjectMapper.map(user,UserDto.class);
@@ -68,8 +68,8 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     public List<UserDto> findAllUser(UserFilter filter) {
+        BaseService.setEntityGraph(userDAO, filter, "findAll");
         return ObjectMapper.map(userDAO.findAll(filter.getCriteriaExpression()),UserDto.class);
-
     }
 
     public RoleDto insertRole(RoleDto roleDto) {
@@ -149,7 +149,8 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     public List<RegionDto> findAllRegion(RegionFilter filter) {
-        return ObjectMapper.map(regionDAO.customFindAll(filter),RegionDto.class);
+        BaseService.setEntityGraph(regionDAO, filter, "findAll");
+        return ObjectMapper.map(regionDAO.findAll(filter.getCriteriaExpression()),RegionDto.class);
     }
 
     public RegionDto findRegionById(long id) {

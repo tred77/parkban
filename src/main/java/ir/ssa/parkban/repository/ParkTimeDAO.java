@@ -11,5 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface ParkTimeDAO extends CrudRepository<ParkTime, Long>, JpaSpecificationExecutor<ParkTime>,QueryDslPredicateExecutor<ParkTime> {
+public interface ParkTimeDAO extends CrudRepository<ParkTime, Long>, JpaSpecificationExecutor<ParkTime> , QueryDslPredicateExecutor<ParkTime>{
 }

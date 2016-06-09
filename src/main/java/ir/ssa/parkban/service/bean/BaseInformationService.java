@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author hym
  */
-public interface BaseInformationService {
+public interface BaseInformationService extends BaseService {
 
     /*   User Section  */
     @Transactional

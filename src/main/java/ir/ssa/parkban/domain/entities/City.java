@@ -7,7 +7,8 @@ import java.util.Set;
 /**
  * @author hym
  */
-@Entity(name = "TBL_CITY")
+@Entity
+@Table(name = "TBL_CITY")
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "CITY_SEQ")
 public class City extends DomainEntity {
 

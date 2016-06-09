@@ -40,7 +40,9 @@ public class BaseController {
 
     @RequestMapping(value = "/parkRegionList")
     public List<RegionDto> getParkRegionList(RegionFilter parkRegionFilter){
-        return baseInformationService.findAllRegion(new RegionFilter());
+        RegionFilter regionFilter = new RegionFilter();
+        regionFilter.addGraphPath("city");
+        return baseInformationService.findAllRegion(regionFilter);
 
     }
 

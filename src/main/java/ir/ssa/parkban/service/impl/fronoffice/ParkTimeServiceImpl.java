@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class ParkTimeServiceImpl implements ParkTimeService{
 
-    @Autowired
+    //@Autowired
     ParkTimeDAO parkTimeDAO;
 
 
