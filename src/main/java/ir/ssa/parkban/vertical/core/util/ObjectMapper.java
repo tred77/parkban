@@ -21,6 +21,7 @@ public class ObjectMapper {
         try {
             Object destination = destinationClass.newInstance();
             Mapper mapper = new DozerBeanMapper();
+            ((DozerBeanMapper)mapper).setCustomFieldMapper(new CustomObjectFieldMapper());
             mapper.map(source,destination);
             return (T)destination;
         } catch (InstantiationException e) {
@@ -66,6 +67,7 @@ public class ObjectMapper {
         try {
             List<U> destination = new ArrayList<U>();
             Mapper mapper = new DozerBeanMapper();
+            ((DozerBeanMapper)mapper).setCustomFieldMapper(new CustomObjectFieldMapper());
             for(int i=0;i<source.size();i++){
                 Object des = destinationClass.newInstance();
                 mapper.map(source.get(i),des);
