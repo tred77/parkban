@@ -39,6 +39,7 @@ public class ObjectMapper {
         try {
             List<U> destination = new ArrayList<>();
             Mapper mapper = new DozerBeanMapper();
+            ((DozerBeanMapper)mapper).setCustomFieldMapper(new CustomObjectFieldMapper());
             for(int i=0;i<source.size();i++){
                 Object des = destinationClass.newInstance();
                 mapper.map(source.get(i),des);
