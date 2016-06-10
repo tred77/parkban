@@ -15,6 +15,7 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -46,16 +47,9 @@ public class BaseController {
 
     }
 
-    @RequestMapping(value = "/insertRegion")
+    @RequestMapping(value = "/insertRegion", method = RequestMethod.POST)
     public RegionDto insertRegion(RegionDto region){
-        region = new RegionDto();
-        CityDto cityDto = new CityDto();
-        cityDto.setName("Tehran");
-        region.setCity(cityDto);
-        region.setName("Vanak");
-        region.setAddress("vanak address");
-        baseInformationService.insertRegion(region);
-        return region;
+        return baseInformationService.insertRegion(region);
     }
 
     @RequestMapping(value = "/index")
