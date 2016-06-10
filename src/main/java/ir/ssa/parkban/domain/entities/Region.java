@@ -1,8 +1,5 @@
 package ir.ssa.parkban.domain.entities;
 
-import org.hibernate.annotations.Fetch;
-import org.springframework.context.annotation.Lazy;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Set;

@@ -38,8 +38,8 @@ public class BaseController {
 
     /* park region */
 
-    @RequestMapping(value = "/parkRegionList")
-    public List<RegionDto> getParkRegionList(RegionFilter parkRegionFilter){
+    @RequestMapping(value = "/findAllRegions")
+    public List<RegionDto> findAllRegions(RegionFilter parkRegionFilter){
         RegionFilter regionFilter = new RegionFilter();
         regionFilter.addGraphPath("city");
         return baseInformationService.findAllRegion(regionFilter);
@@ -136,9 +136,9 @@ public class BaseController {
 
     /** City Section */
 
-    @RequestMapping(value = "/findCities")
-    public List<CityDto> findCities(){
-        return baseInformationService.findAllCity(new CityFilter());
+    @RequestMapping(value = "/findAllCities")
+    public List<CityDto> findAllCities(){
+        return baseInformationService.registerAllCities();
     }
 
     @RequestMapping(value = "/insertCity")
@@ -195,6 +195,7 @@ public class BaseController {
     public void deleteCity(CityDto cityDto){
         baseInformationService.deleteCity(cityDto);
     }
+
 
 
 }

@@ -52,6 +52,8 @@ public interface BaseInformationService extends BaseService {
 
     CityDto findCityById(long id);
 
+    List<CityDto> registerAllCities();
+
 
     /*   Region Section  */
 

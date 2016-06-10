@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -123,6 +124,25 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         return ObjectMapper.map(cityDAO.findOne(id),CityDto.class);
     }
 
+    @Override
+    public List<CityDto> registerAllCities() {
+        List<City> cities = new ArrayList<>();
+
+        City city1 = new City();
+        city1.setName("تهران");
+        cities.add(city1);
+        City city2 = new City();
+        city2.setName("سنندج");
+        cities.add(city2);
+        City city3 = new City();
+        city3.setName("مرند");
+        cities.add(city3);
+        City city4 = new City();
+        city4.setName("اصفهان");
+        cities.add(city4);
+
+        return ObjectMapper.map(cityDAO.save(cities),CityDto.class);
+    }
 
     /** Region Section */
 
