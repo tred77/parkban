@@ -62,40 +62,9 @@ public class BaseController {
 
     /* user section    */
 
-    @RequestMapping(value = "/insertUser")
-    public UserDto insertUser(UserDto user){
-
-        user=new UserDto();
-        user.setActive(true);
-        user.setFirstName("Behrouz");
-        user.setLastName("Zamani");
-        user.setActive(true);
-
-        // add roles
-        RoleDto role1 = new RoleDto();
-        role1.setName("Admin1");
-        RoleDto role2 = new RoleDto();
-        role2.setName("Admin2");
-        RoleDto role3 = new RoleDto();
-        role3.setName("Admin3");
-
-        baseInformationService.insertRole(role1);
-        baseInformationService.insertRole(role2);
-        baseInformationService.insertRole(role3);
-
-
-        RoleFilter roleFilter = new RoleFilter();
-        StringFilter name = new StringFilter();
-        name.setElementOp(StringFilterOperation.EQUAL);
-        name.setValues(new String[]{"Admin1"});
-        roleFilter.setName(name);
-
-        user.setRoles(baseInformationService.findAllRoles(roleFilter));
-
-        baseInformationService.insertUser(user);
-
-        return baseInformationService.findAllUser(new UserFilter()).get(0);
-
+    @RequestMapping(value = "/insertUser" ,method = RequestMethod.POST)
+    public UserDto insertUser(@RequestBody UserDto user){
+       return baseInformationService.insertUser(user);
     }
 
     @RequestMapping(value = "/updateUser")
