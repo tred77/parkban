@@ -40,8 +40,8 @@ public class BaseController {
 
     /* park region */
 
-    @RequestMapping(value = "/findAllRegions")
-    public List<RegionDto> findAllRegions(RegionFilter parkRegionFilter){
+    @RequestMapping(value = "/findAllRegions", method = RequestMethod.POST)
+    public List<RegionDto> findAllRegions(@RequestBody RegionFilter parkRegionFilter){
         RegionFilter regionFilter = new RegionFilter();
         regionFilter.addGraphPath("city");
         return baseInformationService.findAllRegion(regionFilter);
@@ -53,12 +53,16 @@ public class BaseController {
         return baseInformationService.insertRegion(region);
     }
 
-    @RequestMapping(value = "/index")
-    public List<Region> index(){
-        Region[] regions = null;
-        return Arrays.asList(regions);
-
+    @RequestMapping(value = "/updateRegion", method = RequestMethod.POST)
+    public void updateRegion(@RequestBody RegionDto regionDto){
+        baseInformationService.updateRegion(regionDto);
     }
+
+    @RequestMapping(value = "/deleteRegion", method = RequestMethod.POST)
+    public void deleteRegion(@RequestBody RegionDto regionDto){
+        baseInformationService.deleteRegion(regionDto);
+    }
+
 
     /* user section    */
 
@@ -86,7 +90,7 @@ public class BaseController {
 
         RoleFilter roleFilter = new RoleFilter();
         StringFilter name = new StringFilter();
-        name.setElementOp(StringFilterOperation.EQUAL);
+        name.setElementOp("eq");
         name.setValues(new String[]{"Admin1"});
         roleFilter.setName(name);
 
@@ -167,7 +171,7 @@ public class BaseController {
 
         CityFilter cityFilter = new CityFilter();
         StringFilter stringFilter = new StringFilter();
-        stringFilter.setElementOp(StringFilterOperation.EQUAL);
+        stringFilter.setElementOp("eq");
         stringFilter.setValues(new String[]{"Sanandaj"});
         cityFilter.setName(stringFilter);
 
