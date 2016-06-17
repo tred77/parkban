@@ -14,6 +14,7 @@ import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,7 +49,7 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/insertRegion", method = RequestMethod.POST)
-    public RegionDto insertRegion(RegionDto region){
+    public RegionDto insertRegion(@RequestBody RegionDto region){
         return baseInformationService.insertRegion(region);
     }
 
