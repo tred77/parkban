@@ -17,6 +17,7 @@ public enum StringFilterOperation implements ExpressionCriteriaProvider<String>{
 
     private String value;
     StringFilterOperation(String val) {
+        this.value = val;
     }
 
     public String getValue() {
@@ -42,7 +43,7 @@ public enum StringFilterOperation implements ExpressionCriteriaProvider<String>{
                 break;
             case LIKE:
                 if(values != null && values.length > 0 && values[0] != null)
-                    result = stringExpression.like(values[0]);
+                    result = stringExpression.like("%"+values[0]+"%");
                 break;
             case NOT_LIKE:
                 if(values != null && values.length > 0 && values[0] != null)

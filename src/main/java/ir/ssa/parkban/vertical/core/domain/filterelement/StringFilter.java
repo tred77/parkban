@@ -15,8 +15,8 @@ public class StringFilter implements Filter{
         return elementOp;
     }
 
-    public void setElementOp(StringFilterOperation elementOp) {
-        this.elementOp = elementOp;
+    public void setElementOp(String elementOp) {
+        this.elementOp = StringFilterOperation.getFilterOperation(elementOp);
     }
 
     public String[] getValues() {
