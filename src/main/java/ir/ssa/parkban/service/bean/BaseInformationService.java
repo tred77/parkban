@@ -19,7 +19,7 @@ public interface BaseInformationService extends BaseService {
     void updateUser(UserDto userDto);
 
     @Transactional
-    void deleteUser(UserDto userDto);
+    void deleteUser(Long id);
 
     List<UserDto> findAllUser(UserFilter filter);
 

@@ -6,18 +6,10 @@ import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.repository.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.BaseService;
-import ir.ssa.parkban.vertical.core.domain.springcustom.springdata.CustomCrudMethodMetadata;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
-import org.springframework.aop.framework.Advised;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.support.CrudMethodMetadata;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,8 +56,10 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         userDAO.save(ObjectMapper.map(userDto, User.class));
     }
 
-    public void deleteUser(UserDto userDto) {
-        userDAO.delete(ObjectMapper.map(userDto, User.class));
+    public void deleteUser(Long id) {
+        User user = userDAO.findOne(id);
+        if(user!=null)
+            userDAO.delete(user);
     }
 
     public List<UserDto> findAllUser(UserFilter filter) {

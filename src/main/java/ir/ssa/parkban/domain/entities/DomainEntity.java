@@ -25,15 +25,15 @@ public abstract class DomainEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "created_by_user", nullable = false)
+    @Column(name = "created_by_user")
     @CreatedBy
     private String createdByUser;
 
-    @Column(name = "creation_date", nullable = false)
+    @Column(name = "creation_date")
     @CreatedDate
     private Date creationDate;
 
-    @Column(name = "modified_by_user", nullable = false)
+    @Column(name = "modified_by_user")
     @LastModifiedBy
     private String modifiedByUser;
 

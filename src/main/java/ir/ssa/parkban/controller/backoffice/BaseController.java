@@ -7,17 +7,13 @@ import ir.ssa.parkban.controller.dto.entity.UserDto;
 import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.filters.CityFilter;
 import ir.ssa.parkban.domain.filters.RegionFilter;
-import ir.ssa.parkban.domain.filters.RoleFilter;
 import ir.ssa.parkban.domain.filters.UserFilter;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -67,14 +63,14 @@ public class BaseController {
        return baseInformationService.insertUser(user);
     }
 
-    @RequestMapping(value = "/updateUser")
-    public void updateUser(UserDto user){
+    @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
+    public void updateUser(@RequestBody UserDto user){
         baseInformationService.updateUser(user);
     }
 
-    @RequestMapping(value = "/deleteUser")
-    public void deleteUser(UserDto user){
-        baseInformationService.deleteUser(user);
+    @RequestMapping(value = "/deleteUser/{id}",method = RequestMethod.DELETE)
+    public void deleteUser(@PathVariable("id") Long id){
+        baseInformationService.deleteUser(id);
     }
 
     @RequestMapping(value = "/findAllUser")
@@ -87,8 +83,8 @@ public class BaseController {
         return baseInformationService.insertRole(roleDto);
     }
 
-    @RequestMapping(value = "/updateRole")
-    public void updateRole(RoleDto roleDto){
+    @RequestMapping(value = "/updateRole",method = RequestMethod.PUT)
+    public void updateRole(@RequestBody RoleDto roleDto){
         baseInformationService.updateRole(roleDto);
     }
 
