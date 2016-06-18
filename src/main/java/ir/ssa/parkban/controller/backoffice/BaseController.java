@@ -42,9 +42,8 @@ public class BaseController {
 
     @RequestMapping(value = "/findAllRegions", method = RequestMethod.POST)
     public List<RegionDto> findAllRegions(@RequestBody RegionFilter parkRegionFilter){
-        RegionFilter regionFilter = new RegionFilter();
-        regionFilter.addGraphPath("city");
-        return baseInformationService.findAllRegion(regionFilter);
+        parkRegionFilter.addGraphPath("city");
+        return baseInformationService.findAllRegion(parkRegionFilter);
 
     }
 
