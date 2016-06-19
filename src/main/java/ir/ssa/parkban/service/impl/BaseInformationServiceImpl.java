@@ -62,6 +62,11 @@ public class BaseInformationServiceImpl implements BaseInformationService {
             userDAO.delete(user);
     }
 
+    @Override
+    public UserDto findUserById(Long id) {
+        return ObjectMapper.map(userDAO.findOne(id),UserDto.class);
+    }
+
     public List<UserDto> findAllUser(UserFilter filter) {
         BaseService.setEntityGraph(userDAO, filter, "findAll");
         return ObjectMapper.map(userDAO.findAll(filter.getCriteriaExpression()),UserDto.class);
@@ -84,6 +89,11 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         if(roleFilter==null)
             roleFilter = new RoleFilter();
         return ObjectMapper.map(roleDAO.findAll(roleFilter.getCriteriaExpression()),RoleDto.class);
+    }
+
+    @Override
+    public RoleDto findRoleById(Long id) {
+        return ObjectMapper.map(roleDAO.findOne(id),RoleDto.class);
     }
 
     /** City Section */

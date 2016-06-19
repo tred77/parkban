@@ -21,6 +21,8 @@ public interface BaseInformationService extends BaseService {
     @Transactional
     void deleteUser(Long id);
 
+    UserDto findUserById(Long id);
+
     List<UserDto> findAllUser(UserFilter filter);
 
     @Transactional
@@ -34,6 +36,7 @@ public interface BaseInformationService extends BaseService {
 
     List<RoleDto> findAllRoles(RoleFilter filter);
 
+    RoleDto findRoleById(Long id);
 
     /*   City Section  */
 

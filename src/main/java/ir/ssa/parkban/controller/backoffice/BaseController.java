@@ -7,6 +7,7 @@ import ir.ssa.parkban.controller.dto.entity.UserDto;
 import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.filters.CityFilter;
 import ir.ssa.parkban.domain.filters.RegionFilter;
+import ir.ssa.parkban.domain.filters.RoleFilter;
 import ir.ssa.parkban.domain.filters.UserFilter;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
@@ -96,6 +97,48 @@ public class BaseController {
         baseInformationService.deleteRole(roleDto);
     }
 
+    @RequestMapping(value = "/findAllRoles")
+    public List<RoleDto> findAllRoles(){
+        List<RoleDto> roleDtos = baseInformationService.findAllRoles(new RoleFilter());
+        if(roleDtos == null || roleDtos.size()==0){
+            roleDtos = new ArrayList<>();
+            RoleDto roleDto1 = new RoleDto();
+            roleDto1.setName("Admin");
+
+            RoleDto roleDto2 = new RoleDto();
+            roleDto2.setName("Parkban");
+
+            RoleDto roleDto3 = new RoleDto();
+            roleDto3.setName("User");
+
+            roleDtos.add(roleDto1);
+            baseInformationService.insertRole(roleDto1);
+
+            roleDtos.add(roleDto2);
+            baseInformationService.insertRole(roleDto2);
+
+            roleDtos.add(roleDto3);
+            baseInformationService.insertRole(roleDto3);
+
+            roleDtos = baseInformationService.findAllRoles(new RoleFilter());
+
+        }
+        return roleDtos;
+    }
+
+    @RequestMapping(value = "/assignRole/{userId}/{roleId}",method = RequestMethod.GET)
+    public void assignRole(@PathVariable("userId") Long userId,@PathVariable("roleId") Long roleId){
+        if(userId!=null && roleId!=null){
+            UserDto userDto = baseInformationService.findUserById(userId);
+            RoleDto roleDto = baseInformationService.findRoleById(roleId);
+
+            if(userDto != null && roleDto!=null){
+                userDto.setRoles(new ArrayList<>());
+                userDto.getRoles().add(roleDto);
+                baseInformationService.updateUser(userDto);
+            }
+        }
+    }
 
     /** City Section */
 
