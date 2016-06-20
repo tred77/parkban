@@ -1,14 +1,8 @@
 package ir.ssa.parkban.controller.backoffice;
 
-import ir.ssa.parkban.controller.dto.entity.CityDto;
-import ir.ssa.parkban.controller.dto.entity.RegionDto;
-import ir.ssa.parkban.controller.dto.entity.RoleDto;
-import ir.ssa.parkban.controller.dto.entity.UserDto;
+import ir.ssa.parkban.controller.dto.entity.*;
 import ir.ssa.parkban.domain.entities.Region;
-import ir.ssa.parkban.domain.filters.CityFilter;
-import ir.ssa.parkban.domain.filters.RegionFilter;
-import ir.ssa.parkban.domain.filters.RoleFilter;
-import ir.ssa.parkban.domain.filters.UserFilter;
+import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
@@ -201,6 +195,15 @@ public class BaseController {
     public void deleteCity(CityDto cityDto){
         baseInformationService.deleteCity(cityDto);
     }
+
+
+    @RequestMapping(value = "/findAllVehicleOwner",method = RequestMethod.POST)
+    public List<VehicleOwnerDto> findAllVehicleOwner(@RequestBody VehicleOwnerFilter filter){
+        return baseInformationService.findAllVehicleOwner(filter);
+    }
+
+
+
 
 
 
