@@ -77,9 +77,9 @@ public class BaseController {
         baseInformationService.deleteUser(id);
     }
 
-    @RequestMapping(value = "/findAllUser")
-    public List<UserDto> findAllUser(){
-       return baseInformationService.findAllUser(new UserFilter());
+    @RequestMapping(value = "/findAllUser", method = RequestMethod.POST)
+    public List<UserDto> findAllUser(@RequestBody UserFilter userFilter){
+       return baseInformationService.findAllUser(userFilter);
     }
 
     @RequestMapping(value = "/insertRole")
