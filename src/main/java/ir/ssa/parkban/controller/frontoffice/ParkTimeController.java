@@ -20,7 +20,7 @@ public class ParkTimeController {
     ParkTimeService parkTimeService;
 
     @RequestMapping(value = "/addParkTime")
-    public void addParkTime(@PathVariable("vnum") String vehicleNumber, @PathVariable("ptime") Date parkDateTime,
+    public void insertParkTime(@PathVariable("vnum") String vehicleNumber, @PathVariable("ptime") Date parkDateTime,
                             @PathVariable("csection") Long citySectionId ){
 
     }

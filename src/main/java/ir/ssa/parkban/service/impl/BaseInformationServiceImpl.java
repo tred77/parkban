@@ -130,6 +130,10 @@ public class BaseInformationServiceImpl implements BaseInformationService {
 
     @Override
     public List<CityDto> registerAllCities() {
+        List<CityDto> city = findAllCity(new CityFilter());
+        if(city!=null && city.size()>0)
+            return city;
+
         List<City> cities = new ArrayList<>();
 
         City city1 = new City();
