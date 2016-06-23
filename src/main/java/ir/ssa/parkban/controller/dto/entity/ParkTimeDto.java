@@ -1,5 +1,7 @@
 package ir.ssa.parkban.controller.dto.entity;
 
+import ir.ssa.parkban.domain.enums.ParkTimeStatus;
+
 import java.util.Date;
 
 /**
@@ -11,6 +13,15 @@ public class ParkTimeDto {
     private String vehicleNumber;
     private Date parkDateTime;
     private RegionDto region;
+    private ParkTimeStatus parkTimeStatus;
+
+    public ParkTimeStatus getParkTimeStatus() {
+        return parkTimeStatus;
+    }
+
+    public void setParkTimeStatus(ParkTimeStatus parkTimeStatus) {
+        this.parkTimeStatus = parkTimeStatus;
+    }
 
     public Long getId() {
         return id;

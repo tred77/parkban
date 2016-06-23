@@ -135,7 +135,7 @@ public class BaseController {
 
     @RequestMapping(value = "/findAllCities")
     public List<CityDto> findAllCities(){
-        return baseInformationService.registerAllCities();
+        return baseInformationService.findAllCity(new CityFilter());
     }
 
     @RequestMapping(value = "/insertCity")
