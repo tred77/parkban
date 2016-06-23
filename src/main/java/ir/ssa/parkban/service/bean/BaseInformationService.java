@@ -32,11 +32,15 @@ public interface BaseInformationService extends BaseService {
     void updateRole(RoleDto roleDto);
 
     @Transactional
-    void deleteRole(RoleDto roleDto);
+    void deleteRole(Long id);
 
     List<RoleDto> findAllRoles(RoleFilter filter);
 
     RoleDto findRoleById(Long id);
+
+    List<PermissionDto> findAllPermissions(PermissionFilter filter);
+
+    PermissionDto findPermissionById(Long id);
 
     /*   City Section  */
 

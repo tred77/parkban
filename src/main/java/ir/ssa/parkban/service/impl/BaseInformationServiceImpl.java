@@ -46,6 +46,9 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     @Autowired
     ParkChargeDAO parkChargeDAO;
 
+    @Autowired
+    PermissionDAO permissionDAO;
+
     public UserDto insertUser(UserDto userDto) {
         User user = ObjectMapper.map(userDto, User.class);
         user= userDAO.save(user);
@@ -81,19 +84,28 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         roleDAO.save(ObjectMapper.map(roleDto,Role.class));
     }
 
-    public void deleteRole(RoleDto roleDto) {
-        roleDAO.delete(ObjectMapper.map(roleDto, Role.class));
+    public void deleteRole(Long id) {
+        roleDAO.delete(id);
     }
 
     public List<RoleDto> findAllRoles(RoleFilter roleFilter){
-        if(roleFilter==null)
-            roleFilter = new RoleFilter();
         return ObjectMapper.map(roleDAO.findAll(roleFilter.getCriteriaExpression()),RoleDto.class);
     }
 
     @Override
     public RoleDto findRoleById(Long id) {
         return ObjectMapper.map(roleDAO.findOne(id),RoleDto.class);
+    }
+
+    @Override
+    public List<PermissionDto> findAllPermissions(PermissionFilter filter) {
+        BaseService.setEntityGraph(permissionDAO, filter, "findAll");
+        return ObjectMapper.map(permissionDAO.findAll(filter.getCriteriaExpression()),PermissionDto.class);
+    }
+
+    @Override
+    public PermissionDto findPermissionById(Long id) {
+        return ObjectMapper.map(permissionDAO.findOne(id),PermissionDto.class);
     }
 
     /** City Section */
