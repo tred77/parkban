@@ -109,13 +109,15 @@ public class BaseController {
 
     @RequestMapping(value = "/findAllPermissions",method = RequestMethod.POST)
     public List<PermissionDto> findAllPermissions(@RequestBody PermissionFilter filter) {
+        filter.addGraphPath("role");
         return baseInformationService.findAllPermissions(filter);
     }
 
     @RequestMapping(value = "/assignRolePermission/{roleId}/{permissionIds}",method = RequestMethod.GET)
     public void assignRolePermission(@PathVariable("roleId") Long roleId,@PathVariable("permissionIds") List<Long> permissionIds){
-
-
+        if(permissionIds!=null && permissionIds.size()==1 && permissionIds.get(0).longValue()==-1)
+            permissionIds=null;
+        baseInformationService.assignRolePermission(roleId,permissionIds);
     }
 
 

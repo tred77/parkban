@@ -2,6 +2,7 @@ package ir.ssa.parkban.domain.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 /**
  * Created by Behrouz-ZD on 6/24/2016.
@@ -21,6 +22,10 @@ public class Permission extends DomainEntity {
     @Size(max = 30)
     @Column(name = "code")
     private String code;
+
+
+    @ManyToMany(mappedBy="permissions")
+    private Set<Role> role;
 
 
     public String getDescription() {
@@ -46,5 +51,13 @@ public class Permission extends DomainEntity {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Set<Role> getRole() {
+        return role;
+    }
+
+    public void setRole(Set<Role> role) {
+        this.role = role;
     }
 }
