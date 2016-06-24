@@ -8,8 +8,8 @@ import java.util.Arrays;
  */
 public enum ParkTimeStatus implements Serializable{
 
-    Registered("R"),
-    Calculated("C");
+    R("Registered"),
+    C("Calculated");
 
     private String value;
 

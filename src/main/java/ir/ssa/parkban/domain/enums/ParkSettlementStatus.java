@@ -8,8 +8,8 @@ import java.util.Arrays;
  */
 public enum ParkSettlementStatus implements Serializable{
 
-    Registered("R"),
-    Settled("S");
+    R("Registered"),
+    S("Settled");
 
     private String value;
 

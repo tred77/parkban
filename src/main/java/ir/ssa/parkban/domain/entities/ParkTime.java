@@ -38,14 +38,8 @@ public class ParkTime extends DomainEntity {
         this.parkTimeStatus = parkTimeStatus;
     }
 
-    public ParkTime(String vehicleNumber, Date parkDateTime, Long regionId) {
-        this.vehicleNumber = vehicleNumber;
-        this.parkDateTime = parkDateTime;
-        Region region = new Region();
-        region.setId(regionId);
-        this.region = region;
+    public ParkTime() {
     }
-
 
     public String getVehicleNumber() {
         return vehicleNumber;
