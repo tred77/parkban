@@ -11,10 +11,6 @@ import javax.validation.constraints.Size;
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "PARK_PRICE_SEQ")
 public class ParkPrice extends DomainEntity {
 
-    @Size(max = 30)
-    @Column(name = "NAME")
-    private String name;
-
 
     @Column(name = "BAND")
     private Long band;
@@ -25,14 +21,6 @@ public class ParkPrice extends DomainEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "REGION_ID")
     private Region region;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Long getBand() {
         return band;

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -46,6 +47,9 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     @Autowired
     ParkChargeDAO parkChargeDAO;
 
+    @Autowired
+    PermissionDAO permissionDAO;
+
     public UserDto insertUser(UserDto userDto) {
         User user = ObjectMapper.map(userDto, User.class);
         user= userDAO.save(user);
@@ -78,22 +82,45 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     public void updateRole(RoleDto roleDto) {
-        roleDAO.save(ObjectMapper.map(roleDto,Role.class));
+        roleDAO.save(ObjectMapper.map(roleDto, Role.class));
     }
 
-    public void deleteRole(RoleDto roleDto) {
-        roleDAO.delete(ObjectMapper.map(roleDto, Role.class));
+    public void deleteRole(Long id) {
+        roleDAO.delete(id);
     }
 
     public List<RoleDto> findAllRoles(RoleFilter roleFilter){
-        if(roleFilter==null)
-            roleFilter = new RoleFilter();
         return ObjectMapper.map(roleDAO.findAll(roleFilter.getCriteriaExpression()),RoleDto.class);
     }
 
     @Override
     public RoleDto findRoleById(Long id) {
         return ObjectMapper.map(roleDAO.findOne(id),RoleDto.class);
+    }
+
+    @Override
+    public List<PermissionDto> findAllPermissions(PermissionFilter filter) {
+        BaseService.setEntityGraph(permissionDAO, filter, "findAll");
+        return ObjectMapper.map(permissionDAO.findAll(filter.getCriteriaExpression()),PermissionDto.class);
+    }
+
+    @Override
+    public PermissionDto findPermissionById(Long id) {
+        return ObjectMapper.map(permissionDAO.findOne(id),PermissionDto.class);
+    }
+
+    @Override
+    public void assignRolePermission(Long roleId, List<Long> permissionIds) {
+        Role role = roleDAO.findOne(roleId);
+        if(role != null && permissionIds!=null && permissionIds.size()>0){
+            role.setPermissions(new HashSet<>());
+            for(int i=0;i<permissionIds.size();i++){
+                Permission permission = new Permission();
+                permission.setId(permissionIds.get(i));
+                role.getPermissions().add(permission);
+            }
+            roleDAO.save(role);
+        }
     }
 
     /** City Section */
@@ -130,6 +157,10 @@ public class BaseInformationServiceImpl implements BaseInformationService {
 
     @Override
     public List<CityDto> registerAllCities() {
+        List<CityDto> city = findAllCity(new CityFilter());
+        if(city!=null && city.size()>0)
+            return city;
+
         List<City> cities = new ArrayList<>();
 
         City city1 = new City();

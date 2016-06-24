@@ -1,17 +1,14 @@
 package ir.ssa.parkban.controller.backoffice;
 
 import ir.ssa.parkban.controller.dto.entity.*;
-import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
-import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -76,48 +73,24 @@ public class BaseController {
        return baseInformationService.findAllUser(userFilter);
     }
 
-    @RequestMapping(value = "/insertRole")
-    public RoleDto insertRole(RoleDto roleDto){
+    @RequestMapping(value = "/insertRole",method = RequestMethod.POST)
+    public RoleDto insertRole(@RequestBody RoleDto roleDto){
         return baseInformationService.insertRole(roleDto);
     }
 
-    @RequestMapping(value = "/updateRole",method = RequestMethod.PUT)
+    @RequestMapping(value = "/updateRole",method = RequestMethod.POST)
     public void updateRole(@RequestBody RoleDto roleDto){
         baseInformationService.updateRole(roleDto);
     }
 
-    @RequestMapping(value = "/deleteRole")
-    public void deleteRole(RoleDto roleDto){
-        baseInformationService.deleteRole(roleDto);
+    @RequestMapping(value = "/deleteRole/{id}",method = RequestMethod.DELETE)
+    public void deleteRole(@PathVariable Long id){
+        baseInformationService.deleteRole(id);
     }
 
-    @RequestMapping(value = "/findAllRoles")
-    public List<RoleDto> findAllRoles(){
-        List<RoleDto> roleDtos = baseInformationService.findAllRoles(new RoleFilter());
-        if(roleDtos == null || roleDtos.size()==0){
-            roleDtos = new ArrayList<>();
-            RoleDto roleDto1 = new RoleDto();
-            roleDto1.setName("Admin");
-
-            RoleDto roleDto2 = new RoleDto();
-            roleDto2.setName("Parkban");
-
-            RoleDto roleDto3 = new RoleDto();
-            roleDto3.setName("User");
-
-            roleDtos.add(roleDto1);
-            baseInformationService.insertRole(roleDto1);
-
-            roleDtos.add(roleDto2);
-            baseInformationService.insertRole(roleDto2);
-
-            roleDtos.add(roleDto3);
-            baseInformationService.insertRole(roleDto3);
-
-            roleDtos = baseInformationService.findAllRoles(new RoleFilter());
-
-        }
-        return roleDtos;
+    @RequestMapping(value = "/findAllRoles",method = RequestMethod.POST)
+    public List<RoleDto> findAllRoles(@RequestBody RoleFilter filter){
+        return baseInformationService.findAllRoles(filter);
     }
 
     @RequestMapping(value = "/assignRole/{userId}/{roleId}",method = RequestMethod.GET)
@@ -133,6 +106,19 @@ public class BaseController {
             }
         }
     }
+
+    @RequestMapping(value = "/findAllPermissions",method = RequestMethod.POST)
+    public List<PermissionDto> findAllPermissions(@RequestBody PermissionFilter filter) {
+        return baseInformationService.findAllPermissions(filter);
+    }
+
+    @RequestMapping(value = "/assignRolePermission/{roleId}/{permissionIds}",method = RequestMethod.GET)
+    public void assignRolePermission(@PathVariable("roleId") Long roleId,@PathVariable("permissionIds") List<Long> permissionIds){
+
+
+    }
+
+
 
     /** City Section */
 

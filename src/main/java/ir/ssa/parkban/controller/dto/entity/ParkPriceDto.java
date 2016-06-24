@@ -6,7 +6,6 @@ package ir.ssa.parkban.controller.dto.entity;
 public class ParkPriceDto {
 
     private Long id;
-    private String name;
     private Long band;
     private Long price;
     private RegionDto region;
@@ -17,14 +16,6 @@ public class ParkPriceDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public Long getBand() {
