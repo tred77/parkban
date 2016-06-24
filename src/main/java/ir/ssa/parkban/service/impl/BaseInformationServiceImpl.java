@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -81,7 +82,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     public void updateRole(RoleDto roleDto) {
-        roleDAO.save(ObjectMapper.map(roleDto,Role.class));
+        roleDAO.save(ObjectMapper.map(roleDto, Role.class));
     }
 
     public void deleteRole(Long id) {
@@ -106,6 +107,20 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     @Override
     public PermissionDto findPermissionById(Long id) {
         return ObjectMapper.map(permissionDAO.findOne(id),PermissionDto.class);
+    }
+
+    @Override
+    public void assignRolePermission(Long roleId, List<Long> permissionIds) {
+        Role role = roleDAO.findOne(roleId);
+        if(role != null && permissionIds!=null && permissionIds.size()>0){
+            role.setPermissions(new HashSet<>());
+            for(int i=0;i<permissionIds.size();i++){
+                Permission permission = new Permission();
+                permission.setId(permissionIds.get(i));
+                role.getPermissions().add(permission);
+            }
+            roleDAO.save(role);
+        }
     }
 
     /** City Section */

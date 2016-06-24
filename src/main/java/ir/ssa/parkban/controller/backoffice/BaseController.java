@@ -112,6 +112,12 @@ public class BaseController {
         return baseInformationService.findAllPermissions(filter);
     }
 
+    @RequestMapping(value = "/assignRolePermission/{roleId}/{permissionIds}",method = RequestMethod.GET)
+    public void assignRolePermission(@PathVariable("roleId") Long roleId,@PathVariable("permissionIds") List<Long> permissionIds){
+
+
+    }
+
 
 
     /** City Section */

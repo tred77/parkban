@@ -42,6 +42,8 @@ public interface BaseInformationService extends BaseService {
 
     PermissionDto findPermissionById(Long id);
 
+    void assignRolePermission( Long roleId, List<Long> permissionIds);
+
     /*   City Section  */
 
     @Transactional
