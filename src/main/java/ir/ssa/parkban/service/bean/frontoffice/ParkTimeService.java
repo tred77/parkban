@@ -13,10 +13,4 @@ import java.util.List;
  */
 public interface ParkTimeService extends BaseService{
 
-    @Transactional
-    ParkTimeDto insertParkTime(ParkTimeDto parkTime);
-
-    @Transactional(readOnly = true)
-    List<ParkTimeDto> findAllParkTimes(ParkTimeFilter parkTimeFilter);
-
 }

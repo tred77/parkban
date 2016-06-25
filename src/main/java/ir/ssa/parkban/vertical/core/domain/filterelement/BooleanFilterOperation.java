@@ -14,6 +14,7 @@ public enum BooleanFilterOperation implements ExpressionCriteriaProvider<Boolean
 
     private String value;
     BooleanFilterOperation(String val) {
+        this.value = val;
     }
 
     public String getValue() {

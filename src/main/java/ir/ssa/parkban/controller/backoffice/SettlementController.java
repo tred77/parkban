@@ -2,13 +2,12 @@ package ir.ssa.parkban.controller.backoffice;
 
 import ir.ssa.parkban.controller.dto.entity.ParkTimeDto;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
-import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
+import ir.ssa.parkban.service.bean.SettlementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -20,12 +19,12 @@ import java.util.List;
 public class SettlementController {
 
     @Autowired
-    ParkTimeService parkTimeService;
+    SettlementService settlementService;
 
     @RequestMapping(value = "/getParkTimes", method = RequestMethod.POST)
     public List<ParkTimeDto> getParkTimes(@RequestBody ParkTimeFilter parkTimeFilter){
         parkTimeFilter.addGraphPath("region.city");
-        return parkTimeService.findAllParkTimes(parkTimeFilter);
+        return settlementService.findAllParkTimes(parkTimeFilter);
     }
 
 }

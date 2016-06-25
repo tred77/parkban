@@ -5,6 +5,7 @@ import com.mysema.query.types.expr.SimpleExpression;
 import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.vertical.core.domain.filterelement.Filter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
+import org.apache.commons.lang3.text.WordUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -70,16 +71,16 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
                     Object o = method.invoke(this);
                     if(o instanceof  BaseFilter){
                         if (result != null)
-                            result.and(((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, method.getName().toString().substring(3).toLowerCase())));
+                            result.and(((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3)))));
                         else
-                            result = ((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, method.getName().toString().substring(3).toLowerCase()));
+                            result = ((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3))));
                     }
                     else if (o instanceof Filter) {
                         Filter filter = (Filter) o;
                         if (result != null)
-                            result.and(filter.getCriteriaExpression(getFieldPath(qentity, method.getName().toString().substring(3).toLowerCase())));
+                            result.and(filter.getCriteriaExpression(getFieldPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3)))));
                         else
-                            result = filter.getCriteriaExpression(getFieldPath(qentity, method.getName().toString().substring(3).toLowerCase()));
+                            result = filter.getCriteriaExpression(getFieldPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3))));
                     }
                 }
 
