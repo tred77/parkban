@@ -6,6 +6,7 @@ import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -109,16 +110,22 @@ public class BaseController {
 
     @RequestMapping(value = "/findAllPermissions",method = RequestMethod.POST)
     public List<PermissionDto> findAllPermissions(@RequestBody PermissionFilter filter) {
+        filter.addGraphPath("role");
         return baseInformationService.findAllPermissions(filter);
     }
 
-    @RequestMapping(value = "/assignRolePermission/{roleId}/{permissionIds}",method = RequestMethod.GET)
-    public void assignRolePermission(@PathVariable("roleId") Long roleId,@PathVariable("permissionIds") List<Long> permissionIds){
-
-
+    @RequestMapping(value = "/assignRolePermission/{roleId}/{permissionIds},/assignRolePermission/{roleId}",method = RequestMethod.GET)
+    public void assignRolePermission(@PathVariable("roleId" ) Long roleId,@PathVariable("permissionIds") List<Long> permissionIds){
+        if(permissionIds!=null && permissionIds.size()==1 && permissionIds.get(0).longValue()==-1)
+            permissionIds=null;
+        baseInformationService.assignRolePermission(roleId, permissionIds);
     }
 
 
+    @RequestMapping(value = "/assignRolePermission/{roleId}",method = RequestMethod.GET)
+    public void assignRolePermission(@PathVariable("roleId" ) Long roleId){
+        baseInformationService.assignRolePermission(roleId,null);
+    }
 
     /** City Section */
 

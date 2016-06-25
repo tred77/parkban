@@ -112,6 +112,8 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     @Override
     public void assignRolePermission(Long roleId, List<Long> permissionIds) {
         Role role = roleDAO.findOne(roleId);
+        role.setPermissions(null);
+        role = roleDAO.save(role);
         if(role != null && permissionIds!=null && permissionIds.size()>0){
             role.setPermissions(new HashSet<>());
             for(int i=0;i<permissionIds.size();i++){
