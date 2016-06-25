@@ -12,6 +12,16 @@ public class CityFilter extends BaseFilter{
 
     private StringFilter name;
 
+    private RegionFilter regions;
+
+    public RegionFilter getRegions() {
+        return regions;
+    }
+
+    public void setRegions(RegionFilter regions) {
+        this.regions = regions;
+    }
+
     public StringFilter getName() {
         return name;
     }
