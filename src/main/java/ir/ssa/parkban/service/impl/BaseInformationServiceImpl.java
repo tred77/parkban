@@ -309,6 +309,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
 
     @Override
     public List<VehicleOwnerDto> findAllVehicleOwner(VehicleOwnerFilter filter) {
+        BaseService.setEntityGraph(vehicleOwnerDAO, filter, "findAll");
         return ObjectMapper.map(vehicleOwnerDAO.findAll(filter.getCriteriaExpression()),VehicleOwnerDto.class);
     }
 

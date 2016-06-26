@@ -11,6 +11,16 @@ public class VehicleOwnerFilter extends BaseFilter{
 
     private UserFilter user;
 
+    private UserFilter nationalId;
+
+    public UserFilter getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(UserFilter nationalId) {
+        this.nationalId = nationalId;
+    }
+
     public UserFilter getUser() {
         return user;
     }

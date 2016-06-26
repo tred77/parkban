@@ -14,11 +14,22 @@ public class VehicleOwner extends DomainEntity {
     @JoinColumn(name="USER_ID")
     private User user;
 
+    @Column(name = "nationalId")
+    private String nationalId;
+
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Vehicle> vehicles;
 
     public User getUser() {
         return user;
+    }
+
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
     }
 
     public void setUser(User user) {

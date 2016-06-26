@@ -134,49 +134,9 @@ public class BaseController {
         return baseInformationService.findAllCity(new CityFilter());
     }
 
-    @RequestMapping(value = "/insertCity")
-    public List<RegionDto> insertCity(CityDto cityDto){
-
-
-
-        CityDto city = new CityDto();
-        city.setName("Sanandaj");
-
-        CityDto city1 = new CityDto();
-        city1.setName("Marand");
-
-        city = baseInformationService.insertCity(city);
-        city1 = baseInformationService.insertCity(city1);
-
-        List<RegionDto> regions = new ArrayList<RegionDto>();
-
-        for(int i=0;i<10;i++){
-            regions.add(new RegionDto());
-            regions.get(i).setName("Region " + i);
-            regions.get(i).setAddress("Region Address " + i);
-            regions.get(i).setCity(city);
-            baseInformationService.insertRegion(regions.get(i));
-        }
-
-        //RegionDto regionDto = baseInformationService.insertRegion(regions.get(0));
-
-        //baseInformationService.insertRegions(regions);
-
-
-        CityFilter cityFilter = new CityFilter();
-        StringFilter stringFilter = new StringFilter();
-        stringFilter.setElementOp("eq");
-        stringFilter.setValues(new String[]{"Sanandaj"});
-        cityFilter.setName(stringFilter);
-
-        RegionFilter regionFilter = new RegionFilter();
-        regionFilter.setCity(cityFilter);
-
-
-        return baseInformationService.findAllRegion(new RegionFilter());
-
-        //RegionDto regionDto = baseInformationService.findRegionById(new Long(51));
-
+    @RequestMapping(value = "/insertCity",method = RequestMethod.POST)
+    public CityDto insertCity(@RequestBody CityDto cityDto){
+        return baseInformationService.insertCity(cityDto);
     }
 
     @RequestMapping(value = "/updateCity")
@@ -192,6 +152,7 @@ public class BaseController {
 
     @RequestMapping(value = "/findAllVehicleOwner",method = RequestMethod.POST)
     public List<VehicleOwnerDto> findAllVehicleOwner(@RequestBody VehicleOwnerFilter filter){
+        filter.addGraphPath("user");
         return baseInformationService.findAllVehicleOwner(filter);
     }
 
