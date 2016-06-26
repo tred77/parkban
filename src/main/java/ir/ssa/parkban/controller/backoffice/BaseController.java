@@ -1,6 +1,7 @@
 package ir.ssa.parkban.controller.backoffice;
 
 import ir.ssa.parkban.controller.dto.entity.*;
+import ir.ssa.parkban.domain.entities.QCity;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
@@ -137,6 +138,7 @@ public class BaseController {
 
 
         CityFilter cityFilter = new CityFilter();
+        //cityFilter.addGraphPath("regions");
         RegionFilter regionFilter = new RegionFilter();
         NumberFilter numberFilter = new NumberFilter();
         numberFilter.setElementOp(NumberFilterOperation.EQUAL.getValue());
@@ -149,7 +151,8 @@ public class BaseController {
 
         regionFilter.setName(stringFilter);
         cityFilter.setRegions(regionFilter);
-        return baseInformationService.findAllCity(cityFilter);
+        List<CityDto> cityDtoList = baseInformationService.findAllCity(cityFilter);
+        return cityDtoList;
     }
 
     @RequestMapping(value = "/insertCity")
