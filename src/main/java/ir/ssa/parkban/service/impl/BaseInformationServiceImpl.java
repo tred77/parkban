@@ -150,6 +150,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     public List<CityDto> findAllCity(CityFilter filter) {
+        BaseService.setEntityGraph(cityDAO, filter, "findAll");
         return ObjectMapper.map(cityDAO.findAll(filter.getCriteriaExpression()),CityDto.class);
     }
 

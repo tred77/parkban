@@ -19,20 +19,5 @@ import java.util.List;
 @Service
 public class ParkTimeServiceImpl implements ParkTimeService{
 
-    @Autowired
-    ParkTimeDAO parkTimeDAO;
 
-
-    @Override
-    public ParkTimeDto insertParkTime(ParkTimeDto parkTimeDto) {
-        ParkTime parkTime = ObjectMapper.map(parkTimeDto,ParkTime.class);
-        parkTimeDAO.save(parkTime);
-        return ObjectMapper.map(parkTime,ParkTimeDto.class);
-    }
-
-    @Override
-    public List<ParkTimeDto> findAllParkTimes(ParkTimeFilter filter) {
-        BaseService.setEntityGraph(parkTimeDAO, filter, "findAll");
-        return ObjectMapper.map(parkTimeDAO.findAll(filter.getCriteriaExpression()),ParkTimeDto.class);
-    }
 }

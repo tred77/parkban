@@ -34,7 +34,7 @@ public class FiscalServiceImpl implements FiscalService {
         ParkPriceFilter filter=new ParkPriceFilter();
         filter.setRegion(new RegionFilter());
         filter.getRegion().setId(new NumberFilter());
-        filter.getRegion().getId().setElementOp(NumberFilterOperation.EQUAL);
+        filter.getRegion().getId().setElementOp(NumberFilterOperation.EQUAL.getValue());
         filter.getRegion().getId().setValues(new Number[]{new Long(parkPriceDto.get(0).getRegion().getId())});
 
         List<ParkPrice> origins = (List<ParkPrice>)parkPriceDAO.findAll(filter.getCriteriaExpression());

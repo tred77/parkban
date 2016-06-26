@@ -30,6 +30,7 @@
 		<dozer.version>5.5.1</dozer.version>
 		<junit.vesion>4.12</junit.vesion>
 		<dom4j.version>1.6.1</dom4j.version>
+		<utils.version>1.0-SNAPSHOT</utils.version>
 	</properties>
 
 	<dependencies>
@@ -115,6 +116,13 @@
 			<groupId>com.mysema.querydsl</groupId>
 			<artifactId>querydsl-jpa</artifactId>
 			<version>${querydsl.version}</version>
+		</dependency>
+
+		<!-- our libraries -->
+		<dependency>
+			<groupId>ir.aka.utils.shamsidate</groupId>
+			<artifactId>shamsi-date</artifactId>
+			<version>${utils.version}</version>
 		</dependency>
 
 	</dependencies>

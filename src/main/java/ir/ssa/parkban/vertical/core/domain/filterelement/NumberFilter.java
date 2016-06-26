@@ -16,8 +16,8 @@ public class NumberFilter implements Filter{
         return elementOp;
     }
 
-    public void setElementOp(NumberFilterOperation elementOp) {
-        this.elementOp = elementOp;
+    public void setElementOp(String elementOp) {
+        this.elementOp = NumberFilterOperation.getFilterOperation(elementOp);
     }
 
     public Number[] getValues() {

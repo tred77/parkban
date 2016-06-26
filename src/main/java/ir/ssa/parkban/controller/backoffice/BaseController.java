@@ -1,10 +1,14 @@
 package ir.ssa.parkban.controller.backoffice;
 
 import ir.ssa.parkban.controller.dto.entity.*;
+import ir.ssa.parkban.domain.entities.QCity;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
+import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.*;
@@ -131,7 +135,24 @@ public class BaseController {
 
     @RequestMapping(value = "/findAllCities")
     public List<CityDto> findAllCities(){
-        return baseInformationService.findAllCity(new CityFilter());
+
+
+        CityFilter cityFilter = new CityFilter();
+        //cityFilter.addGraphPath("regions");
+        RegionFilter regionFilter = new RegionFilter();
+        NumberFilter numberFilter = new NumberFilter();
+        numberFilter.setElementOp(NumberFilterOperation.EQUAL.getValue());
+        numberFilter.setValues(new Number[]{1});
+
+        StringFilter stringFilter = new StringFilter();
+        stringFilter.setElementOp(StringFilterOperation.LIKE.getValue());
+        stringFilter.setValues(new String[]{"من"});
+
+
+        regionFilter.setName(stringFilter);
+        cityFilter.setRegions(regionFilter);
+        List<CityDto> cityDtoList = baseInformationService.findAllCity(cityFilter);
+        return cityDtoList;
     }
 
     @RequestMapping(value = "/insertCity",method = RequestMethod.POST)

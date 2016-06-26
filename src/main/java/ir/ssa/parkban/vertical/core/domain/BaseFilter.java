@@ -1,10 +1,15 @@
 package ir.ssa.parkban.vertical.core.domain;
 
+import com.mysema.query.types.Path;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.SimpleExpression;
+import com.mysema.query.types.path.CollectionPathBase;
 import com.mysema.query.types.path.EntityPathBase;
+import com.mysema.query.types.path.SetPath;
+import ir.ssa.parkban.domain.entities.QCity;
 import ir.ssa.parkban.vertical.core.domain.filterelement.Filter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
+import org.apache.commons.lang3.text.WordUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -54,8 +59,8 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
     protected abstract EntityPathBase getEntityPath();
 
     @Override
-    public BooleanExpression getCriteriaExpression(EntityPathBase... entityPath) {
-        EntityPathBase qentity = null;
+    public BooleanExpression getCriteriaExpression(Path... entityPath) {
+        Path qentity = null;
         if(entityPath != null && entityPath.length == 1){
             qentity = entityPath[0];
         }else {
@@ -70,16 +75,16 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
                     Object o = method.invoke(this);
                     if(o instanceof  BaseFilter){
                         if (result != null)
-                            result.and(((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, method.getName().toString().substring(3).toLowerCase())));
+                            result.and(((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3)))));
                         else
-                            result = ((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, method.getName().toString().substring(3).toLowerCase()));
+                            result = ((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3))));
                     }
                     else if (o instanceof Filter) {
                         Filter filter = (Filter) o;
                         if (result != null)
-                            result.and(filter.getCriteriaExpression(getFieldPath(qentity, method.getName().toString().substring(3).toLowerCase())));
+                            result.and(filter.getCriteriaExpression(getFieldPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3)))));
                         else
-                            result = filter.getCriteriaExpression(getFieldPath(qentity, method.getName().toString().substring(3).toLowerCase()));
+                            result = filter.getCriteriaExpression(getFieldPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3))));
                     }
                 }
 
@@ -93,8 +98,13 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
         //return name.getElementOp().getCriteriaExpression(city.name,name.getValues());
     }
 
-    private SimpleExpression getFieldPath(EntityPathBase entityPath, String name){
+    private SimpleExpression getFieldPath(Path entityPath, String name){
         try {
+            if(entityPath instanceof CollectionPathBase){
+                CollectionPathBase collectionPathBase = (CollectionPathBase) entityPath;
+                Object o = collectionPathBase.any();
+                return (SimpleExpression) o.getClass().getField(name).get(o);
+            }
             return (SimpleExpression) entityPath.getClass().getField(name).get(entityPath);
         } catch (Exception e) {
             // TODO log this
@@ -102,13 +112,23 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
         }
     }
 
-    private EntityPathBase getEntityPath(EntityPathBase entityPath, String name){
+    private Path getEntityPath(Path entityPath, String name){
         try {
-            return (EntityPathBase) entityPath.getClass().getField(name).get(entityPath);
+            if(entityPath instanceof CollectionPathBase){
+                CollectionPathBase collectionPathBase = (CollectionPathBase) entityPath;
+                Object o = collectionPathBase.any();
+                return (Path) o.getClass().getField(name).get(o);
+            }
+            return (Path) entityPath.getClass().getField(name).get(entityPath);
         } catch (Exception e) {
             // TODO log this
             throw new RuntimeException("QDSL entity path error");
         }
+    }
+
+    private void test(){
+        QCity qCity = QCity.city;
+        //qCity.regions.any().city;
     }
 
 }

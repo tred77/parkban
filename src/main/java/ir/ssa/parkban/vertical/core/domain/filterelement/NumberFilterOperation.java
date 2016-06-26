@@ -17,6 +17,7 @@ public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> 
 
     private String value;
     NumberFilterOperation(String val) {
+        this.value = val;
     }
 
     public String getValue() {

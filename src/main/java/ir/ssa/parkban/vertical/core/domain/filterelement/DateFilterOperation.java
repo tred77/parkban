@@ -1,9 +1,8 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
 import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.expr.DateExpression;
+import com.mysema.query.types.expr.DateTimeExpression;
 import com.mysema.query.types.expr.SimpleExpression;
-import com.mysema.query.types.expr.StringExpression;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -16,10 +15,12 @@ public enum DateFilterOperation implements ExpressionCriteriaProvider<Date> {
     EQUAL("eq"),
     GREATER_THAN("gt"),
     LESS_THAN("lt"),
-    BETWEEN("bw");
+    BETWEEN("bw"),
+    ONE_DAY("aDay");
 
     private String value;
     DateFilterOperation(String val) {
+        this.value = val;
     }
 
     public String getValue() {
@@ -36,7 +37,7 @@ public enum DateFilterOperation implements ExpressionCriteriaProvider<Date> {
 
     @Override
     public BooleanExpression getCriteriaExpression(SimpleExpression<Date> path, Date[] values) {
-        DateExpression expression = (DateExpression) path;
+        DateTimeExpression expression = (DateTimeExpression) path;
         BooleanExpression result = null;
         switch (this) {
             case EQUAL:
@@ -52,6 +53,10 @@ public enum DateFilterOperation implements ExpressionCriteriaProvider<Date> {
                     result = expression.lt(values[0]);
                 break;
             case BETWEEN:
+                if(values != null && values.length > 1 && values[0] != null && values[1] != null)
+                    result = expression.between(values[0], values[1]);
+                break;
+            case ONE_DAY:
                 if(values != null && values.length > 1 && values[0] != null && values[1] != null)
                     result = expression.between(values[0], values[1]);
                 break;
