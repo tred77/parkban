@@ -17,11 +17,11 @@ public class User extends DomainEntity {
 
 
     @Size(max = 30)
-    @Column(name = "firstName")
+    @Column(name = "first_name")
     private String firstName;
 
     @Size(max = 30)
-    @Column(name = "lastName")
+    @Column(name = "last_name")
     private String lastName;
 
     @Size(max = 30)

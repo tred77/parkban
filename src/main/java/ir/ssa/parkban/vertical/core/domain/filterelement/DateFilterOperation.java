@@ -16,7 +16,8 @@ public enum DateFilterOperation implements ExpressionCriteriaProvider<Date> {
     GREATER_THAN("gt"),
     LESS_THAN("lt"),
     BETWEEN("bw"),
-    ONE_DAY("aDay");
+    ONE_DAY("aDay"),
+    ONE_WEEK("aWeek");
 
     private String value;
     DateFilterOperation(String val) {
@@ -53,10 +54,8 @@ public enum DateFilterOperation implements ExpressionCriteriaProvider<Date> {
                     result = expression.lt(values[0]);
                 break;
             case BETWEEN:
-                if(values != null && values.length > 1 && values[0] != null && values[1] != null)
-                    result = expression.between(values[0], values[1]);
-                break;
             case ONE_DAY:
+            case ONE_WEEK:
                 if(values != null && values.length > 1 && values[0] != null && values[1] != null)
                     result = expression.between(values[0], values[1]);
                 break;

@@ -61,20 +61,26 @@ public class ParkBanServiceImpl implements ParkBanService {
 
         /* 1) finding involved week days */
         Date sourceDate = new Date();
+        Date previousSaturday;
+        Date nextSaturday;
         if(filter.getWorkDate() != null && filter.getWorkDate().getValues() != null){
-            sourceDate = filter.getWorkDate().getValues()[0];
+            previousSaturday = filter.getWorkDate().getValues()[0];
+            nextSaturday = filter.getWorkDate().getValues()[1];
+        }else{
+            previousSaturday = CalendarUtils.getPreviousSaturdayAtZeroClock(sourceDate);
+            nextSaturday = CalendarUtils.getNextSaturdayAtZeroClock(sourceDate);
+
+            DateFilter dateFilter = new DateFilter();
+            Date[] dates = new Date[]{previousSaturday, nextSaturday};
+            dateFilter.setMiladiValues(dates);
+            dateFilter.setElementOp(DateFilterOperation.ONE_WEEK.getValue());
+            filter.setWorkDate(dateFilter);
         }
-        Date previousSaturday = CalendarUtils.getPreviousSaturdayAtZeroClock(sourceDate);
-        Date nextSaturday = CalendarUtils.getNextSaturdayAtZeroClock(sourceDate);
-        DateFilter dateFilter = new DateFilter();
-        Date[] dates = new Date[]{previousSaturday, nextSaturday};
-        dateFilter.setMiladiValues(dates);
-        dateFilter.setElementOp(DateFilterOperation.BETWEEN.getValue());
-        filter.setWorkDate(dateFilter);
+
         Sort orders = new Sort(Sort.Direction.ASC, "region.id").and(new Sort(Sort.Direction.ASC, "workDate"));
 
         filter.addGraphPath("region");
-        filter.addGraphPath("parkban");
+        filter.addGraphPath("parkban.user");
         BaseService.setEntityGraph(parkbanTimeTableDAO, filter, "findAll");
         Iterable<ParkbanTimeTable> parkbanTimeTables = parkbanTimeTableDAO.findAll(filter.getCriteriaExpression(), orders);
 
@@ -87,12 +93,12 @@ public class ParkBanServiceImpl implements ParkBanService {
         List<ParkbanTimeTableView> resListOfParkbanTimes = new ArrayList<>();
         List<Date> weekDays = CalendarUtils.getDatesBetween(previousSaturday, nextSaturday);
         for(Region region : regions){
+            ParkbanTimeTableView parkbanTimeTableView = new ParkbanTimeTableView();
+            parkbanTimeTableView.setRegion(region);
             for(Date date : weekDays){
-                ParkbanTimeTableView parkbanTimeTableView = new ParkbanTimeTableView();
-                parkbanTimeTableView.setRegion(region);
                 parkbanTimeTableView.setParkbanTimeTable(findInsideACollection(parkbanTimeTables, region, date));
-                resListOfParkbanTimes.add(parkbanTimeTableView);
             }
+            resListOfParkbanTimes.add(parkbanTimeTableView);
         }
 
         return ObjectMapper.map(resListOfParkbanTimes, ParkbanTimeTableViewDto.class);

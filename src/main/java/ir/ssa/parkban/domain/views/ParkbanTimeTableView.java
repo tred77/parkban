@@ -1,6 +1,5 @@
 package ir.ssa.parkban.domain.views;
 
-import ir.aka.utils.shamsidate.DateUtil;
 import ir.ssa.parkban.domain.entities.ParkbanTimeTable;
 import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateUtils;
@@ -24,30 +23,32 @@ public class ParkbanTimeTableView {
     private ParkbanTimeTable forFri;
 
     public void setParkbanTimeTable(ParkbanTimeTable parkbanTimeTable){
-        Date date = parkbanTimeTable.getWorkDate();
-        if(date != null){
-            DayOfWeek dayOfWeek = DateUtils.getDayOfWeek(date);
-            switch (dayOfWeek) {
-                case MONDAY:
-                    this.setForMon(parkbanTimeTable);
-                    break;
-                case TUESDAY:
-                    this.setForTue(parkbanTimeTable);
-                    break;
-                case WEDNESDAY:
-                    this.setForWed(parkbanTimeTable);
-                    break;
-                case THURSDAY:
-                    this.setForThu(parkbanTimeTable);
-                    break;
-                case FRIDAY:
-                    this.setForFri(parkbanTimeTable);
-                    break;
-                case SATURDAY:
-                    this.setForSat(parkbanTimeTable);
-                    break;
-                case SUNDAY:
-                    this.setForSun(parkbanTimeTable);
+        if(parkbanTimeTable != null) {
+            Date date = parkbanTimeTable.getWorkDate();
+            if (date != null) {
+                DayOfWeek dayOfWeek = DateUtils.getDayOfWeek(date);
+                switch (dayOfWeek) {
+                    case MONDAY:
+                        this.setForMon(parkbanTimeTable);
+                        break;
+                    case TUESDAY:
+                        this.setForTue(parkbanTimeTable);
+                        break;
+                    case WEDNESDAY:
+                        this.setForWed(parkbanTimeTable);
+                        break;
+                    case THURSDAY:
+                        this.setForThu(parkbanTimeTable);
+                        break;
+                    case FRIDAY:
+                        this.setForFri(parkbanTimeTable);
+                        break;
+                    case SATURDAY:
+                        this.setForSat(parkbanTimeTable);
+                        break;
+                    case SUNDAY:
+                        this.setForSun(parkbanTimeTable);
+                }
             }
         }
     }

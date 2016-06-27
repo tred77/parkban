@@ -6,6 +6,7 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,5 +38,10 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
     @Override
     public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
         this.redirectStrategy = redirectStrategy;
+    }
+
+    @PostConstruct
+    public void postConstruct(){
+        System.out.println("loginSuccessHandler constructed");
     }
 }

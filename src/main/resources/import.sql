@@ -34,9 +34,9 @@ insert into TBL_ROLE(id,name) values(2,'Parkban');
 insert into TBL_ROLE(id,name) values(3,'User');
 
 -- user
-insert into TBL_USER(id, firstName,lastName,username,password,active) values(1,'behrooz', 'zamani', 'bzd', 'bzd', true);
-insert into TBL_USER(id, firstName,lastName,username,password,active) values(2,'hossein', 'yeganeh', 'hym', 'hym', true);
-insert into TBL_USER(id, firstName,lastName,username,password,active) values(3,'Admin', 'Admin', 'admin', 'admin', true);
+insert into TBL_USER(id, first_name,last_name,username,password,active) values(1,'behrooz', 'zamani', 'bzd', 'bzd', true);
+insert into TBL_USER(id, first_name,last_name,username,password,active) values(2,'hossein', 'yeganeh', 'hym', 'hym', true);
+insert into TBL_USER(id, first_name,last_name,username,password,active) values(3,'Admin', 'Admin', 'admin', 'admin', true);
 
 -- parkban
 insert into TBL_PARKBAN(id, user_id) values(1,1);

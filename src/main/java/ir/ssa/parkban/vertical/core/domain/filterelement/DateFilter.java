@@ -2,9 +2,11 @@ package ir.ssa.parkban.vertical.core.domain.filterelement;
 
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.SimpleExpression;
+import ir.ssa.parkban.vertical.core.util.DateUtils.CalendarUtils;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateConverter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -30,13 +32,22 @@ public class DateFilter implements Filter {
 
     public void setValues(String[] shamsiDates) {
         List<Date> dates = new ArrayList<>();
-        for (String sDate : shamsiDates) {
-            dates.add(DateConverter.convertShamsiToMiladiBeginningOfDay(sDate));
-        }
+        Arrays.stream(shamsiDates)
+                .forEach( el -> dates.add(DateConverter.convertShamsiToMiladiBeginningOfDay(el)));
 
-        if (elementOp == DateFilterOperation.ONE_DAY
-                && dates.size() == 1 ) {
-            dates.add(DateConverter.convertShamsiToMiladiEndOfDay(shamsiDates[0]));
+        switch (this.elementOp){
+            case ONE_DAY:
+                if(dates.size() == 1){
+                    dates.add(DateConverter.convertShamsiToMiladiEndOfDay(shamsiDates[0]));
+                }
+                break;
+            case ONE_WEEK:
+                Date previousSaturday = CalendarUtils.getPreviousSaturdayAtZeroClock(dates.get(0));
+                Date nextSaturday = CalendarUtils.getNextSaturdayAtZeroClock(dates.get(0));
+                dates.clear();
+                dates.add(previousSaturday);
+                dates.add(nextSaturday);
+                break;
         }
         this.values = dates.toArray(new Date[dates.size()]);
     }
