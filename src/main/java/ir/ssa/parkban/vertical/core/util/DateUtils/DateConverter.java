@@ -3,6 +3,8 @@ package ir.ssa.parkban.vertical.core.util.DateUtils;
 import ir.aka.utils.shamsidate.DateTimeHelper;
 import ir.aka.utils.shamsidate.ShamsyDate;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -34,6 +36,10 @@ public class DateConverter {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public static LocalDate convertDateToLocalDate(Date date){
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
 
 }

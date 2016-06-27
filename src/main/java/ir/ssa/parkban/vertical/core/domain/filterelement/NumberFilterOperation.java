@@ -13,6 +13,7 @@ public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> 
 
     EQUAL("eq"),
     GREATER_THAN("gt"),
+    IN("in"),
     LESS_THAN("lt");
 
     private String value;
@@ -47,6 +48,10 @@ public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> 
             case LESS_THAN:
                 if(values != null && values.length > 0 && values[0] != null)
                     result = expression.lt(values[0]);
+                break;
+            case IN:
+                if(values != null && values.length > 0)
+                    result = expression.in(values);
                 break;
             default:
                 //throw new RuntimeException("No matched operation for String Operation");

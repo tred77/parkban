@@ -15,6 +15,17 @@ public class ParkbanTimeTableDto {
     private Date workDate;
     private RegionDto region;
 
+    /* special field to support Time Table*/
+    private Date[] weekWorkDates;
+
+    public Date[] getWeekWorkDates() {
+        return weekWorkDates;
+    }
+
+    public void setWeekWorkDates(Date[] weekWorkDates) {
+        this.weekWorkDates = weekWorkDates;
+    }
+
     public Long getId() {
         return id;
     }

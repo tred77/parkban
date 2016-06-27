@@ -41,3 +41,7 @@ insert into TBL_USER(id, firstName,lastName,username,password,active) values(3,'
 -- parkban
 insert into TBL_PARKBAN(id, user_id) values(1,1);
 insert into TBL_PARKBAN(id, user_id) values(2,2);
+
+--parkbanTimeTable
+insert into TBL_PARKBAN_TIME_TABLE(id, parkban_id, region_id, work_date) values(1, 1, 5, {ts '2016-06-23'});
+insert into TBL_PARKBAN_TIME_TABLE(id, parkban_id, region_id, work_date) values(2, 2, 1, {ts '2016-06-23'});

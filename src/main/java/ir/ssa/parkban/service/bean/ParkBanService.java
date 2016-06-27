@@ -22,5 +22,4 @@ public interface ParkBanService extends BaseService {
 
     List<ParkbanTimeTableDto> findAllParkbanTimeTables(ParkbanTimeTableFilter filter);
 
-
 }

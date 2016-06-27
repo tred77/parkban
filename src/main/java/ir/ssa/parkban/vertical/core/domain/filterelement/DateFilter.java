@@ -41,6 +41,10 @@ public class DateFilter implements Filter {
         this.values = dates.toArray(new Date[dates.size()]);
     }
 
+    public void setMiladiValues(Date[] miladiValues){
+        this.values = miladiValues;
+    }
+
     @Override
     public BooleanExpression getCriteriaExpression(SimpleExpression expression) {
         return elementOp.getCriteriaExpression(expression, values);
