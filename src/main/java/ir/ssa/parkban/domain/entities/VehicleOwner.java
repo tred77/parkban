@@ -10,26 +10,15 @@ import java.util.Set;
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "VEHICLE_OWNER_SEQ")
 public class VehicleOwner extends DomainEntity {
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="USER_ID")
     private User user;
 
-    @Column(name = "nationalId")
-    private String nationalId;
-
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private Set<Vehicle> vehicles;
 
     public User getUser() {
         return user;
-    }
-
-    public String getNationalId() {
-        return nationalId;
-    }
-
-    public void setNationalId(String nationalId) {
-        this.nationalId = nationalId;
     }
 
     public void setUser(User user) {

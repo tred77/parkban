@@ -15,6 +15,9 @@ import java.util.Set;
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "USER_SEQ")
 public class User extends DomainEntity {
 
+    @Size(max = 10)
+    @Column(name = "nationalId")
+    private String nationalId;
 
     @Size(max = 30)
     @Column(name = "first_name")
@@ -81,6 +84,14 @@ public class User extends DomainEntity {
 
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public String getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(String nationalId) {
+        this.nationalId = nationalId;
     }
 
     public void setRoles(Set<Role> roles) {

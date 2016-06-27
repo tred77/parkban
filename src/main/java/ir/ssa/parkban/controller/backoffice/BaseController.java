@@ -172,7 +172,13 @@ public class BaseController {
     @RequestMapping(value = "/findAllVehicleOwner",method = RequestMethod.POST)
     public List<VehicleOwnerDto> findAllVehicleOwner(@RequestBody VehicleOwnerFilter filter){
         filter.addGraphPath("user");
+        filter.addGraphPath("vehicles");
         return baseInformationService.findAllVehicleOwner(filter);
+    }
+
+    @RequestMapping(value = "/insertVehicleOwner",method = RequestMethod.POST)
+    public VehicleOwnerDto insertVehicleOwner(@RequestBody VehicleOwnerDto vehicleOwnerDto){
+        return baseInformationService.insertVehicleOwner(vehicleOwnerDto);
     }
 
 
