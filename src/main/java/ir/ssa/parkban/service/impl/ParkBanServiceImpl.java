@@ -1,6 +1,8 @@
 package ir.ssa.parkban.service.impl;
 
+import com.google.common.collect.Lists;
 import ir.ssa.parkban.controller.dto.entity.ParkbanTimeTableDto;
+import ir.ssa.parkban.controller.dto.view.ParkbanTimeTableViewDto;
 import ir.ssa.parkban.domain.entities.ParkbanTimeTable;
 import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
@@ -56,7 +58,7 @@ public class ParkBanServiceImpl implements ParkBanService {
     }
 
     @Override
-    public List<ParkbanTimeTableDto> findAllParkbanTimeTables(ParkbanTimeTableFilter filter) {
+    public List<ParkbanTimeTableViewDto> findAllParkbanTimeTables(ParkbanTimeTableFilter filter) {
 
         /* 1) finding involved week days */
         Date sourceDate = new Date();
@@ -83,31 +85,26 @@ public class ParkBanServiceImpl implements ParkBanService {
         Iterable<Region> regions = regionDAO.findAll(regionFilter.getCriteriaExpression());
 
         /* 3) make an output */
-        List<ParkbanTimeTableDto> parkbanTimeTableDtos = new ArrayList<>();
+        List<ParkbanTimeTableView> resListOfParkbanTimes = new ArrayList<>();
         List<Date> weekDays = CalendarUtils.getDatesBetween(previousSaturday, nextSaturday);
         for(Region region : regions){
             for(Date date : weekDays){
                 ParkbanTimeTableView parkbanTimeTableView = new ParkbanTimeTableView();
                 parkbanTimeTableView.setRegion(region);
-
+                parkbanTimeTableView.setParkbanTimeTable(findInsideACollection(parkbanTimeTables, region, date));
+                resListOfParkbanTimes.add(parkbanTimeTableView);
             }
         }
 
-
-
-        return null;
+        return ObjectMapper.map(resListOfParkbanTimes, ParkbanTimeTableViewDto.class);
     }
 
     private ParkbanTimeTable findInsideACollection(Iterable<ParkbanTimeTable> parkbanTimeTables, Region region, Date date){
 
-        //Arrays.stream(parkbanTimeTables)
-
-        for(ParkbanTimeTable element : parkbanTimeTables){
-            if(element.getRegion().getId().longValue() == region.getId()
-                    && DateUtils.compareTwoDatesWithoutTime(element.getWorkDate(), date) == 0){
-                return element;
-            }
-        }
-        return null;
+        return  Lists.newArrayList(parkbanTimeTables).stream()
+                .filter(el -> el.getRegion().getId().longValue() == region.getId().longValue()
+                        && DateUtils.compareTwoDatesWithoutTime(el.getWorkDate(), date) == 0)
+                .findFirst()
+                .orElse(null);
     }
 }
