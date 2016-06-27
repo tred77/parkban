@@ -1,15 +1,13 @@
-package ir.ssa.parkban.controller.dto.entity;
+package ir.ssa.parkban.service.dto.entity;
 
-import ir.ssa.parkban.controller.dto.enums.ParkChargeTypeDto;
+import ir.ssa.parkban.service.dto.enums.ParkChargeTypeDto;
 
 import java.math.BigDecimal;
 
 /**
  * Created by Behrouz-ZD on 5/20/2016.
  */
-public class ParkChargeDto {
-
-    private Long  id;
+public class ParkChargeDto extends DomainEntityDto{
 
     private VehicleOwnerDto  owgner;
 
@@ -18,14 +16,6 @@ public class ParkChargeDto {
     private ParkChargeTypeDto chargeType;
 
     private BigDecimal amount;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public VehicleOwnerDto getOwgner() {
         return owgner;

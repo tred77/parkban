@@ -1,6 +1,6 @@
 package ir.ssa.parkban.service.impl;
 
-import ir.ssa.parkban.controller.dto.entity.ParkPriceDto;
+import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.entities.ParkPrice;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
 import ir.ssa.parkban.domain.filters.RegionFilter;

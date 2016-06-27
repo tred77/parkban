@@ -1,6 +1,6 @@
 package ir.ssa.parkban.service.impl;
 
-import ir.ssa.parkban.controller.dto.entity.ParkbanTimeTableDto;
+import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
 import ir.ssa.parkban.domain.entities.ParkbanTimeTable;
 import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
@@ -20,7 +20,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 

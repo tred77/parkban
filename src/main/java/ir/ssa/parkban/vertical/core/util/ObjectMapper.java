@@ -6,6 +6,7 @@ import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,23 +38,25 @@ public class ObjectMapper {
         if(source == null || destinationClass == null)
             return null;
 
-        try {
-            List<U> destination = new ArrayList<>();
-            Mapper mapper = new DozerBeanMapper();
-            ((DozerBeanMapper)mapper).setCustomFieldMapper(new CustomObjectFieldMapper());
-            for(int i=0;i<source.size();i++){
-                Object des = destinationClass.newInstance();
-                mapper.map(source.get(i),des);
-                destination.add((U)des);
-            }
+        List<U> destination = new ArrayList<>();
+        Mapper mapper = new DozerBeanMapper();
+        ((DozerBeanMapper)mapper).setCustomFieldMapper(new CustomObjectFieldMapper());
 
+        Arrays.stream(source.toArray()).forEach(
+                item -> {
+                    try {
+                        Object des = destinationClass.newInstance();
+                        mapper.map(item, des);
+                        destination.add((U) des);
+                    } catch (InstantiationException e) {
+                        throw new ParkBanRunTimeException();
+                    } catch (IllegalAccessException e) {
+                        throw new ParkBanRunTimeException();
+                    }
+                }
+        );
 
-            return destination;
-        } catch (InstantiationException e) {
-            throw new ParkBanRunTimeException();
-        } catch (IllegalAccessException e) {
-            throw new ParkBanRunTimeException();
-        }
+        return destination;
 
     }
 
@@ -63,24 +66,23 @@ public class ObjectMapper {
             return null;
 
         List<T> source = Lists.newArrayList(src);
+        List<U> destination = new ArrayList<U>();
+        Mapper mapper = new DozerBeanMapper();
+        ((DozerBeanMapper)mapper).setCustomFieldMapper(new CustomObjectFieldMapper());
 
-        try {
-            List<U> destination = new ArrayList<U>();
-            Mapper mapper = new DozerBeanMapper();
-            ((DozerBeanMapper)mapper).setCustomFieldMapper(new CustomObjectFieldMapper());
-            for(int i=0;i<source.size();i++){
-                Object des = destinationClass.newInstance();
-                mapper.map(source.get(i),des);
-                destination.add((U)des);
-            }
-
-
-            return destination;
-        } catch (InstantiationException e) {
-            throw new ParkBanRunTimeException();
-        } catch (IllegalAccessException e) {
-            throw new ParkBanRunTimeException();
-        }
-
+        Arrays.stream(source.toArray()).forEach(
+                item-> {
+                    try {
+                        Object des = destinationClass.newInstance();
+                        mapper.map(item,des);
+                        destination.add((U)des);
+                    } catch (InstantiationException e) {
+                        throw new ParkBanRunTimeException();
+                    } catch (IllegalAccessException e) {
+                        throw new ParkBanRunTimeException();
+                    }
+                }
+        );
+        return destination;
     }
 }

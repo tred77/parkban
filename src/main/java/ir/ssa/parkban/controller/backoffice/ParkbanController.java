@@ -1,11 +1,8 @@
 package ir.ssa.parkban.controller.backoffice;
 
-import ir.ssa.parkban.controller.dto.entity.ParkTimeDto;
-import ir.ssa.parkban.controller.dto.entity.ParkbanTimeTableDto;
-import ir.ssa.parkban.domain.filters.ParkTimeFilter;
+import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
 import ir.ssa.parkban.service.bean.ParkBanService;
-import ir.ssa.parkban.service.bean.SettlementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

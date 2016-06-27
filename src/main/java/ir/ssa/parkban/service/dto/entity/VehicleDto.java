@@ -1,23 +1,14 @@
-package ir.ssa.parkban.controller.dto.entity;
+package ir.ssa.parkban.service.dto.entity;
 
 /**
  * Created by Behrouz-ZD on 5/20/2016.
  */
-public class VehicleDto {
+public class VehicleDto extends DomainEntityDto{
 
-    private Long id;
     private String name;
     private String model;
     private String plakNumber;
     private VehicleOwnerDto vehicleOwner;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

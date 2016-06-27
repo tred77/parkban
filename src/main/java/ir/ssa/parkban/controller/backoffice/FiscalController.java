@@ -1,7 +1,6 @@
 package ir.ssa.parkban.controller.backoffice;
 
-import ir.ssa.parkban.controller.dto.entity.ParkPriceDto;
-import ir.ssa.parkban.controller.dto.entity.RegionDto;
+import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
 import ir.ssa.parkban.service.bean.FiscalService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

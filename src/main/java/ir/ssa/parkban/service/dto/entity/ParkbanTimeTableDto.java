@@ -1,16 +1,12 @@
-package ir.ssa.parkban.controller.dto.entity;
-
-import ir.ssa.parkban.domain.entities.Parkban;
-import ir.ssa.parkban.domain.enums.ParkTimeStatus;
+package ir.ssa.parkban.service.dto.entity;
 
 import java.util.Date;
 
 /**
  * Created by hadoop
  */
-public class ParkbanTimeTableDto {
+public class ParkbanTimeTableDto extends DomainEntityDto{
 
-    private Long id;
     private ParkbanDto parkban;
     private Date workDate;
     private RegionDto region;
@@ -24,14 +20,6 @@ public class ParkbanTimeTableDto {
 
     public void setWeekWorkDates(Date[] weekWorkDates) {
         this.weekWorkDates = weekWorkDates;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public ParkbanDto getParkban() {
