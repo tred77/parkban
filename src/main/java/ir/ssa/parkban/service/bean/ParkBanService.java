@@ -2,6 +2,7 @@ package ir.ssa.parkban.service.bean;
 
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
+import ir.ssa.parkban.service.dto.view.ParkbanTimeTableViewDto;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -20,6 +21,6 @@ public interface ParkBanService extends BaseService {
     @Transactional
     void deleteParkbanTimeTable(ParkbanTimeTableDto parkbanTimeTableDto);
 
-    List<ParkbanTimeTableDto> findAllParkbanTimeTables(ParkbanTimeTableFilter filter);
+    List<ParkbanTimeTableViewDto> findAllParkbanTimeTables(ParkbanTimeTableFilter filter);
 
 }
