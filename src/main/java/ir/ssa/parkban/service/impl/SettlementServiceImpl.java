@@ -1,6 +1,6 @@
 package ir.ssa.parkban.service.impl;
 
-import ir.ssa.parkban.controller.dto.entity.ParkTimeDto;
+import ir.ssa.parkban.service.dto.entity.ParkTimeDto;
 import ir.ssa.parkban.domain.entities.ParkTime;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
 import ir.ssa.parkban.repository.ParkTimeDAO;

@@ -1,6 +1,6 @@
 package ir.ssa.parkban.service.bean;
 
-import ir.ssa.parkban.controller.dto.entity.ParkTimeDto;
+import ir.ssa.parkban.service.dto.entity.ParkTimeDto;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
 import org.springframework.transaction.annotation.Transactional;
 

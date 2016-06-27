@@ -1,4 +1,4 @@
-package ir.ssa.parkban.controller.dto.enums;
+package ir.ssa.parkban.service.dto.enums;
 
 import java.util.Arrays;
 

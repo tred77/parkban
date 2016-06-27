@@ -1,4 +1,4 @@
-package ir.ssa.parkban.controller.dto.filter;
+package ir.ssa.parkban.service.dto.filter;
 
 /**
  * Created by Behrouz-ZD on 5/13/2016.

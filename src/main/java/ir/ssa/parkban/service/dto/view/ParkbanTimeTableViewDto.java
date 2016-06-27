@@ -1,9 +1,7 @@
-package ir.ssa.parkban.controller.dto.view;
+package ir.ssa.parkban.service.dto.view;
 
-import ir.ssa.parkban.controller.dto.entity.ParkbanTimeTableDto;
-import ir.ssa.parkban.controller.dto.entity.RegionDto;
-import ir.ssa.parkban.domain.entities.ParkbanTimeTable;
-import ir.ssa.parkban.domain.entities.Region;
+import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
+import ir.ssa.parkban.service.dto.entity.RegionDto;
 
 /**
  * Created by hadoop on 6/27/16.

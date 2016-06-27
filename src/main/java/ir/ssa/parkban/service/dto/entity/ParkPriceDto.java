@@ -1,22 +1,13 @@
-package ir.ssa.parkban.controller.dto.entity;
+package ir.ssa.parkban.service.dto.entity;
 
 /**
  * Created by Behrouz-ZD on 5/19/2016.
  */
-public class ParkPriceDto {
+public class ParkPriceDto extends DomainEntityDto{
 
-    private Long id;
     private Long band;
     private Long price;
     private RegionDto region;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public Long getBand() {
         return band;

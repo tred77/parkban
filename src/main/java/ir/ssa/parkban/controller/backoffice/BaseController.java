@@ -1,7 +1,6 @@
 package ir.ssa.parkban.controller.backoffice;
 
-import ir.ssa.parkban.controller.dto.entity.*;
-import ir.ssa.parkban.domain.entities.QCity;
+import ir.ssa.parkban.service.dto.entity.*;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
@@ -10,7 +9,6 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
