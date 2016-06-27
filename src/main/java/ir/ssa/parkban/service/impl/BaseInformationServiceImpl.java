@@ -324,7 +324,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     @Override
     public VehicleDto insertVehicle(VehicleDto VehicleDto) {
         Vehicle vehicle = ObjectMapper.map(VehicleDto,Vehicle.class);
-        vehicleDAO.save(vehicle);
+        vehicle = vehicleDAO.save(vehicle);
         return ObjectMapper.map(vehicle,VehicleDto.class);
     }
 

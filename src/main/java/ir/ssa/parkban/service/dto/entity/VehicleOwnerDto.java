@@ -25,4 +25,5 @@ public class VehicleOwnerDto extends DomainEntityDto{
     public void setVehicles(List<VehicleDto> vehicles) {
         this.vehicles = vehicles;
     }
+
 }
