@@ -3,14 +3,18 @@ package ir.ssa.parkban.service.impl;
 import com.google.common.collect.Lists;
 import ir.ssa.parkban.domain.entities.ParkbanTimeTable;
 import ir.ssa.parkban.domain.entities.Region;
+import ir.ssa.parkban.domain.filters.ParkbanFilter;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
 import ir.ssa.parkban.domain.filters.RegionFilter;
 import ir.ssa.parkban.domain.views.ParkbanTimeTableView;
+import ir.ssa.parkban.repository.ParkbanDAO;
 import ir.ssa.parkban.repository.ParkbanTimeTableDAO;
 import ir.ssa.parkban.repository.RegionDAO;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.ParkBanService;
+import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
+import ir.ssa.parkban.service.dto.entity.PermissionDto;
 import ir.ssa.parkban.service.dto.view.ParkbanTimeTableViewDto;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilterOperation;
@@ -33,6 +37,9 @@ public class ParkBanServiceImpl implements ParkBanService {
 
     @Autowired
     private ParkbanTimeTableDAO parkbanTimeTableDAO;
+
+    @Autowired
+    private ParkbanDAO parkbanDAO;
 
     @Autowired
     RegionDAO regionDAO;
@@ -96,7 +103,13 @@ public class ParkBanServiceImpl implements ParkBanService {
             ParkbanTimeTableView parkbanTimeTableView = new ParkbanTimeTableView();
             parkbanTimeTableView.setRegion(region);
             for(Date date : weekDays){
-                parkbanTimeTableView.setParkbanTimeTable(findInsideACollection(parkbanTimeTables, region, date));
+                ParkbanTimeTable tempTable = findInsideACollection(parkbanTimeTables, region, date);
+                if(tempTable == null){
+                    tempTable = new ParkbanTimeTable();
+                    tempTable.setRegion(region);
+                    tempTable.setWorkDate(date);
+                }
+                parkbanTimeTableView.setParkbanTimeTable(tempTable);
             }
             resListOfParkbanTimes.add(parkbanTimeTableView);
         }
@@ -112,4 +125,12 @@ public class ParkBanServiceImpl implements ParkBanService {
                 .findFirst()
                 .orElse(null);
     }
+
+
+    /* Parkban Section*/
+    public List<ParkbanDto> findAllParkbans(ParkbanFilter filter){
+        BaseService.setEntityGraph(parkbanDAO, filter, "findAll");
+        return ObjectMapper.map(parkbanDAO.findAll(filter.getCriteriaExpression()),ParkbanDto.class);
+    }
+
 }

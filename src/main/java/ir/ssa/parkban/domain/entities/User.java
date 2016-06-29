@@ -16,7 +16,7 @@ import java.util.Set;
 public class User extends DomainEntity {
 
     @Size(max = 10)
-    @Column(name = "nationalId")
+    @Column(name = "national_id")
     private String nationalId;
 
     @Size(max = 30)

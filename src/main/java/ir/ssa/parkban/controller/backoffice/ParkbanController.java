@@ -1,7 +1,9 @@
 package ir.ssa.parkban.controller.backoffice;
 
+import ir.ssa.parkban.domain.filters.ParkbanFilter;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
 import ir.ssa.parkban.service.bean.ParkBanService;
+import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
 import ir.ssa.parkban.service.dto.view.ParkbanTimeTableViewDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,12 @@ public class ParkbanController {
     @RequestMapping(value = "/insertParkbanTimeTable", method = RequestMethod.POST)
     public ParkbanTimeTableDto insertParkbanTimeTable(@RequestBody ParkbanTimeTableDto parkbanTimeTableDto){
         return parkBanService.insertParkbanTimeTable(parkbanTimeTableDto);
+    }
+
+    @RequestMapping(value = "/getParkbans", method = RequestMethod.POST)
+    public List<ParkbanDto> getParkbans(@RequestBody ParkbanFilter parkbanFilter){
+        parkbanFilter.addGraphPath("user");
+        return parkBanService.findAllParkbans(parkbanFilter);
     }
 
 }
