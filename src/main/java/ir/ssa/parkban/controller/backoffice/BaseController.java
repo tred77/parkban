@@ -181,9 +181,22 @@ public class BaseController {
         return baseInformationService.insertVehicleOwner(vehicleOwnerDto);
     }
 
+    @RequestMapping(value = "/deleteVehicleOwner/{id}",method = RequestMethod.DELETE)
+    public void deleteVehicleOwner(@PathVariable("id") Long id){
+        baseInformationService.deleteVehicleOwner(id);
+    }
 
 
+    @RequestMapping(value = "/findAllVehicle",method = RequestMethod.POST)
+    public List<VehicleDto> findAllVehicle(@RequestBody VehicleFilter filter){
+        filter.addGraphPath("vehicleOwner");
+        return baseInformationService.findAllVehicle(filter);
+    }
 
+    @RequestMapping(value = "/assignVehicles",method = RequestMethod.POST)
+    public void assignVehicles(@RequestBody List<VehicleDto> vehicles,@RequestBody Long ownerId){
+        baseInformationService.assignVehicles(vehicles,ownerId);
+    }
 
 
 }

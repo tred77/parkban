@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
@@ -303,9 +304,10 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     @Override
-    public void deleteVehicleOwner(VehicleOwnerDto vehicleOwnerDto) {
-        VehicleOwner vehicleOwner = ObjectMapper.map(vehicleOwnerDto,VehicleOwner.class);
-        vehicleOwnerDAO.delete(vehicleOwner);
+    public void deleteVehicleOwner(Long id) {
+        VehicleOwner vehicleOwner = vehicleOwnerDAO.findOne(id);
+        if(vehicleOwner!=null)
+            vehicleOwnerDAO.delete(vehicleOwner);
     }
 
     @Override
@@ -317,6 +319,26 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     @Override
     public VehicleOwnerDto findVehicleOwnerById(long id) {
         return ObjectMapper.map(parkbanDAO.findOne(id),VehicleOwnerDto.class);
+    }
+
+    @Override
+    public void assignVehicles(List<VehicleDto> vehicles,Long ownerId) {
+        if(ownerId!=null) {
+            List<Vehicle> origin = vehicleDAO.findByVehicleOwnerId(ownerId);
+            vehicleDAO.delete(origin);
+            if(vehicles!=null && vehicles.size()>0){
+                List<Vehicle> list = ObjectMapper.map(vehicles,Vehicle.class);
+                VehicleOwner owner = vehicleOwnerDAO.findOne(ownerId);
+                Arrays.stream(list.toArray()).forEach(item->{
+                    ((Vehicle)item).setVehicleOwner(owner);
+                    vehicleDAO.save(((Vehicle)item));
+                });
+            }
+        }
+
+
+
+
     }
 
     /** Vehicle */
@@ -343,6 +365,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
 
     @Override
     public List<VehicleDto> findAllVehicle(VehicleFilter filter) {
+        BaseService.setEntityGraph(vehicleDAO, filter, "findAll");
         return ObjectMapper.map(vehicleDAO.findAll(filter.getCriteriaExpression()),VehicleDto.class);
     }
 

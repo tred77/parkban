@@ -128,11 +128,13 @@ public interface BaseInformationService extends BaseService {
     void updateVehicleOwner(VehicleOwnerDto vehicleOwnerDto);
 
     @Transactional
-    void deleteVehicleOwner(VehicleOwnerDto vehicleOwnerDto);
+    void deleteVehicleOwner(Long Id);
 
     List<VehicleOwnerDto> findAllVehicleOwner(VehicleOwnerFilter filter);
 
     VehicleOwnerDto findVehicleOwnerById(long id);
+
+    void assignVehicles(List<VehicleDto> vehicles,Long ownerId);
 
     /** Vehicle */
 
