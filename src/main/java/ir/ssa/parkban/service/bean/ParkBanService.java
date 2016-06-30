@@ -23,7 +23,7 @@ public interface ParkBanService extends BaseService {
     void updateParkbanTimeTable(ParkbanTimeTableDto parkbanTimeTableDto);
 
     @Transactional
-    void deleteParkbanTimeTable(ParkbanTimeTableDto parkbanTimeTableDto);
+    void deleteParkbanTimeTable(Long id);
 
     List<ParkbanTimeTableViewDto> findAllParkbanTimeTables(ParkbanTimeTableFilter filter);
 

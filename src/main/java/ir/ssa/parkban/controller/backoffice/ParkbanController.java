@@ -7,10 +7,7 @@ import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
 import ir.ssa.parkban.service.dto.view.ParkbanTimeTableViewDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +31,11 @@ public class ParkbanController {
     @RequestMapping(value = "/insertParkbanTimeTable", method = RequestMethod.POST)
     public ParkbanTimeTableDto insertParkbanTimeTable(@RequestBody ParkbanTimeTableDto parkbanTimeTableDto){
         return parkBanService.insertParkbanTimeTable(parkbanTimeTableDto);
+    }
+
+    @RequestMapping(value = "/deleteTimeTableEntry",method = RequestMethod.DELETE)
+    public void deleteParkBanTimeTable(ParkbanTimeTableDto parkbanTimeTableDto){
+        parkBanService.deleteParkbanTimeTable(parkbanTimeTableDto.getId());
     }
 
     @RequestMapping(value = "/getParkbans", method = RequestMethod.POST)

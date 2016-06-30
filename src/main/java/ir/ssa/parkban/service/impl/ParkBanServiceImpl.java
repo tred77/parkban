@@ -58,9 +58,8 @@ public class ParkBanServiceImpl implements ParkBanService {
     }
 
     @Override
-    public void deleteParkbanTimeTable(ParkbanTimeTableDto parkbanTimeTableDto) {
-        ParkbanTimeTable parkbanTimeTable = ObjectMapper.map(parkbanTimeTableDto,ParkbanTimeTable.class);
-        parkbanTimeTableDAO.delete(parkbanTimeTable);
+    public void deleteParkbanTimeTable(Long id) {
+        parkbanTimeTableDAO.delete(id);
     }
 
     @Override
