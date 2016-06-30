@@ -34,6 +34,8 @@ public interface BaseInformationService extends BaseService {
     @Transactional
     void deleteRole(Long id);
 
+    void assignUserRoles(Long userId,List<Long> roleIds);
+
     List<RoleDto> findAllRoles(RoleFilter filter);
 
     RoleDto findRoleById(Long id);

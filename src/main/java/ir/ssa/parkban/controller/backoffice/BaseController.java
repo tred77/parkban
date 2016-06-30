@@ -78,6 +78,12 @@ public class BaseController extends ControllerBaseClass {
        return baseInformationService.findAllUser(userFilter);
     }
 
+    @RequestMapping(value = "/findAllUserAndRoles", method = RequestMethod.POST)
+    public List<UserDto> findAllUserAndRoles(@RequestBody UserFilter userFilter){
+        userFilter.addGraphPath("roles");
+        return baseInformationService.findAllUser(userFilter);
+    }
+
     @RequestMapping(value = "/insertRole",method = RequestMethod.POST)
     public RoleDto insertRole(@RequestBody RoleDto roleDto){
         return baseInformationService.insertRole(roleDto);
@@ -98,18 +104,9 @@ public class BaseController extends ControllerBaseClass {
         return baseInformationService.findAllRoles(filter);
     }
 
-    @RequestMapping(value = "/assignRole/{userId}/{roleId}",method = RequestMethod.GET)
-    public void assignRole(@PathVariable("userId") Long userId,@PathVariable("roleId") Long roleId){
-        if(userId!=null && roleId!=null){
-            UserDto userDto = baseInformationService.findUserById(userId);
-            RoleDto roleDto = baseInformationService.findRoleById(roleId);
-
-            if(userDto != null && roleDto!=null){
-                userDto.setRoles(new ArrayList<>());
-                userDto.getRoles().add(roleDto);
-                baseInformationService.updateUser(userDto);
-            }
-        }
+    @RequestMapping(value = "/assignUserRoles/{userId}/{roleIds}",method = RequestMethod.GET)
+    public void assignUserRoles(@PathVariable("userId") Long userId,@PathVariable("roleIds") List<Long> roleIds){
+        baseInformationService.assignUserRoles(userId, roleIds);
     }
 
     @RequestMapping(value = "/findAllPermissions",method = RequestMethod.POST)
@@ -156,7 +153,6 @@ public class BaseController extends ControllerBaseClass {
 
     @RequestMapping(value = "/findAllVehicleOwner",method = RequestMethod.POST)
     public List<VehicleOwnerDto> findAllVehicleOwner(@RequestBody VehicleOwnerFilter filter){
-        filter.addGraphPath("vehicles");
         filter.addGraphPath("user");
         return baseInformationService.findAllVehicleOwner(filter);
     }

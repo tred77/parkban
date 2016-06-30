@@ -1,6 +1,5 @@
 package ir.ssa.parkban.domain.filters;
 
-import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.QUser;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
@@ -11,15 +10,31 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
  */
 public class UserFilter extends BaseFilter {
 
+    private StringFilter nationalId;
+
     private StringFilter firstName;
 
     private StringFilter lastName;
 
     private StringFilter username;
 
-    private StringFilter password;
+    private RoleFilter roles;
 
-    private RoleFilter role;
+    public StringFilter getNationalId() {
+        return nationalId;
+    }
+
+    public void setNationalId(StringFilter nationalId) {
+        this.nationalId = nationalId;
+    }
+
+    public RoleFilter getRoles() {
+        return roles;
+    }
+
+    public void setRoles(RoleFilter roles) {
+        this.roles = roles;
+    }
 
     public StringFilter getFirstName() {
         return firstName;
@@ -43,14 +58,6 @@ public class UserFilter extends BaseFilter {
 
     public void setUsername(StringFilter username) {
         this.username = username;
-    }
-
-    public StringFilter getPassword() {
-        return password;
-    }
-
-    public void setPassword(StringFilter password) {
-        this.password = password;
     }
 
     @Override
