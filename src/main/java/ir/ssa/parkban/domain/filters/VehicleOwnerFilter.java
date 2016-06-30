@@ -13,6 +13,8 @@ public class VehicleOwnerFilter extends BaseFilter{
 
     private UserFilter nationalId;
 
+    private VehicleFilter vehicles;
+
     public UserFilter getNationalId() {
         return nationalId;
     }
@@ -27,6 +29,14 @@ public class VehicleOwnerFilter extends BaseFilter{
 
     public void setUser(UserFilter user) {
         this.user = user;
+    }
+
+    public VehicleFilter getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(VehicleFilter vehicles) {
+        this.vehicles = vehicles;
     }
 
     @Override

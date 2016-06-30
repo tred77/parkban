@@ -20,7 +20,7 @@ public class Vehicle extends DomainEntity {
     private String plakNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OWNER_ID")
+    @JoinColumn(name = "OWNER_ID",nullable = false)
     private VehicleOwner vehicleOwner;
 
     public VehicleOwner getVehicleOwner() {
