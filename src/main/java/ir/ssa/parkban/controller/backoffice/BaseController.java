@@ -133,24 +133,7 @@ public class BaseController {
 
     @RequestMapping(value = "/findAllCities")
     public List<CityDto> findAllCities(){
-
-
-        CityFilter cityFilter = new CityFilter();
-        //cityFilter.addGraphPath("regions");
-        RegionFilter regionFilter = new RegionFilter();
-        NumberFilter numberFilter = new NumberFilter();
-        numberFilter.setElementOp(NumberFilterOperation.EQUAL.getValue());
-        numberFilter.setValues(new Number[]{1});
-
-        StringFilter stringFilter = new StringFilter();
-        stringFilter.setElementOp(StringFilterOperation.LIKE.getValue());
-        stringFilter.setValues(new String[]{"من"});
-
-
-        regionFilter.setName(stringFilter);
-        cityFilter.setRegions(regionFilter);
-        List<CityDto> cityDtoList = baseInformationService.findAllCity(cityFilter);
-        return cityDtoList;
+        return baseInformationService.findAllCity(new CityFilter());
     }
 
     @RequestMapping(value = "/insertCity",method = RequestMethod.POST)
