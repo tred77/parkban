@@ -1,6 +1,7 @@
 package ir.ssa.parkban.service.impl;
 
 import com.google.common.collect.Lists;
+import ir.ssa.parkban.domain.entities.Parkban;
 import ir.ssa.parkban.domain.entities.ParkbanTimeTable;
 import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.filters.ParkbanFilter;
@@ -132,4 +133,18 @@ public class ParkBanServiceImpl implements ParkBanService {
         return ObjectMapper.map(parkbanDAO.findAll(filter.getCriteriaExpression()),ParkbanDto.class);
     }
 
+    @Override
+    public void insertParkban(ParkbanDto parkbanDto) {
+        parkbanDAO.save(ObjectMapper.map(parkbanDto,Parkban.class));
+    }
+
+    @Override
+    public void updateParkban(ParkbanDto parkbanDto) {
+        parkbanDAO.save(ObjectMapper.map(parkbanDto,Parkban.class));
+    }
+
+    @Override
+    public void deleteParkban(Long id) {
+        parkbanDAO.delete(id);
+    }
 }

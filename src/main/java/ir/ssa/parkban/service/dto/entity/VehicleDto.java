@@ -1,5 +1,7 @@
 package ir.ssa.parkban.service.dto.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 /**
  * Created by Behrouz-ZD on 5/20/2016.
  */

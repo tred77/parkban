@@ -14,7 +14,7 @@ public class VehicleOwner extends DomainEntity {
     @JoinColumn(name="USER_ID")
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private Set<Vehicle> vehicles;
 
     public User getUser() {

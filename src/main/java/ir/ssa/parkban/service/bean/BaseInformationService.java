@@ -122,7 +122,7 @@ public interface BaseInformationService extends BaseService {
     /** VehicleOwner */
 
     @Transactional
-    VehicleOwnerDto insertVehicleOwner(VehicleOwnerDto vehicleOwnerDto);
+    void insertVehicleOwner(VehicleOwnerDto vehicleOwnerDto);
 
     @Transactional
     void updateVehicleOwner(VehicleOwnerDto vehicleOwnerDto);
@@ -134,6 +134,7 @@ public interface BaseInformationService extends BaseService {
 
     VehicleOwnerDto findVehicleOwnerById(long id);
 
+    @Transactional
     void assignVehicles(List<VehicleDto> vehicles,Long ownerId);
 
     /** Vehicle */

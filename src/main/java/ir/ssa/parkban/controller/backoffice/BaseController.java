@@ -9,6 +9,7 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -133,24 +134,7 @@ public class BaseController {
 
     @RequestMapping(value = "/findAllCities")
     public List<CityDto> findAllCities(){
-
-
-        CityFilter cityFilter = new CityFilter();
-        //cityFilter.addGraphPath("regions");
-        RegionFilter regionFilter = new RegionFilter();
-        NumberFilter numberFilter = new NumberFilter();
-        numberFilter.setElementOp(NumberFilterOperation.EQUAL.getValue());
-        numberFilter.setValues(new Number[]{1});
-
-        StringFilter stringFilter = new StringFilter();
-        stringFilter.setElementOp(StringFilterOperation.LIKE.getValue());
-        stringFilter.setValues(new String[]{"من"});
-
-
-        regionFilter.setName(stringFilter);
-        cityFilter.setRegions(regionFilter);
-        List<CityDto> cityDtoList = baseInformationService.findAllCity(cityFilter);
-        return cityDtoList;
+        return baseInformationService.findAllCity(new CityFilter());
     }
 
     @RequestMapping(value = "/insertCity",method = RequestMethod.POST)
@@ -171,14 +155,14 @@ public class BaseController {
 
     @RequestMapping(value = "/findAllVehicleOwner",method = RequestMethod.POST)
     public List<VehicleOwnerDto> findAllVehicleOwner(@RequestBody VehicleOwnerFilter filter){
-        filter.addGraphPath("user");
         filter.addGraphPath("vehicles");
+        filter.addGraphPath("user");
         return baseInformationService.findAllVehicleOwner(filter);
     }
 
     @RequestMapping(value = "/insertVehicleOwner",method = RequestMethod.POST)
-    public VehicleOwnerDto insertVehicleOwner(@RequestBody VehicleOwnerDto vehicleOwnerDto){
-        return baseInformationService.insertVehicleOwner(vehicleOwnerDto);
+    public void insertVehicleOwner(@RequestBody VehicleOwnerDto vehicleOwnerDto){
+         baseInformationService.insertVehicleOwner(vehicleOwnerDto);
     }
 
     @RequestMapping(value = "/deleteVehicleOwner/{id}",method = RequestMethod.DELETE)
@@ -194,8 +178,8 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/assignVehicles",method = RequestMethod.POST)
-    public void assignVehicles(@RequestBody List<VehicleDto> vehicles,@RequestBody Long ownerId){
-        baseInformationService.assignVehicles(vehicles,ownerId);
+    public void assignVehicles(@RequestBody AssignVehiclesRequest request){
+        baseInformationService.assignVehicles(request.getVehicles(),request.getOwnerId());
     }
 
 

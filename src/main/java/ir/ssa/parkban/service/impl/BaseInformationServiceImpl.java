@@ -291,10 +291,16 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     /** VehicleOwner */
 
     @Override
-    public VehicleOwnerDto insertVehicleOwner(VehicleOwnerDto vehicleOwnerDto) {
+    public void insertVehicleOwner(VehicleOwnerDto vehicleOwnerDto) {
         VehicleOwner vehicleOwner = ObjectMapper.map(vehicleOwnerDto,VehicleOwner.class);
+
+        if(vehicleOwner!=null && vehicleOwner.getVehicles()!=null){
+            Arrays.stream(vehicleOwner.getVehicles().toArray()).forEach(item->
+            {
+                ((Vehicle)item).setVehicleOwner(vehicleOwner);
+            });
+        }
         vehicleOwnerDAO.save(vehicleOwner);
-        return ObjectMapper.map(vehicleOwner,VehicleOwnerDto.class);
     }
 
     @Override
@@ -313,7 +319,18 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     @Override
     public List<VehicleOwnerDto> findAllVehicleOwner(VehicleOwnerFilter filter) {
         BaseService.setEntityGraph(vehicleOwnerDAO, filter, "findAll");
-        return ObjectMapper.map(vehicleOwnerDAO.findAll(filter.getCriteriaExpression()),VehicleOwnerDto.class);
+        List<VehicleOwnerDto>  lst = ObjectMapper.map(vehicleOwnerDAO.findAll(filter.getCriteriaExpression()),VehicleOwnerDto.class);
+        if(lst!=null)
+        {
+            Arrays.stream(lst.toArray()).forEach(item->{
+                if(((VehicleOwnerDto)item).getVehicles()!=null){
+                    Arrays.stream(((VehicleOwnerDto)item).getVehicles().toArray()).forEach(subItem->{
+                        ((VehicleDto)subItem).setVehicleOwner(null);
+                    });
+                }
+            });
+        }
+        return lst;
     }
 
     @Override
@@ -326,19 +343,15 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         if(ownerId!=null) {
             List<Vehicle> origin = vehicleDAO.findByVehicleOwnerId(ownerId);
             vehicleDAO.delete(origin);
-            if(vehicles!=null && vehicles.size()>0){
+            /*if(vehicles!=null && vehicles.size()>0){
                 List<Vehicle> list = ObjectMapper.map(vehicles,Vehicle.class);
                 VehicleOwner owner = vehicleOwnerDAO.findOne(ownerId);
                 Arrays.stream(list.toArray()).forEach(item->{
                     ((Vehicle)item).setVehicleOwner(owner);
                     vehicleDAO.save(((Vehicle)item));
                 });
-            }
+            }*/
         }
-
-
-
-
     }
 
     /** Vehicle */

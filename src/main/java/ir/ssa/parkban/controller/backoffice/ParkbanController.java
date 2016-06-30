@@ -44,4 +44,19 @@ public class ParkbanController {
         return parkBanService.findAllParkbans(parkbanFilter);
     }
 
+    @RequestMapping(value = "/insertParkban", method = RequestMethod.POST)
+    public void insertParkban(@RequestBody ParkbanDto parkbanDto){
+        parkBanService.insertParkban(parkbanDto);
+    }
+
+    @RequestMapping(value = "/updateParkban", method = RequestMethod.POST)
+    public void updateParkban(@RequestBody ParkbanDto parkbanDto){
+        parkBanService.updateParkban(parkbanDto);
+    }
+
+    @RequestMapping(value = "/deleteParkban/{id}",method = RequestMethod.DELETE)
+    public void deleteParkban(@PathVariable("id") Long id){
+        parkBanService.deleteParkban(id);
+    }
+
 }
