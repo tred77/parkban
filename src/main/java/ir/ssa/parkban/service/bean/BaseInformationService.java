@@ -134,6 +134,7 @@ public interface BaseInformationService extends BaseService {
 
     VehicleOwnerDto findVehicleOwnerById(long id);
 
+    @Transactional
     void assignVehicles(List<VehicleDto> vehicles,Long ownerId);
 
     /** Vehicle */

@@ -343,19 +343,15 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         if(ownerId!=null) {
             List<Vehicle> origin = vehicleDAO.findByVehicleOwnerId(ownerId);
             vehicleDAO.delete(origin);
-            if(vehicles!=null && vehicles.size()>0){
+            /*if(vehicles!=null && vehicles.size()>0){
                 List<Vehicle> list = ObjectMapper.map(vehicles,Vehicle.class);
                 VehicleOwner owner = vehicleOwnerDAO.findOne(ownerId);
                 Arrays.stream(list.toArray()).forEach(item->{
                     ((Vehicle)item).setVehicleOwner(owner);
                     vehicleDAO.save(((Vehicle)item));
                 });
-            }
+            }*/
         }
-
-
-
-
     }
 
     /** Vehicle */

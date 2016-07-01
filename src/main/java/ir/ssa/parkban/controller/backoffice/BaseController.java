@@ -9,6 +9,7 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -177,8 +178,8 @@ public class BaseController {
     }
 
     @RequestMapping(value = "/assignVehicles",method = RequestMethod.POST)
-    public void assignVehicles(@RequestBody List<VehicleDto> vehicles,@RequestBody Long ownerId){
-        baseInformationService.assignVehicles(vehicles,ownerId);
+    public void assignVehicles(@RequestBody AssignVehiclesRequest request){
+        baseInformationService.assignVehicles(request.getVehicles(),request.getOwnerId());
     }
 
 

@@ -31,4 +31,10 @@ public interface ParkBanService extends BaseService {
     /* ParkBan Section*/
     List<ParkbanDto> findAllParkbans(ParkbanFilter filter);
 
+    void insertParkban(ParkbanDto parkbanDto);
+
+    void updateParkban(ParkbanDto parkbanDto);
+
+    void deleteParkban(Long id);
+
 }

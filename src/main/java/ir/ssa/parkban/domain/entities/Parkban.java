@@ -10,7 +10,7 @@ import javax.persistence.*;
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "PARKBAN_SEQ")
 public class Parkban extends DomainEntity {
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="USER_ID")
     private User user;
 
