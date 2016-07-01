@@ -38,8 +38,32 @@ public class DateConverter {
         }
     }
 
+    public static Date getMiladiDateEndOfDay(Date miladiDate){
+        try {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(miladiDate);
+            cal.set(Calendar.HOUR,23);
+            cal.set(Calendar.MINUTE,59);
+            cal.set(Calendar.SECOND,59);
+            return cal.getTime();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public static LocalDate convertDateToLocalDate(Date date){
         return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
+
+    public static String convertMiladiToShamsiWithoutTime(Date miladiDate){
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(miladiDate);
+            ShamsyDate shamsyDate = DateTimeHelper.MiladyToShamsy(calendar);
+            return shamsyDate.toString();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }
