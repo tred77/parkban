@@ -10,10 +10,7 @@ import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author hym
@@ -88,6 +85,25 @@ public class BaseInformationServiceImpl implements BaseInformationService {
 
     public void deleteRole(Long id) {
         roleDAO.delete(id);
+    }
+
+    @Override
+    public void assignUserRoles(Long userId, List<Long> roleIds) {
+        if(userId!=null){
+            User user = userDAO.findOne(userId);
+            if(user!=null){
+                user.setRoles(null);
+                user = userDAO.save(user);
+                if(roleIds!=null && roleIds.size()>0) {
+                    Iterable<Role> roles = roleDAO.findAll(roleIds);
+                    Set<Role> roleSet = new HashSet<>();
+                    roles.forEach(role -> roleSet.add(role));
+                    user.setRoles(roleSet);
+                    userDAO.save(user);
+                }
+            }
+
+        }
     }
 
     public List<RoleDto> findAllRoles(RoleFilter roleFilter){
@@ -343,14 +359,14 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         if(ownerId!=null) {
             List<Vehicle> origin = vehicleDAO.findByVehicleOwnerId(ownerId);
             vehicleDAO.delete(origin);
-            /*if(vehicles!=null && vehicles.size()>0){
+            if(vehicles!=null && vehicles.size()>0){
                 List<Vehicle> list = ObjectMapper.map(vehicles,Vehicle.class);
                 VehicleOwner owner = vehicleOwnerDAO.findOne(ownerId);
                 Arrays.stream(list.toArray()).forEach(item->{
                     ((Vehicle)item).setVehicleOwner(owner);
                     vehicleDAO.save(((Vehicle)item));
                 });
-            }*/
+            }
         }
     }
 
