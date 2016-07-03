@@ -15,7 +15,6 @@ import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.ParkBanService;
 import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
-import ir.ssa.parkban.service.dto.entity.PermissionDto;
 import ir.ssa.parkban.service.dto.view.ParkbanTimeTableViewDto;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilterOperation;
@@ -65,7 +64,6 @@ public class ParkBanServiceImpl implements ParkBanService {
 
     @Override
     public List<ParkbanTimeTableViewDto> findAllParkbanTimeTables(ParkbanTimeTableFilter filter) {
-
         /* 1) finding involved week days */
         Date sourceDate = new Date();
         Date previousSaturday;
