@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+       <aop:config>
+              <aop:advisor id="connectionAop" advice-ref="connectionInterceptor" pointcut="execution(java.sql.Connection javax.sql.DataSource.getConnection(..))" order="20" />
+       </aop:config>
+
+       <bean id="connectionInterceptor"
+             class="org.springframework.data.jdbc.aop.ConnectionInterceptor">
+              <property name="connectionPreparer" ref="connectionPreparer"/>
+       </bean>
+
+       <bean id="connectionPreparer"
+             class="ir.ssa.parkban.vertical.configuration.JDBC.datasource.oracle.ClientInformationConnectionPreparer"/>
+
+</beans>

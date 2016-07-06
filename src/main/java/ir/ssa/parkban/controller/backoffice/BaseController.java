@@ -2,6 +2,7 @@ package ir.ssa.parkban.controller.backoffice;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonRawValue;
+import ir.ssa.parkban.controller.ControllerBaseClass;
 import ir.ssa.parkban.service.dto.entity.*;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
@@ -19,7 +20,7 @@ import java.util.List;
  * Created by hadoop on 3/27/16.
  */
 @RestController
-public class BaseController {
+public class BaseController extends ControllerBaseClass {
     @Autowired
     ParkTimeService parkTimeService;
 

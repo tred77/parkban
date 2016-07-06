@@ -1,5 +1,6 @@
 package ir.ssa.parkban.controller.backoffice;
 
+import ir.ssa.parkban.controller.ControllerBaseClass;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
 import ir.ssa.parkban.service.bean.FiscalService;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 
 @RestController
-public class FiscalController {
+public class FiscalController extends ControllerBaseClass {
 
     @Autowired
     ParkTimeService parkTimeService;

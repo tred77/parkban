@@ -30,26 +30,26 @@ public class DateFilter implements Filter {
         return values;
     }
 
-    public void setValues(String[] shamsiDates) {
-        List<Date> dates = new ArrayList<>();
-        Arrays.stream(shamsiDates)
-                .forEach( el -> dates.add(DateConverter.convertShamsiToMiladiBeginningOfDay(el)));
-
+    public void setValues(Date[] dates) {
+        this.values = dates;
+        List<Date> lDate = Arrays.asList(dates);
         switch (this.elementOp){
             case ONE_DAY:
-                if(dates.size() == 1){
-                    dates.add(DateConverter.convertShamsiToMiladiEndOfDay(shamsiDates[0]));
+                if(lDate.size() == 1){
+                    lDate.add(DateConverter.getMiladiDateEndOfDay(dates[0]));
                 }
                 break;
             case ONE_WEEK:
-                Date previousSaturday = CalendarUtils.getPreviousSaturdayAtZeroClock(dates.get(0));
-                Date nextSaturday = CalendarUtils.getNextSaturdayAtZeroClock(dates.get(0));
-                dates.clear();
-                dates.add(previousSaturday);
-                dates.add(nextSaturday);
+                Date previousSaturday = CalendarUtils.getPreviousSaturdayAtZeroClock(lDate.get(0));
+                Date nextSaturday = CalendarUtils.getNextSaturdayAtZeroClock(lDate.get(0));
+                //lDate.clear();
+                List<Date> temp = new ArrayList<>();
+                temp.add(previousSaturday);
+                temp.add(nextSaturday);
+                lDate = temp;
                 break;
         }
-        this.values = dates.toArray(new Date[dates.size()]);
+        this.values = lDate.toArray(new Date[lDate.size()]);
     }
 
     public void setMiladiValues(Date[] miladiValues){
