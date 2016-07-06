@@ -3,6 +3,7 @@ package ir.ssa.parkban.domain.filters;
 import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.QUser;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
 /**
@@ -10,7 +11,7 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
  */
 public class UserFilter extends BaseFilter {
 
-    private StringFilter nationalId;
+    private NumberFilter nationalId;
 
     private StringFilter firstName;
 
@@ -20,11 +21,11 @@ public class UserFilter extends BaseFilter {
 
     private RoleFilter roles;
 
-    public StringFilter getNationalId() {
+    public NumberFilter getNationalId() {
         return nationalId;
     }
 
-    public void setNationalId(StringFilter nationalId) {
+    public void setNationalId(NumberFilter nationalId) {
         this.nationalId = nationalId;
     }
 

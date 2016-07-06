@@ -6,8 +6,6 @@ import org.springframework.data.querydsl.QueryDslPredicateExecutor;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 /**
  * Created by Behrouz-ZD on 5/13/2016.
  */
@@ -17,4 +15,11 @@ public interface UserDAO  extends PagingAndSortingRepository<User, Long>, JpaSpe
 
     /*@EntityGraph("user.all")
     List<User> findAll();*/
+
+    User findByNationalId(Long nationalId);
+
+    User findByUsername(String username);
+
+    User findByUsernameAndNationalId(String username,Long nationalId);
+
 }

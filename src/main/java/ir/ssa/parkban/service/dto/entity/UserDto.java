@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class UserDto extends DomainEntityDto{
 
-    private String nationalId;
+    private Long nationalId;
     private String firstName;
     private String lastName;
     private String username;
@@ -63,11 +63,11 @@ public class UserDto extends DomainEntityDto{
         this.roles = roles;
     }
 
-    public String getNationalId() {
+    public Long getNationalId() {
         return nationalId;
     }
 
-    public void setNationalId(String nationalId) {
+    public void setNationalId(Long nationalId) {
         this.nationalId = nationalId;
     }
 }

@@ -7,8 +7,11 @@ import ir.ssa.parkban.repository.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
+import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.AutoPopulatingList;
+import org.springframework.util.StringUtils;
 
 import java.util.*;
 
@@ -50,8 +53,11 @@ public class BaseInformationServiceImpl implements BaseInformationService {
 
     public UserDto insertUser(UserDto userDto) {
         User user = ObjectMapper.map(userDto, User.class);
-        user= userDAO.save(user);
-        return ObjectMapper.map(user,UserDto.class);
+        if(user== null || user.getNationalId()==null || user.getUsername()==null)
+            return null;
+        if(userDAO.findByUsernameAndNationalId(user.getUsername(),user.getNationalId())!=null )
+            return null;
+        return ObjectMapper.map(userDAO.save(user),UserDto.class);
     }
 
     public void updateUser(UserDto userDto) {
@@ -122,6 +128,43 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     @Override
+    public List<PermissionDto> findSelectedRolePermissions(RoleFilter filter) {
+        BaseService.setEntityGraph(roleDAO, filter, "findAll");
+        Iterable<Role> roles = roleDAO.findAll(filter.getCriteriaExpression());
+        if(roles!=null && roles.iterator().hasNext()){
+            return ObjectMapper.map(roles.iterator().next().getPermissions(),PermissionDto.class);
+        }
+        return null;
+    }
+
+    @Override
+    public List<PermissionDto> findUnselectedRolePermissions(RoleFilter filter) {
+        BaseService.setEntityGraph(roleDAO, filter, "findAll");
+        Iterable<Role> selectedRoles = roleDAO.findAll(filter.getCriteriaExpression());
+        Iterable<Permission> allPermissions = permissionDAO.findAll();
+        List<Permission> unselected = new ArrayList<>();
+
+        if(selectedRoles!=null && selectedRoles.iterator().hasNext()
+                && selectedRoles.iterator().next().getPermissions()!=null
+                && selectedRoles.iterator().next().getPermissions().size()>0){
+
+            Set<Permission> permissions = selectedRoles.iterator().next().getPermissions();
+
+            allPermissions.forEach(item->{
+                if(Arrays.stream(permissions.toArray()).filter(f->((Permission)f).getId().equals(item.getId()))
+                        .findFirst().orElse(null)==null){
+                    unselected.add(item);
+                }
+            });
+
+        }else{
+            unselected.addAll(IteratorUtils.toList(allPermissions.iterator()));
+        }
+
+        return ObjectMapper.map(unselected,PermissionDto.class);
+    }
+
+    @Override
     public PermissionDto findPermissionById(Long id) {
         return ObjectMapper.map(permissionDAO.findOne(id),PermissionDto.class);
     }
@@ -140,6 +183,39 @@ public class BaseInformationServiceImpl implements BaseInformationService {
             }
             roleDAO.save(role);
         }
+    }
+
+    @Override
+    public boolean nationalIdIsUsed(Long nationalId) {
+        User user = userDAO.findByNationalId(nationalId);
+        if(user!=null)
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean usernameIsUsed(String username) {
+        User user = userDAO.findByUsername(username);
+        if(user!=null)
+            return true;
+        return false;
+    }
+
+    @Override
+    public String usernameAndNationalIdIsUsed(String username, Long nationalId) {
+        String usage="";
+        User user = userDAO.findByUsername(username);
+        if(user!=null)
+            usage="username";
+        user = userDAO.findByNationalId(nationalId);
+        if(user!=null){
+            if(!StringUtils.isEmpty(usage))
+                usage=usage+"AndNationalId";
+            else
+                usage = "nationalId";
+        }
+
+        return usage;
     }
 
     /** City Section */

@@ -1,4 +1,6 @@
-package ir.ssa.parkban.service.dto.entity;
+package ir.ssa.parkban.service.dto.request;
+
+import ir.ssa.parkban.service.dto.entity.VehicleDto;
 
 import java.util.List;
 

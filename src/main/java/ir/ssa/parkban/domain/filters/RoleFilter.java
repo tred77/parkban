@@ -3,6 +3,7 @@ package ir.ssa.parkban.domain.filters;
 import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.QRole;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
 /**
@@ -10,6 +11,7 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
  */
 public class RoleFilter extends BaseFilter{
 
+    private NumberFilter id;
     private StringFilter name;
 
     public StringFilter getName() {
@@ -18,6 +20,16 @@ public class RoleFilter extends BaseFilter{
 
     public void setName(StringFilter name) {
         this.name = name;
+    }
+
+    @Override
+    public NumberFilter getId() {
+        return id;
+    }
+
+    @Override
+    public void setId(NumberFilter id) {
+        this.id = id;
     }
 
     @Override

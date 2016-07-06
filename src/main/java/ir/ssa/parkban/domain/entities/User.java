@@ -1,6 +1,7 @@
 package ir.ssa.parkban.domain.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
@@ -15,27 +16,27 @@ import java.util.Set;
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "USER_SEQ")
 public class User extends DomainEntity {
 
-    @Size(max = 10)
-    @Column(name = "national_id")
-    private String nationalId;
+    @Min(1000000000)
+    @Column(name = "national_id",nullable = false)
+    private Long nationalId;
 
     @Size(max = 30)
-    @Column(name = "first_name")
+    @Column(name = "first_name",nullable = false)
     private String firstName;
 
     @Size(max = 30)
-    @Column(name = "last_name")
+    @Column(name = "last_name",nullable = false)
     private String lastName;
 
     @Size(max = 30)
-    @Column(name = "username")
+    @Column(name = "username",nullable = false)
     private String username;
 
     @Size(max = 30)
-    @Column(name = "password")
+    @Column(name = "password",nullable = false)
     private String password;
 
-    @Column(name = "active")
+    @Column(name = "active",nullable = false)
     private boolean active;
 
     @ManyToMany(cascade = {CascadeType.ALL})
@@ -86,11 +87,11 @@ public class User extends DomainEntity {
         return roles;
     }
 
-    public String getNationalId() {
+    public Long getNationalId() {
         return nationalId;
     }
 
-    public void setNationalId(String nationalId) {
+    public void setNationalId(Long nationalId) {
         this.nationalId = nationalId;
     }
 
