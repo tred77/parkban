@@ -19,7 +19,7 @@ public class OracleDataSourceConfiguration {
         OracleDataSource dataSource = new OracleDataSource();
         dataSource.setUser("PARKBAN");
         dataSource.setPassword("parkban");
-        dataSource.setURL("jdbc:oracle:thin:@192.168.86.128:1521:teller");
+        dataSource.setURL("jdbc:oracle:thin:@198.143.180.4:1521:XE");
         dataSource.setImplicitCachingEnabled(true);
         dataSource.setFastConnectionFailoverEnabled(true);
         return dataSource;
