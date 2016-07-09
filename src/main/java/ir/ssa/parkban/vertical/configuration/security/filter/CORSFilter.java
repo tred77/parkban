@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.configuration.filter;
+package ir.ssa.parkban.vertical.configuration.security.filter;
 
 import org.springframework.stereotype.Component;
 

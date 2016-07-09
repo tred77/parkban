@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.configuration.JPA;
+package ir.ssa.parkban.vertical.configuration.data.JPA;
 
 import org.springframework.context.annotation.Configuration;
 

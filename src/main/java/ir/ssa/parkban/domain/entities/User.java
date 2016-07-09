@@ -1,8 +1,12 @@
 package ir.ssa.parkban.domain.entities;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -14,7 +18,7 @@ import java.util.Set;
         @NamedEntityGraph(name = "user.all", attributeNodes = { @NamedAttributeNode("roles") }),
         @NamedEntityGraph(name = "user.detail", attributeNodes = { @NamedAttributeNode("roles") }) })
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "USER_SEQ")
-public class User extends DomainEntity {
+public class User extends DomainEntity implements UserDetails {
 
     @Min(1000000000)
     @Column(name = "national_id",nullable = false)
@@ -47,8 +51,33 @@ public class User extends DomainEntity {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
     public String getPassword() {
