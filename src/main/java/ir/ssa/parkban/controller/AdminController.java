@@ -1,6 +1,7 @@
 package ir.ssa.parkban.controller;
 
 import ir.ssa.parkban.service.dto.entity.TokenDto;
+import ir.ssa.parkban.service.dto.entity.UserDto;
 import ir.ssa.parkban.vertical.configuration.security.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,10 +11,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -56,13 +55,15 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public TokenDto login(String username,  String password) {
+    public TokenDto login(@RequestBody UserDto userDto) {
+
+        //PasswordEncoder passwordEncoder = this.authManager.
 
         UsernamePasswordAuthenticationToken authenticationToken =
-                new UsernamePasswordAuthenticationToken(username, password);
+                new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword());
         Authentication authentication = this.authManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        UserDetails userDetails = this.userService.loadUserByUsername(username);
+        UserDetails userDetails = this.userService.loadUserByUsername(userDto.getUsername());
 
         return new TokenDto(TokenUtils.createToken(userDetails));
     }
