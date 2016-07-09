@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.configuration.webservice.serialization;
+package ir.ssa.parkban.vertical.configuration.web.serialization;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;

@@ -1,7 +1,6 @@
 package ir.ssa.parkban.controller.frontoffice;
 
 
-import ir.ssa.parkban.controller.ControllerBaseClass;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +14,7 @@ import java.util.Date;
  */
 
 @RestController
-public class ParkTimeController extends ControllerBaseClass {
+public class ParkTimeController  {
 
     @Autowired
     ParkTimeService parkTimeService;

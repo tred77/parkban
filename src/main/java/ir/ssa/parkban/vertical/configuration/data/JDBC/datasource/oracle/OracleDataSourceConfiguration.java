@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.configuration.JDBC.datasource.oracle;
+package ir.ssa.parkban.vertical.configuration.data.JDBC.datasource.oracle;
 
 import oracle.jdbc.pool.OracleDataSource;
 import org.springframework.context.annotation.Bean;
