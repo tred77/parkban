@@ -1,19 +1,14 @@
 package ir.ssa.parkban.controller.backoffice;
 
-import ir.ssa.parkban.controller.ControllerBaseClass;
 import ir.ssa.parkban.domain.filters.ParkbanFilter;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
 import ir.ssa.parkban.service.bean.ParkBanService;
 import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
 import ir.ssa.parkban.service.dto.view.ParkbanTimeTableViewDto;
-import ir.ssa.parkban.vertical.core.util.DateUtils.DateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
-import java.beans.PropertyEditorSupport;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,7 +16,7 @@ import java.util.List;
  */
 
 @RestController
-public class ParkbanController extends ControllerBaseClass {
+public class ParkbanController  {
 
     @Autowired
     ParkBanService parkBanService;

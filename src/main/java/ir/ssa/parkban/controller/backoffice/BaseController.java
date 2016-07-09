@@ -1,26 +1,19 @@
 package ir.ssa.parkban.controller.backoffice;
 
-import ir.ssa.parkban.controller.ControllerBaseClass;
-import ir.ssa.parkban.service.dto.entity.*;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
-import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
-import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
-import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
-import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
+import ir.ssa.parkban.service.dto.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by hadoop on 3/27/16.
  */
 @RestController
-public class BaseController extends ControllerBaseClass {
+public class BaseController {
     @Autowired
     ParkTimeService parkTimeService;
 

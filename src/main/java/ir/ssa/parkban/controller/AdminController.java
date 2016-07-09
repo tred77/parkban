@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by hadoop on 3/27/16.
  */
 @RestController
-public class AdminController extends ControllerBaseClass {
+public class AdminController {
 
     @RequestMapping(value = "/customLogin")
     public ModelAndView login(
