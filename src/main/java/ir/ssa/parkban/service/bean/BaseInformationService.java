@@ -42,9 +42,19 @@ public interface BaseInformationService extends BaseService {
 
     List<PermissionDto> findAllPermissions(PermissionFilter filter);
 
+    List<PermissionDto> findSelectedRolePermissions(RoleFilter filter);
+
+    List<PermissionDto> findUnselectedRolePermissions(RoleFilter filter);
+
     PermissionDto findPermissionById(Long id);
 
     void assignRolePermission( Long roleId, List<Long> permissionIds);
+
+    boolean nationalIdIsUsed( Long nationalId);
+
+    boolean usernameIsUsed( String username);
+
+    String usernameAndNationalIdIsUsed(String username,Long nationalId);
 
     /*   City Section  */
 

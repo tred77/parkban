@@ -1,9 +1,15 @@
 package ir.ssa.parkban.controller.backoffice;
 
+
+import ir.ssa.parkban.controller.ControllerBaseClass;
+import ir.ssa.parkban.service.dto.entity.*;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
-import ir.ssa.parkban.service.dto.entity.*;
+import ir.ssa.parkban.service.dto.reponse.*;
+import ir.ssa.parkban.service.dto.request.*;
+import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +19,7 @@ import java.util.List;
  * Created by hadoop on 3/27/16.
  */
 @RestController
-public class BaseController {
+public class BaseController extends ControllerBaseClass {
     @Autowired
     ParkTimeService parkTimeService;
 
@@ -54,6 +60,33 @@ public class BaseController {
     @RequestMapping(value = "/insertUser" ,method = RequestMethod.POST)
     public UserDto insertUser(@RequestBody UserDto user){
        return baseInformationService.insertUser(user);
+    }
+
+    @RequestMapping(value = "/nationalIdIsUsed" ,method = RequestMethod.POST)
+    public NationalIdIsUsedResponse nationalIdIsUsed(@RequestBody NationalIdIsUsedRequest request){
+        NationalIdIsUsedResponse response = new NationalIdIsUsedResponse();
+        if(request!=null){
+            response.setUsed(baseInformationService.nationalIdIsUsed(request.getNationalId()));
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/usernameIsUsed" ,method = RequestMethod.POST)
+    public UsernameIsUsedResponse usernameIsUsed(@RequestBody UsernameIsUsedRequest request){
+        UsernameIsUsedResponse response = new UsernameIsUsedResponse();
+        if(request!=null){
+            response.setUsed(baseInformationService.usernameIsUsed(request.getUsername()));
+        }
+        return response;
+    }
+
+    @RequestMapping(value = "/usernameAndNationalIdIsUsed" ,method = RequestMethod.POST)
+    public UsernameAndNationalIdIsUsedResponse usernameAndNationalIdIsUsed(@RequestBody UsernameAndNationalIdIsUsedRequest request){
+        UsernameAndNationalIdIsUsedResponse response = new UsernameAndNationalIdIsUsedResponse();
+        if(request!=null){
+            response.setUsernameAndNationalIdIsUsed(baseInformationService.usernameAndNationalIdIsUsed(request.getUsername(),request.getNationalId()));
+        }
+        return response;
     }
 
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
@@ -108,11 +141,42 @@ public class BaseController {
         return baseInformationService.findAllPermissions(filter);
     }
 
-    @RequestMapping(value = "/assignRolePermission/{roleId}/{permissionIds},/assignRolePermission/{roleId}",method = RequestMethod.GET)
-    public void assignRolePermission(@PathVariable("roleId" ) Long roleId,@PathVariable("permissionIds") List<Long> permissionIds){
-        if(permissionIds!=null && permissionIds.size()==1 && permissionIds.get(0).longValue()==-1)
-            permissionIds=null;
-        baseInformationService.assignRolePermission(roleId, permissionIds);
+
+
+    @RequestMapping(value = "/findSelectedRolePermissions",method = RequestMethod.POST)
+    public List<PermissionDto> findSelectedRolePermissions(@RequestBody FindSelectedRolePermissionsRequest request) {
+        if (request == null) {
+            return null;
+        }
+        RoleFilter filter=new RoleFilter();
+        NumberFilter numberFilter = new NumberFilter();
+        numberFilter.setElementOp(NumberFilterOperation.EQUAL.getValue());
+        numberFilter.setValues(new Number[]{request.getRoleId()});
+        filter.setId(numberFilter);
+        filter.addGraphPath("permissions");
+        return baseInformationService.findSelectedRolePermissions(filter);
+    }
+
+    @RequestMapping(value = "/findUnselectedRolePermissions",method = RequestMethod.POST)
+    public List<PermissionDto>  findUnselectedRolePermissions(@RequestBody FindUnselectedRolePermissionsRequest request) {
+        if(request!=null){
+            RoleFilter filter=new RoleFilter();
+            NumberFilter numberFilter = new NumberFilter();
+            numberFilter.setElementOp(NumberFilterOperation.EQUAL.getValue());
+            numberFilter.setValues(new Number[]{request.getRoleId()});
+            filter.setId(numberFilter);
+            filter.addGraphPath("permissions");
+            return baseInformationService.findUnselectedRolePermissions(filter);
+        }
+        return null;
+    }
+
+    @RequestMapping(value = "/assignRolePermissions",method = RequestMethod.POST)
+    public void assignRolePermissions(@RequestBody AssignRolePermissionsRequest request){
+        if(request == null || request.getRoleId()==null || request.getPermissionIds()==null)
+            return;
+
+        baseInformationService.assignRolePermission(request.getRoleId(), request.getPermissionIds());
     }
 
 
