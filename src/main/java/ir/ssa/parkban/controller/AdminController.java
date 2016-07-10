@@ -25,7 +25,6 @@ public class AdminController {
     private UserDetailsService userService;
 
     @Autowired
-    @Qualifier("authenticationManager")
     private AuthenticationManager authManager;
 
     @RequestMapping(value = "/customLogin")

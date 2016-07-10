@@ -33,6 +33,56 @@
 		<utils.version>1.0-SNAPSHOT</utils.version>
 	</properties>
 
+
+	<profiles>
+		<profile>
+			<id>sasa</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.oracle</groupId>
+					<artifactId>ojdbc6</artifactId>
+					<version>6.0.0</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>h2</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>com.h2database</groupId>
+					<artifactId>h2</artifactId>
+					<version>1.4.191</version>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>local</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<!-- oracle connector -->
+			<!-- https://mvnrepository.com/artifact/ojdbc/ojdbc -->
+			<dependencies>
+				<!--<dependency>
+					<groupId>ir.db.oracle</groupId>
+					<artifactId>jdbc</artifactId>
+					<version>${oracle.connector.version}</version>
+				</dependency>-->
+				<dependency>
+					<groupId>com.oracle</groupId>
+					<artifactId>ojdbc7</artifactId>
+					<version>12.1.0.2.0</version>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -82,32 +132,6 @@
 			<version>1.1.0.RELEASE</version>
 		</dependency>
 
-
-		<!--<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<version>1.4.191</version>
-		</dependency>-->
-
-
-		<!-- oracle connector -->
-		<!-- https://mvnrepository.com/artifact/ojdbc/ojdbc -->
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc6</artifactId>
-			<version>6.0.0</version>
-		</dependency>
-
-		<!--<dependency>
-			<groupId>ir.db.oracle</groupId>
-			<artifactId>jdbc</artifactId>
-			<version>${oracle.connector.version}</version>
-		</dependency>-->
-		<!--<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc7</artifactId>
-			<version>12.1.0.2.0</version>
-		</dependency>-->
 
 		<!-- connection pool-->
 		<!--<dependency>
