@@ -15,6 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Created by hadoop on 3/27/16.
  */
@@ -25,6 +28,7 @@ public class AdminController {
     private UserDetailsService userService;
 
     @Autowired
+    @Qualifier("customAuthenticationManager")
     private AuthenticationManager authManager;
 
     @RequestMapping(value = "/customLogin")
