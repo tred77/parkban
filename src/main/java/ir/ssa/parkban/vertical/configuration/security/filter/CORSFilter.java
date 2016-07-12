@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.configuration.filter;
+package ir.ssa.parkban.vertical.configuration.security.filter;
 
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ public class CORSFilter implements Filter {
         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, accept, content-type");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with, accept, content-type, X-Auth-Token");
         chain.doFilter(request, response);
     }
 
