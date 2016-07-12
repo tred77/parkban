@@ -10,9 +10,12 @@ import ir.ssa.parkban.service.dto.reponse.*;
 import ir.ssa.parkban.service.dto.request.*;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
+import ir.ssa.parkban.vertical.validations.BindingCategory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -58,7 +61,7 @@ public class BaseController extends ControllerBaseClass {
     /* user section    */
 
     @RequestMapping(value = "/insertUser" ,method = RequestMethod.POST)
-    public UserDto insertUser(@RequestBody UserDto user){
+    public UserDto insertUser(@RequestBody @Validated(BindingCategory.class) UserDto user){
        return baseInformationService.insertUser(user);
     }
 
@@ -90,7 +93,7 @@ public class BaseController extends ControllerBaseClass {
     }
 
     @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
-    public void updateUser(@RequestBody UserDto user){
+    public void updateUser(@RequestBody @Validated(BindingCategory.class) UserDto user){
         baseInformationService.updateUser(user);
     }
 

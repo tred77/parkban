@@ -1,5 +1,6 @@
 package ir.ssa.parkban.service.impl;
 
+import ir.ssa.parkban.service.business.validation.annotations.DuplicatedUser;
 import ir.ssa.parkban.service.dto.entity.*;
 import ir.ssa.parkban.domain.entities.*;
 import ir.ssa.parkban.domain.filters.*;
@@ -10,9 +11,10 @@ import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.AutoPopulatingList;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotNull;
 import java.util.*;
 
 /**
@@ -51,12 +53,10 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     @Autowired
     PermissionDAO permissionDAO;
 
-    public UserDto insertUser(UserDto userDto) {
+
+    @DuplicatedUser(propertyNames = {"userDto.username","userDto.nationalId"},propertyOrders = {0,0})
+    public UserDto insertUser(@NotNull @Validated UserDto userDto) {
         User user = ObjectMapper.map(userDto, User.class);
-        if(user== null || user.getNationalId()==null || user.getUsername()==null)
-            return null;
-        if(userDAO.findByUsernameAndNationalId(user.getUsername(),user.getNationalId())!=null )
-            return null;
         return ObjectMapper.map(userDAO.save(user),UserDto.class);
     }
 

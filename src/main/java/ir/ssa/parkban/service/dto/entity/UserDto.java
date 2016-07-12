@@ -1,5 +1,11 @@
 package ir.ssa.parkban.service.dto.entity;
 
+import ir.ssa.parkban.vertical.validations.BindingCategory;
+import ir.ssa.parkban.vertical.validations.annotations.NationalId;
+import ir.ssa.parkban.vertical.validations.ValidationHelper;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -7,12 +13,26 @@ import java.util.List;
  */
 public class UserDto extends DomainEntityDto{
 
+    @NationalId(groups = BindingCategory.class)
     private Long nationalId;
+
+    @NotNull(groups = BindingCategory.class)
     private String firstName;
+
+    @NotNull(groups = BindingCategory.class)
     private String lastName;
+
+    @Size(min = ValidationHelper.PASSWORD_MIN_LENGTH,
+            max = ValidationHelper.PASSWORD_MAX_LENGTH,
+            groups = BindingCategory.class)
     private String username;
+
+    @Size(min = ValidationHelper.USERNAME_MIN_LENGTH,
+            max = ValidationHelper.USERNAME_MAX_LENGTH,
+            groups = BindingCategory.class)
     private String password;
-    private boolean active;
+
+    private boolean active=false;
     private List<RoleDto> roles;
 
     public String getFirstName() {

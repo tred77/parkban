@@ -10,9 +10,9 @@ import java.sql.SQLException;
  * @author Yeganeh
  */
 
-public class ClientInformationConnectionPreparer implements ConnectionPreparer {
+public class ClientInformationConnectionPreparer /*implements ConnectionPreparer*/ {
 
-    private static String prepSql = "{ call DBMS_SESSION.SET_IDENTIFIER('SPRING') }";
+    /*private static String prepSql = "{ call DBMS_SESSION.SET_IDENTIFIER('SPRING') }";
 
     @Override
     public Connection prepare(Connection conn) throws SQLException {
@@ -20,5 +20,5 @@ public class ClientInformationConnectionPreparer implements ConnectionPreparer {
         cs.execute();
         cs.close();
         return conn;
-    }
+    }*/
 }
