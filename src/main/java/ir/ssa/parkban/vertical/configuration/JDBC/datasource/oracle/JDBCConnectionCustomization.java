@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 /**
  * @author Yeganeh
  */
-/*@Aspect
-@Component*/
-/*@ImportResource("classpath:/aop/dataconnection/aop-connection.xml")*/
+@Aspect
+@Component
+@ImportResource("classpath:/aop/dataconnection/aop-connection.xml")
 public class JDBCConnectionCustomization {
 
 }
