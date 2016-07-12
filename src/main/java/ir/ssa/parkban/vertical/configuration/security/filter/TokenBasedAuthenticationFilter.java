@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -18,10 +21,11 @@ import java.io.IOException;
 /**
  * @author Yeganeh
  */
+@Component
 public class TokenBasedAuthenticationFilter extends GenericFilterBean {
 
     @Autowired
-    UserService userService;
+    UserDetailsService userService;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
@@ -30,16 +34,18 @@ public class TokenBasedAuthenticationFilter extends GenericFilterBean {
         String authToken = this.extractAuthTokenFromRequest(httpRequest);
         String userName = TokenUtils.getUserNameFromToken(authToken);
 
-        if (userName != null) {
-
-            UserDetails userDetails = this.userService.loadUserByUsername(userName);
-
-            if (TokenUtils.validateToken(authToken, userDetails)) {
-
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+        try {
+            if (userName != null) {
+                UserDetails userDetails = this.userService.loadUserByUsername(userName);
+                if (TokenUtils.validateToken(authToken, userDetails)) {
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
+        } catch (Exception e) {
+            // token process exception
+            // TODO log this
         }
 
         filterChain.doFilter(request, response);

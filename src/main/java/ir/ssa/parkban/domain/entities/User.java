@@ -6,7 +6,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -53,22 +55,22 @@ public class User extends DomainEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return active;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return active;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return active;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return active;
     }
 
     public void setUsername(String username) {
@@ -77,7 +79,14 @@ public class User extends DomainEntity implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                return "ADMIN";
+            }
+        });
+        return list;
     }
 
     public String getPassword() {
