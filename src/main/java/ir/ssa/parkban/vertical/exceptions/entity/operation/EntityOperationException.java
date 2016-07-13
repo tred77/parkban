@@ -1,4 +1,6 @@
-package ir.ssa.parkban.vertical.exceptions;
+package ir.ssa.parkban.vertical.exceptions.entity.operation;
+
+import ir.ssa.parkban.vertical.exceptions.BaseRunTimeException;
 
 /**
  * Created by Behrouz-ZD on 7/8/2016.

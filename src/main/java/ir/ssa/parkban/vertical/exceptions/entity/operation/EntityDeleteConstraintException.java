@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.exceptions;
+package ir.ssa.parkban.vertical.exceptions.entity.operation;
 
 /**
  * Created by Bzamani on 01/07/2015.

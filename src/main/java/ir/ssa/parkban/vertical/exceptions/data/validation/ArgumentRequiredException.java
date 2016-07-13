@@ -1,9 +1,11 @@
-package ir.ssa.parkban.vertical.exceptions;
+package ir.ssa.parkban.vertical.exceptions.data.validation;
+
+import ir.ssa.parkban.vertical.exceptions.BaseRunTimeException;
 
 /**
  * Created by Behrouz-ZD on 7/10/2016.
  */
-public class ArgumentRequiredException  extends BaseRunTimeException{
+public class ArgumentRequiredException  extends BaseRunTimeException {
 
     public ArgumentRequiredException() {
         super();

@@ -11,7 +11,7 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import javax.validation.constraints.NotNull;
 
-import ir.ssa.parkban.vertical.exceptions.ArgumentRequiredException;
+import ir.ssa.parkban.vertical.exceptions.data.validation.ArgumentRequiredException;
 import ir.ssa.parkban.vertical.validations.annotations.BusinessAnnotation;
 import ir.ssa.parkban.vertical.validations.validators.BusinessValidator;
 import org.aspectj.lang.JoinPoint;

@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.exceptions;
+package ir.ssa.parkban.vertical.exceptions.entity.operation;
 
 
 public class DuplicateKeyException extends EntityOperationException {

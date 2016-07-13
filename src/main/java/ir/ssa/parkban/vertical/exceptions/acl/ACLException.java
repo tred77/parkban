@@ -1,4 +1,6 @@
-package ir.ssa.parkban.vertical.exceptions;
+package ir.ssa.parkban.vertical.exceptions.acl;
+
+import ir.ssa.parkban.vertical.exceptions.BaseRunTimeException;
 
 /**
  * Created by Bzamani on 04/07/2015.

@@ -3,6 +3,7 @@ package ir.ssa.parkban.vertical.rest.error.handling;
 
 import ir.ssa.parkban.vertical.configuration.PersianLocaleResolver;
 import ir.ssa.parkban.vertical.exceptions.*;
+import ir.ssa.parkban.vertical.exceptions.entity.operation.*;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

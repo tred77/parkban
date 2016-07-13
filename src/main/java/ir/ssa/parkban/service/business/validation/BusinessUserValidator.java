@@ -2,7 +2,7 @@ package ir.ssa.parkban.service.business.validation;
 
 import ir.ssa.parkban.domain.enums.ParkbanErrorCode;
 import ir.ssa.parkban.repository.UserDAO;
-import ir.ssa.parkban.vertical.exceptions.DuplicateEntityException;
+import ir.ssa.parkban.vertical.exceptions.entity.operation.DuplicateEntityException;
 import ir.ssa.parkban.vertical.validations.validators.ValidationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
