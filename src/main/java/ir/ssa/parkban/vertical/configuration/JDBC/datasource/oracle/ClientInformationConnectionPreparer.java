@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.configuration.data.JDBC.datasource.oracle;
+package ir.ssa.parkban.vertical.configuration.JDBC.datasource.oracle;
 
 import org.springframework.data.jdbc.support.ConnectionPreparer;
 

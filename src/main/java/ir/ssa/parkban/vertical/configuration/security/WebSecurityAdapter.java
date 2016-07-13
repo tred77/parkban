@@ -5,17 +5,22 @@ import ir.ssa.parkban.vertical.configuration.security.filter.TokenBasedAuthentic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.channel.ChannelProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.context.SecurityContextPersistenceFilter;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
+import org.springframework.web.filter.GenericFilterBean;
 
 /**
  * @author hym
@@ -35,9 +40,14 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter{
     @Qualifier ("loginSuccessHandler")
     AuthenticationSuccessHandler authenticationSuccessHandler;
 
+    @Autowired
+    @Qualifier("tokenBasedAuthenticationFilter")
+    GenericFilterBean tokenBasedAuthenticationFilter;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests().antMatchers("/service/login", "/css/**", "/image/**").permitAll()
+                .antMatchers(HttpMethod.OPTIONS).permitAll()
                 .anyRequest().authenticated()
         .and()//.formLogin()/*.loginPage("/customLogin")*/
                 //.usernameParameter("username")
@@ -46,8 +56,8 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter{
                 .csrf().disable();
 
         // register custom filters
-        http.addFilterAfter(new TokenBasedAuthenticationFilter(), ChannelProcessingFilter.class);
-        http.addFilterBefore(new CORSFilter(), TokenBasedAuthenticationFilter.class);
+        http.addFilterBefore(new CORSFilter(), ChannelProcessingFilter.class);
+        http.addFilterAfter(tokenBasedAuthenticationFilter, SecurityContextPersistenceFilter.class);
     }
 
     @Override
@@ -58,5 +68,11 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter{
                 .withUser("admin").password("admin").roles("ADMIN", "USER")
                 .and()
                 .withUser("user").password("user").roles("USER");*/
+    }
+
+    @Override
+    @Bean(name="customAuthenticationManager")
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

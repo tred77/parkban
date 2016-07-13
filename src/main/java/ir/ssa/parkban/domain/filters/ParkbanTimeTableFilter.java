@@ -1,12 +1,9 @@
 package ir.ssa.parkban.domain.filters;
 
 import com.mysema.query.types.path.EntityPathBase;
-import ir.ssa.parkban.domain.entities.Parkban;
-import ir.ssa.parkban.domain.entities.QParkTime;
 import ir.ssa.parkban.domain.entities.QParkbanTimeTable;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
-import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
 /**
  * Created by hadoop on 5/20/16.

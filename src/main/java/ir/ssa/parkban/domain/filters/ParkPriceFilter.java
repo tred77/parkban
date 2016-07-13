@@ -2,7 +2,6 @@ package ir.ssa.parkban.domain.filters;
 
 import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.QParkPrice;
-import ir.ssa.parkban.domain.entities.QParkban;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;

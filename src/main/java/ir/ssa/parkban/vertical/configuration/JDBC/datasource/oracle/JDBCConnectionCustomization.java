@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.configuration.data.JDBC.datasource.oracle;
+package ir.ssa.parkban.vertical.configuration.JDBC.datasource.oracle;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.context.annotation.ImportResource;

@@ -1,7 +1,7 @@
 package ir.ssa.parkban.vertical.core.util;
 
 import com.google.common.collect.Lists;
-import ir.ssa.parkban.vertical.exceptions.ParkBanRunTimeException;
+import ir.ssa.parkban.vertical.exceptions.BaseRunTimeException;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 
@@ -26,9 +26,9 @@ public class ObjectMapper {
             mapper.map(source,destination);
             return (T)destination;
         } catch (InstantiationException e) {
-            throw new ParkBanRunTimeException();
+            throw new BaseRunTimeException();
         } catch (IllegalAccessException e) {
-            throw new ParkBanRunTimeException();
+            throw new BaseRunTimeException();
         }
 
     }
@@ -49,9 +49,9 @@ public class ObjectMapper {
                         mapper.map(item, des);
                         destination.add((U) des);
                     } catch (InstantiationException e) {
-                        throw new ParkBanRunTimeException();
+                        throw new BaseRunTimeException();
                     } catch (IllegalAccessException e) {
-                        throw new ParkBanRunTimeException();
+                        throw new BaseRunTimeException();
                     }
                 }
         );
@@ -77,9 +77,9 @@ public class ObjectMapper {
                         mapper.map(item,des);
                         destination.add((U)des);
                     } catch (InstantiationException e) {
-                        throw new ParkBanRunTimeException();
+                        throw new BaseRunTimeException();
                     } catch (IllegalAccessException e) {
-                        throw new ParkBanRunTimeException();
+                        throw new BaseRunTimeException();
                     }
                 }
         );

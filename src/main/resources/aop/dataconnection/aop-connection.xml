@@ -17,6 +17,6 @@
        </bean>
 
        <bean id="connectionPreparer"
-             class="ir.ssa.parkban.vertical.configuration.data.JDBC.datasource.oracle.ClientInformationConnectionPreparer"/>
+             class="ir.ssa.parkban.vertical.configuration.JDBC.datasource.oracle.ClientInformationConnectionPreparer"/>
 
 </beans>
