@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @Configuration
 @EnableWebMvcSecurity
-@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
+/*@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)*/
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityAdapter extends WebSecurityConfigurerAdapter{
 
