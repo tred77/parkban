@@ -15,7 +15,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * Created by hadoop on 3/27/16.
@@ -27,7 +28,8 @@ public class AdminController {
     private UserDetailsService userService;
 
     @Autowired
-    private List<AuthenticationManager> authManagers;
+    @Qualifier("customAuthenticationManager")
+    private AuthenticationManager authManager;
 
     @RequestMapping(value = "/customLogin")
     public ModelAndView customLogin(
@@ -62,7 +64,7 @@ public class AdminController {
 
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(userDto.getUsername(), userDto.getPassword());
-        Authentication authentication = this.authManagers.get(1).authenticate(authenticationToken);
+        Authentication authentication = this.authManager.authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails = this.userService.loadUserByUsername(userDto.getUsername());
 
