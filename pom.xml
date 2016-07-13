@@ -38,7 +38,7 @@
 		<profile>
 			<id>sasa</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 			</activation>
 			<dependencies>
 				<dependency>
@@ -64,7 +64,7 @@
 		<profile>
 			<id>local</id>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<!-- oracle connector -->
 			<!-- https://mvnrepository.com/artifact/ojdbc/ojdbc -->
@@ -146,11 +146,6 @@
 			<artifactId>jdbc</artifactId>
 			<version>${oracle.connector.version}</version>
 		</dependency>-->
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc7</artifactId>
-			<version>12.1.0.2.0</version>
-		</dependency>
 
 		<!-- connection pool-->
 		<!--<dependency>
