@@ -9,10 +9,12 @@ import ir.ssa.parkban.service.dto.reponse.NationalIdIsUsedResponse;
 import ir.ssa.parkban.service.dto.reponse.UsernameAndNationalIdIsUsedResponse;
 import ir.ssa.parkban.service.dto.reponse.UsernameIsUsedResponse;
 import ir.ssa.parkban.service.dto.request.*;
+import ir.ssa.parkban.vertical.configuration.security.utils.TokenUtils;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import ir.ssa.parkban.vertical.validations.BindingCategory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -62,6 +64,12 @@ public class BaseController {
     @RequestMapping(value = "/insertUser" ,method = RequestMethod.POST)
     public UserDto insertUser(@RequestBody @Validated(BindingCategory.class) UserDto user){
        return baseInformationService.insertUser(user);
+    }
+
+    @RequestMapping(value = "/userDetails", method = RequestMethod.POST)
+    public UserDto userDetails(@RequestBody UserFilter userFilter) {
+        List<UserDto> list = baseInformationService.findAllUser(userFilter);
+        return list.get(0);
     }
 
     @RequestMapping(value = "/nationalIdIsUsed" ,method = RequestMethod.POST)
