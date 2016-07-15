@@ -5,12 +5,17 @@ insert into TBL_CITY(id,name) values(3,'تبریز');
 insert into TBL_CITY(id,name) values(4,'اصفهان');
 
 -- initial regions
-insert into TBL_REGION(id, name, address, city_id) values (1, 'ونک', 'ونک', 1);
-insert into TBL_REGION(id, name, address, city_id) values (2, 'پونک', 'پونک', 1);
-insert into TBL_REGION(id, name, address, city_id) values (3, 'جردن', 'جردن', 1);
-insert into TBL_REGION(id, name, address, city_id) values (4, 'ظفر', 'ظفر', 1);
-insert into TBL_REGION(id, name, address, city_id) values (5, 'کردستان', 'کردستان', 2);
-insert into TBL_REGION(id, name, address, city_id) values (6, 'منطقه یک', 'منطقه یک', 2);
+insert into TBL_REGION(id,CODE, name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (1,'1', 'Tehran Province ', 'Tehran',null, 0,true,0);
+insert into TBL_REGION(id,CODE, name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (2,'2', 'Tehran City', 'Tehran',1, 1,true,1);
+insert into TBL_REGION(id,CODE, name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (3,'3', 'Region 1', 'Region 1', 2,1,true,2);
+insert into TBL_REGION(id,CODE,name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (5,'5', 'Vanak', 'Vanak', 3,2,true,3);
+insert into TBL_REGION(id,CODE, name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (6,'6', 'Ponak', 'Ponak', 3,2,true,3);
+insert into TBL_REGION(id,CODE, name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (7,'7', 'Jordan', 'Jordan',3,2,true,3);
+insert into TBL_REGION(id,CODE, name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (8,'8', 'Zafar', 'Zafar', 3,2,true,3);
+
+insert into TBL_REGION(id,CODE, name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (4,'4', 'Region 2', 'Region 2', 2,1,true,2);
+insert into TBL_REGION(id,CODE, name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (9,'9', 'Kurdistan', 'Kurdistan', 4,2,true,3);
+insert into TBL_REGION(id,CODE, name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (10,'10', 'Navab', 'Navab',4,2,true,3);
 
 -- initial parktime
 insert into TBL_PARK_TIME(id, VEHICLE_NUMBER, PARK_DATETIME, REGION_ID, STATUS) values (1, '22-1234', {ts '2016-06-23 08:47:52.69'}, 1, 'R');

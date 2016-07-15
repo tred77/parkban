@@ -1,5 +1,6 @@
 package ir.ssa.parkban.domain.entities;
 
+import ir.ssa.parkban.domain.enums.RegionNodeType;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Set;
@@ -20,14 +21,44 @@ public class Region extends DomainEntity {
     @Column(name = "ADDRESS")
     private String address;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CITY_ID", referencedColumnName = "ID")
-    private City city;
+    @Size(max = 100)
+    @Column(name = "CODE")
+    private String Code;
+
+    @Column(name = "LEVEL")
+    private Long level;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="PARENT_ID")
+    private Region parent;
+
+    @Column(name = "REGION_TYPE")
+    @Enumerated
+    private RegionNodeType regionType;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
     private Set<ParkPrice> parkPrices;
 
+    @Column(name = "Active" )
+    private Boolean active;
+
     public Region() {
+    }
+
+    public Region getParent() {
+        return parent;
+    }
+
+    public void setParent(Region parent) {
+        this.parent = parent;
+    }
+
+    public RegionNodeType getRegionType() {
+        return regionType;
+    }
+
+    public void setRegionType(RegionNodeType regionType) {
+        this.regionType = regionType;
     }
 
     public String getName() {
@@ -46,14 +77,6 @@ public class Region extends DomainEntity {
         this.address = address;
     }
 
-    public City getCity() {
-        return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
-    }
-
     public Set<ParkPrice> getParkPrices() {
         return parkPrices;
     }
@@ -62,4 +85,28 @@ public class Region extends DomainEntity {
         this.parkPrices = parkPrices;
     }
 
+    public String getCode() {
+        return Code;
+    }
+
+    public void setCode(String code) {
+        Code = code;
+    }
+
+    public Long getLevel() {
+        return level;
+    }
+
+    public void setLevel(Long level) {
+        this.level = level;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
 }
+

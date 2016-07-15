@@ -10,6 +10,7 @@ import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.UUIDEditor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -278,9 +279,25 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     /** Region Section */
 
     public RegionDto insertRegion(RegionDto regionDto) {
+        registerRootRegion();
         Region region = ObjectMapper.map(regionDto,Region.class);
+        region.setCode(UUID.randomUUID().toString());
+        region.setLevel(region.getParent().getLevel().longValue()+1);
         regionDAO.save(region);
         return ObjectMapper.map(region,RegionDto.class);
+    }
+
+    private void registerRootRegion(){
+        Region region = regionDAO.findOne(QRegion.region.parent.isNull());
+        if(region == null){
+            Region root = new Region();
+            root.setLevel(new Long(0));
+            root.setCode(UUID.randomUUID().toString());
+            root.setName("Region Root");
+            root.setAddress("Region Root");
+            root.setParent(null);
+            regionDAO.save(root);
+        }
     }
 
     public List<RegionDto> insertRegions(List<RegionDto> regionDtos) {

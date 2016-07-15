@@ -16,8 +16,10 @@ public class City extends DomainEntity {
     @Column(name = "NAME")
     private String name;
 
+/*
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
     private Set<Region> regions;
+*/
 
     public String getName() {
         return name;
@@ -27,11 +29,5 @@ public class City extends DomainEntity {
         this.name = name;
     }
 
-    public Set<Region> getRegions() {
-        return regions;
-    }
 
-    public void setRegions(Set<Region> regions) {
-        this.regions = regions;
-    }
 }
