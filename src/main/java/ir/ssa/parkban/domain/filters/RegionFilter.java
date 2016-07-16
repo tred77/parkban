@@ -2,7 +2,7 @@ package ir.ssa.parkban.domain.filters;
 
 import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.QRegion;
-import ir.ssa.parkban.domain.enums.RegionNodeTypeDto;
+import ir.ssa.parkban.service.dto.enums.RegionNodeTypeDto;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.EnumFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
@@ -15,7 +15,7 @@ public class RegionFilter extends BaseFilter {
     private StringFilter name;
     private StringFilter address;
     private RegionFilter parent;
-    private EnumFilter<RegionNodeTypeDto> regionType;
+    //private EnumFilter<RegionNodeTypeDto> regionType;
 
     public StringFilter getName() {
         return name;
@@ -41,14 +41,14 @@ public class RegionFilter extends BaseFilter {
         this.parent = parent;
     }
 
-    public EnumFilter<RegionNodeTypeDto> getRegionType() {
+ /*   public EnumFilter<RegionNodeTypeDto> getRegionType() {
         return regionType;
     }
 
     public void setRegionType(EnumFilter<RegionNodeTypeDto> regionType) {
         this.regionType = regionType;
     }
-
+*/
     @Override
     protected EntityPathBase getEntityPath() {
         return QRegion.region;

@@ -1,9 +1,6 @@
 package ir.ssa.parkban.service.dto.entity;
 
-import ir.ssa.parkban.domain.entities.Region;
-import ir.ssa.parkban.domain.enums.RegionNodeTypeDto;
-
-import java.util.List;
+import ir.ssa.parkban.service.dto.enums.RegionNodeTypeDto;
 
 /**
  * Created by Behrouz-ZD on 5/19/2016.
