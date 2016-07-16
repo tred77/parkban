@@ -3,9 +3,11 @@ package ir.ssa.parkban.controller.backoffice;
 import ir.ssa.parkban.controller.ControllerBaseClass;
 import ir.ssa.parkban.domain.filters.ParkbanFilter;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
+import ir.ssa.parkban.domain.filters.ParkbanTrackFilter;
 import ir.ssa.parkban.service.bean.ParkBanService;
 import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
+import ir.ssa.parkban.service.dto.entity.ParkbanTrackDto;
 import ir.ssa.parkban.service.dto.view.ParkbanTimeTableViewDto;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateConverter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +65,20 @@ public class ParkbanController extends ControllerBaseClass {
     public void deleteParkban(@PathVariable("id") Long id){
         parkBanService.deleteParkban(id);
     }
+
+    /* ParkbanTrack section*/
+    @RequestMapping(value = "/getParkbanTracks", method = RequestMethod.POST)
+    public List<ParkbanTrackDto> getParkbanTracks(@RequestBody ParkbanTrackFilter parkbanTrackFilter){
+        parkbanTrackFilter.addGraphPath("region");
+        parkbanTrackFilter.addGraphPath("parkban");
+        return parkBanService.findAllParkbanTracks(parkbanTrackFilter);
+    }
+
+    @RequestMapping(value = "/insertParkbanTrack", method = RequestMethod.POST)
+    public void insertParkban(@RequestBody ParkbanTrackDto parkbanTrackDto){
+        parkBanService.insertParkbanTrack(parkbanTrackDto);
+    }
+
+
 
 }
