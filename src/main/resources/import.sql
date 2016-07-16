@@ -50,3 +50,9 @@ insert into TBL_PARKBAN(id, user_id) values(2,2);
 --parkbanTimeTable
 insert into TBL_PARKBAN_TIME_TABLE(id, parkban_id, region_id, work_date) values(1, 1, 5, {ts '2016-06-23'});
 insert into TBL_PARKBAN_TIME_TABLE(id, parkban_id, region_id, work_date) values(2, 2, 1, {ts '2016-06-23'});
+
+-- parkbanTrack
+insert into TBL_PARKBAN_TRACK(id, PARK_DATETIME, REGION_ID, PARKBAN_ID, LONGITUDE, LATITUDE) values(1, {ts '2016-07-16 08:30:52.69'}, null, 1, 35.739072, 51.397179);
+insert into TBL_PARKBAN_TRACK(id, PARK_DATETIME, REGION_ID, PARKBAN_ID, LONGITUDE, LATITUDE) values(1, {ts '2016-07-16 08:35:52.69'}, null, 1, 35.739063, 51.397608);
+insert into TBL_PARKBAN_TRACK(id, PARK_DATETIME, REGION_ID, PARKBAN_ID, LONGITUDE, LATITUDE) values(1, {ts '2016-07-16 08:40:52.69'}, null, 1, 35.739072, 51.398230);
+insert into TBL_PARKBAN_TRACK(id, PARK_DATETIME, REGION_ID, PARKBAN_ID, LONGITUDE, LATITUDE) values(1, {ts '2016-07-16 08:45:52.69'}, null, 1, 35.739072, 51.399179);
