@@ -1,6 +1,6 @@
 package ir.ssa.parkban.service.dto.entity;
 
-import ir.ssa.parkban.domain.enums.RegionNodeType;
+import ir.ssa.parkban.service.dto.enums.RegionNodeTypeDto;
 
 /**
  * Created by Behrouz-ZD on 5/19/2016.
@@ -10,7 +10,7 @@ public class RegionDto extends DomainEntityDto{
     private String name;
     private String address;
     private RegionDto parent;
-    private RegionNodeType regionType;
+    private RegionNodeTypeDto regionType;
     private Long level;
     private String Code;
     private Boolean active;
@@ -39,11 +39,11 @@ public class RegionDto extends DomainEntityDto{
         this.parent = parent;
     }
 
-    public RegionNodeType getRegionType() {
+    public RegionNodeTypeDto getRegionType() {
         return regionType;
     }
 
-    public void setRegionType(RegionNodeType regionType) {
+    public void setRegionType(RegionNodeTypeDto regionType) {
         this.regionType = regionType;
     }
 
