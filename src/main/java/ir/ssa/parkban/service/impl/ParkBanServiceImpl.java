@@ -3,18 +3,22 @@ package ir.ssa.parkban.service.impl;
 import com.google.common.collect.Lists;
 import ir.ssa.parkban.domain.entities.Parkban;
 import ir.ssa.parkban.domain.entities.ParkbanTimeTable;
+import ir.ssa.parkban.domain.entities.ParkbanTrack;
 import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.filters.ParkbanFilter;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
+import ir.ssa.parkban.domain.filters.ParkbanTrackFilter;
 import ir.ssa.parkban.domain.filters.RegionFilter;
 import ir.ssa.parkban.domain.views.ParkbanTimeTableView;
 import ir.ssa.parkban.repository.ParkbanDAO;
 import ir.ssa.parkban.repository.ParkbanTimeTableDAO;
+import ir.ssa.parkban.repository.ParkbanTrackDAO;
 import ir.ssa.parkban.repository.RegionDAO;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.ParkBanService;
 import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
+import ir.ssa.parkban.service.dto.entity.ParkbanTrackDto;
 import ir.ssa.parkban.service.dto.view.ParkbanTimeTableViewDto;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilterOperation;
@@ -43,6 +47,9 @@ public class ParkBanServiceImpl implements ParkBanService {
 
     @Autowired
     RegionDAO regionDAO;
+
+    @Autowired
+    ParkbanTrackDAO parkbanTrackDAO;
 
     @Override
     public ParkbanTimeTableDto insertParkbanTimeTable(ParkbanTimeTableDto parkbanTimeTableDto) {
@@ -144,5 +151,18 @@ public class ParkBanServiceImpl implements ParkBanService {
     @Override
     public void deleteParkban(Long id) {
         parkbanDAO.delete(id);
+    }
+
+    /* ParkbanTrack section*/
+
+    @Override
+    public List<ParkbanTrackDto> findAllParkbanTracks(ParkbanTrackFilter parkbanTrackFilter) {
+        BaseService.setEntityGraph(parkbanTrackDAO, parkbanTrackFilter, "findAll");
+        return ObjectMapper.map(parkbanTrackDAO.findAll(parkbanTrackFilter.getCriteriaExpression()),ParkbanTrackDto.class);
+    }
+
+    @Override
+    public void insertParkbanTrack(ParkbanTrackDto parkbanTrackDto) {
+        parkbanTrackDAO.save(ObjectMapper.map(parkbanTrackDto,ParkbanTrack.class));
     }
 }
