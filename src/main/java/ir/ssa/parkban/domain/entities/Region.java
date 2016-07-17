@@ -1,5 +1,7 @@
 package ir.ssa.parkban.domain.entities;
 
+import ir.ssa.parkban.domain.enums.RegionNodeType;
+
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Set;
