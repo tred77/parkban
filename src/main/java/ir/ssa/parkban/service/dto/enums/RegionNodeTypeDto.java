@@ -6,18 +6,28 @@ import java.util.Arrays;
  * Created by Behrouz-ZD on 7/15/2016.
  */
 public enum RegionNodeTypeDto {
-    ROOT((short)0),
-    MIDDLE((short)1),
-    LEAF((short)2);
+    ROOT("R"),
+    MIDDLE("M"),
+    LEAF("L");
 
-    private short value;
+    private String value;
 
-    RegionNodeTypeDto(short value){
+    RegionNodeTypeDto(String value){
         this.value=value;
     }
 
     public static RegionNodeTypeDto fromValue(short value){
-        return Arrays.stream(RegionNodeTypeDto.values()).filter(item->item.value==value).
+        return Arrays.stream(RegionNodeTypeDto.values()).filter(item->item.value.equals(value)).
                 findFirst().orElseThrow(()->new IllegalArgumentException("Illegal argument for Region Node Type"));
+    }
+
+    public static String value(RegionNodeTypeDto itm){
+        RegionNodeTypeDto[] vals = RegionNodeTypeDto.values();
+        for(RegionNodeTypeDto it : vals){
+            if (it==itm)
+                return it.value;
+        }
+
+        return null;
     }
 }

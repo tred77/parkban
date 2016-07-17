@@ -6,10 +6,10 @@ import com.mysema.query.types.expr.SimpleExpression;
 /**
  * Created by Behrouz-ZD on 7/16/2016.
  */
-public class EnumFilter<T extends Enum<T>> implements Filter {
+public abstract class EnumFilter<T extends Enum<T>> implements Filter {
 
-    private EnumFilterOperation elementOp;
-    private Enum<T>[] values;
+    protected EnumFilterOperation elementOp;
+    protected Enum<T>[] values;
 
     public EnumFilterOperation getElementOp() {
         return elementOp;
@@ -23,13 +23,9 @@ public class EnumFilter<T extends Enum<T>> implements Filter {
         this.elementOp = elementOp;
     }
 
-    public Enum<T>[] getValues() {
-        return values;
-    }
+    public abstract String[] getValues() ;
 
-    public void setValues(Enum<T>[] values) {
-        this.values = values;
-    }
+    public abstract void setValues(String[] values);
 
     @Override
     public BooleanExpression getCriteriaExpression(SimpleExpression expression) {
