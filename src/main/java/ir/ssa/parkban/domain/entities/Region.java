@@ -24,7 +24,7 @@ public class Region extends DomainEntity {
 
     @Size(max = 100)
     @Column(name = "CODE")
-    private String Code;
+    private String code;
 
     @Column(name = "LEVEL")
     private Long level;
@@ -87,11 +87,19 @@ public class Region extends DomainEntity {
     }
 
     public String getCode() {
-        return Code;
+        return code;
     }
 
     public void setCode(String code) {
-        Code = code;
+        this.code = code;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     public Long getLevel() {

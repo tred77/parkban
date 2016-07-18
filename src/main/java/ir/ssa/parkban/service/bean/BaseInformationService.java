@@ -88,7 +88,7 @@ public interface BaseInformationService extends BaseService {
     void updateRegion(RegionDto regionDto);
 
     @Transactional
-    void deleteRegion(RegionDto regionDto);
+    void deleteRegion(Long regionId);
 
     List<RegionDto> findAllRegion(RegionFilter filter);
 
