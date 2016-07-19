@@ -34,7 +34,7 @@ public class Region extends DomainEntity {
     private Region parent;
 
     @Column(name = "REGION_TYPE")
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     private RegionNodeType regionType;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")

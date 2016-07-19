@@ -19,10 +19,6 @@ public abstract class EnumFilter<T extends Enum<T>> implements Filter {
         this.elementOp = EnumFilterOperation.getFilterOperation(elementOp);
     }
 
-    public void setElementOp(EnumFilterOperation elementOp) {
-        this.elementOp = elementOp;
-    }
-
     public abstract String[] getValues() ;
 
     public abstract void setValues(String[] values);

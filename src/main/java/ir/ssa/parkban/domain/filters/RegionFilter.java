@@ -13,8 +13,7 @@ public class RegionFilter extends BaseFilter {
     private StringFilter name;
     private StringFilter address;
     private RegionFilter parent;
-    /*private RegionTypeFilter regionTypefilter;*/
-    private String regionType;
+    private RegionTypeFilter regionType;
 
     public StringFilter getName() {
         return name;
@@ -40,19 +39,11 @@ public class RegionFilter extends BaseFilter {
         this.parent = parent;
     }
 
-    /*public RegionTypeFilter getRegionTypefilter() {
-        return regionTypefilter;
-    }
-
-    public void setRegionTypefilter(RegionTypeFilter regionTypefilter) {
-        this.regionTypefilter = regionTypefilter;
-    }*/
-
-    public String getRegionType() {
+    public RegionTypeFilter getRegionType() {
         return regionType;
     }
 
-    public void setRegionType(String regionType) {
+    public void setRegionType(RegionTypeFilter regionType) {
         this.regionType = regionType;
     }
 
