@@ -1,5 +1,7 @@
 package ir.ssa.parkban.domain.entities;
 
+import ir.ssa.parkban.vertical.messaging.core.MessageReceiver;
+import ir.ssa.parkban.vertical.messaging.core.MessageUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,7 +22,7 @@ import java.util.Set;
         @NamedEntityGraph(name = "user.all", attributeNodes = { @NamedAttributeNode("roles") }),
         @NamedEntityGraph(name = "user.detail", attributeNodes = { @NamedAttributeNode("roles") }) })
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "USER_SEQ")
-public class User extends DomainEntity implements UserDetails {
+public class User extends DomainEntity implements UserDetails, MessageUser {
 
     @Min(1000000000)
     @Column(name = "national_id",nullable = false)
