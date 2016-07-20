@@ -15,7 +15,7 @@ import java.util.Collection;
 @Component
 public class CustomMessagingProvider implements MessagingProvider {
 
-    @Autowired
+    @Autowired (required = false)
     MessagingService messagingService;
 
     @Override
