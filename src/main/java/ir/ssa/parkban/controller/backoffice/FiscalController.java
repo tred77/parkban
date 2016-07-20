@@ -35,7 +35,7 @@ public class FiscalController extends ControllerBaseClass {
 
     @RequestMapping(value = "/findAllParkPrice", method = RequestMethod.POST)
     public List<ParkPriceDto> findAllParkPrice(@RequestBody ParkPriceFilter filter){
-        filter.addGraphPath("region.city");
+        filter.addGraphPath("region.parent");
         return fiscalService.findAllParkPrice(filter);
     }
 

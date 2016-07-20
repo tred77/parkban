@@ -3,7 +3,6 @@ package ir.ssa.parkban.controller;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateConverter;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
 
@@ -27,8 +26,6 @@ public class ControllerBaseClass {
                 return DateConverter.convertMiladiToShamsiWithoutTime((Date)getValue());
             }
         });
-
-
     }
 
 }

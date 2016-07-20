@@ -1,6 +1,8 @@
 package ir.ssa.parkban.service.impl;
 
 import ir.ssa.parkban.service.business.validation.annotations.DuplicatedUser;
+import ir.ssa.parkban.service.business.validation.annotations.ValidateRegionDeletion;
+import ir.ssa.parkban.service.business.validation.annotations.ValidateRegionInsertion;
 import ir.ssa.parkban.service.dto.entity.*;
 import ir.ssa.parkban.domain.entities.*;
 import ir.ssa.parkban.domain.filters.*;
@@ -10,7 +12,6 @@ import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.UUIDEditor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -278,13 +279,13 @@ public class BaseInformationServiceImpl implements BaseInformationService {
 
     /** Region Section */
 
-    public RegionDto insertRegion(RegionDto regionDto) {
-        registerRootRegion();
-        Region region = ObjectMapper.map(regionDto,Region.class);
+    @ValidateRegionInsertion
+    public RegionDto insertRegion(RegionDto region) {
+        Region reg = ObjectMapper.map(region,Region.class);
         region.setCode(UUID.randomUUID().toString());
-        region.setLevel(region.getParent().getLevel().longValue()+1);
-        regionDAO.save(region);
-        return ObjectMapper.map(region,RegionDto.class);
+        region.setLevel(reg.getParent().getLevel().longValue()+1);
+        regionDAO.save(reg);
+        return ObjectMapper.map(reg,RegionDto.class);
     }
 
     private void registerRootRegion(){
@@ -311,9 +312,9 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         regionDAO.save(region);
     }
 
-    public void deleteRegion(RegionDto regionDto) {
-        Region region = ObjectMapper.map(regionDto,Region.class);
-        regionDAO.delete(region);
+    @ValidateRegionDeletion
+    public void deleteRegion(@Validated @NotNull Long regionId) {
+        regionDAO.delete(regionId);
     }
 
     public List<RegionDto> findAllRegion(RegionFilter filter) {

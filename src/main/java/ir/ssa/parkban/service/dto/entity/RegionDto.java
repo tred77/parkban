@@ -12,7 +12,7 @@ public class RegionDto extends DomainEntityDto{
     private RegionDto parent;
     private RegionNodeTypeDto regionType;
     private Long level;
-    private String Code;
+    private String code;
     private Boolean active;
 
     public String getName() {
@@ -56,11 +56,11 @@ public class RegionDto extends DomainEntityDto{
     }
 
     public String getCode() {
-        return Code;
+        return code;
     }
 
     public void setCode(String code) {
-        Code = code;
+        this.code = code;
     }
 
     public Boolean getActive() {

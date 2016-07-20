@@ -3,8 +3,10 @@ package ir.ssa.parkban.vertical.core.domain.filterelement;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.EnumExpression;
 import com.mysema.query.types.expr.SimpleExpression;
-
+import org.springframework.util.ObjectUtils;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Behrouz-ZD on 7/16/2016.
@@ -14,6 +16,7 @@ public enum EnumFilterOperation implements ExpressionCriteriaProvider<Enum> {
     EQUAL("eq"),
     GREATER_THAN("gt"),
     IN("in"),
+    NOT_EQUAL("neq"),
     LESS_THAN("lt");
 
     private String value;
@@ -36,22 +39,23 @@ public enum EnumFilterOperation implements ExpressionCriteriaProvider<Enum> {
     public BooleanExpression getCriteriaExpression(SimpleExpression<Enum> path, Enum[] values) {
         EnumExpression expression = (EnumExpression) path;
         BooleanExpression result = null;
+        List<String> stringValues = new ArrayList<>();
+        if(!ObjectUtils.isEmpty(values)){
+            Arrays.stream(values).forEach(e->{
+                stringValues.add(e.name());
+            });
+        }
         switch (this) {
             case EQUAL:
                 if(values != null && values.length > 0 && values[0] != null)
-                    result = expression.eq(values[0]);
+                    result = expression.stringValue().eq(stringValues.get(0));
                 break;
-            case GREATER_THAN:
+            case NOT_EQUAL:
                 if(values != null && values.length > 0 && values[0] != null)
-                    result = expression.gt(values[0]);
-                break;
-            case LESS_THAN:
-                if(values != null && values.length > 0 && values[0] != null)
-                    result = expression.lt(values[0]);
+                    result = expression.stringValue().ne(stringValues.get(0));
                 break;
             case IN:
-                if(values != null && values.length > 0)
-                    result = expression.in(values);
+                    result = expression.stringValue().in(stringValues);
                 break;
             default:
                 //throw new RuntimeException("No matched operation for String Operation");
