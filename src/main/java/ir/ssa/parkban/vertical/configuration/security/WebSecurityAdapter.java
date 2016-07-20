@@ -55,7 +55,6 @@ public class WebSecurityAdapter extends WebSecurityConfigurerAdapter{
                 //.successHandler(authenticationSuccessHandler)
                 .csrf().disable();
 
-
         // register custom filters
         http.addFilterBefore(new CORSFilter(), ChannelProcessingFilter.class);
         http.addFilterAfter(tokenBasedAuthenticationFilter, SecurityContextPersistenceFilter.class);
