@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.configuration.messaging.provider;
+package ir.ssa.parkban.vertical.messaging.core;
 
 import ir.ssa.parkban.vertical.messaging.MessagingProvider;
 import ir.ssa.parkban.vertical.messaging.core.Message;
@@ -12,11 +12,17 @@ import java.util.Collection;
 /**
  * @author Yeganeh
  */
-@Component
-public class CustomMessagingProvider implements MessagingProvider {
+public class MessagingProviderImpl implements MessagingProvider {
 
-    @Autowired (required = false)
     MessagingService messagingService;
+
+    public MessagingService getMessagingService() {
+        return messagingService;
+    }
+
+    public void setMessagingService(MessagingService messagingService) {
+        this.messagingService = messagingService;
+    }
 
     @Override
     public Collection<? extends Message> getUserNewMessages(String userName) {
