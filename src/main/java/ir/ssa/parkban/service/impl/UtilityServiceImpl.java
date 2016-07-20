@@ -37,11 +37,11 @@ public class UtilityServiceImpl implements UtilityService {
 
         MessageFilter messageFilter = setUsernameIntoMessageFilter(userName);
 
-        EnumFilter<MessageStatus> statusEnumFilter = new EnumFilter<>();
+        /*EnumFilter<MessageStatus> statusEnumFilter = new EnumFilter<>();
         statusEnumFilter.setElementOp(EnumFilterOperation.EQUAL);
         statusEnumFilter.setValues(new Enum[] {MessageStatus.N});
 
-        messageFilter.getReceivers().setStatus(statusEnumFilter);
+        messageFilter.getReceivers().setStatus(statusEnumFilter);*/
 
         BaseService.setEntityGraph(messageDAO, messageFilter, "findAll");
         return ObjectMapper.map(messageDAO.findAll(messageFilter.getCriteriaExpression()), MessageEntity.class);
@@ -49,7 +49,9 @@ public class UtilityServiceImpl implements UtilityService {
 
     @Override
     public Collection<? extends Message> getUserAllMessages(String userName) {
-        return null;
+        MessageFilter messageFilter = setUsernameIntoMessageFilter(userName);
+        BaseService.setEntityGraph(messageDAO, messageFilter, "findAll");
+        return ObjectMapper.map(messageDAO.findAll(messageFilter.getCriteriaExpression()), MessageEntity.class);
     }
 
     @Override

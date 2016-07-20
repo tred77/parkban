@@ -36,7 +36,42 @@ public class MessageEntity extends DomainEntity implements Message {
     private Set<MessageReceiverEntity> receivers;
 
     @Override
-    public String getMessage() {
+    public String getMessageSubject() {
+        return null;
+    }
+
+    @Override
+    public void setMessageText(String messageText) {
+
+    }
+
+    @Override
+    public void setMessageSender(MessageUser messageSender) {
+
+    }
+
+    @Override
+    public void setMessageReceivers(Collection<? extends MessageReceiver> messageReceivers) {
+
+    }
+
+    @Override
+    public void setMessageSentDate(Date messageSentDate) {
+
+    }
+
+    @Override
+    public void setSenderRole(String senderRole) {
+
+    }
+
+    @Override
+    public void setMessageSubject(String messageSubject) {
+
+    }
+
+    @Override
+    public String getMessageText() {
         return text;
     }
 
