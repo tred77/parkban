@@ -1,5 +1,6 @@
 package ir.ssa.parkban.service.business.validation.annotations;
 
+import ir.ssa.parkban.service.business.validation.BusinessRegionValidator;
 import ir.ssa.parkban.vertical.validations.annotations.BusinessAnnotation;
 
 import java.lang.annotation.*;
@@ -11,7 +12,7 @@ import java.lang.annotation.*;
 @Documented
 @Target( { ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
-@BusinessAnnotation
+@BusinessAnnotation(validatedBy = BusinessRegionValidator.class)
 public @interface ValidateRegionDeletion {
 
     String[] propertyNames() default {"regionId"};

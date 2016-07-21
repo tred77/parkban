@@ -12,7 +12,6 @@ import ir.ssa.parkban.vertical.exceptions.entity.operation.NotDeletableException
 import ir.ssa.parkban.vertical.validations.validators.ValidationHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 /**
@@ -30,7 +29,7 @@ public class BusinessRegionValidator implements ValidationHandler {
 
     }
 
-    public void validateRegionDeletion(Object... args){
+    public void ValidateRegionDeletion(Object... args){
         if(args!=null && args.length==1){
             Region region = regionDAO.findOne((Long)args[0]);
             if(region==null)
@@ -42,7 +41,7 @@ public class BusinessRegionValidator implements ValidationHandler {
         }
     }
 
-    public void validateRegionInsertion(Object... args){
+    public void ValidateRegionInsertion(Object... args){
         if(args!=null && args.length==1){
             RegionDto region = (RegionDto)args[0];
             if(region==null)

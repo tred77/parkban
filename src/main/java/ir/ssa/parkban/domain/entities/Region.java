@@ -5,6 +5,7 @@ import ir.ssa.parkban.domain.enums.RegionNodeType;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Set;
+import java.util.concurrent.atomic.DoubleAccumulator;
 
 /**
  * @author hym
@@ -39,6 +40,12 @@ public class Region extends DomainEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
     private Set<ParkPrice> parkPrices;
+
+    @Column(name = "LONGITUDE")
+    private Double longitude;
+
+    @Column(name = "LATITUDE")
+    private Double latitude;
 
     @Column(name = "Active" )
     private Boolean active;
@@ -116,6 +123,22 @@ public class Region extends DomainEntity {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 }
 

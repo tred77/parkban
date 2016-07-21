@@ -2,7 +2,7 @@ package ir.ssa.parkban.service.dto.entity;
 
 import ir.ssa.parkban.vertical.validations.BindingCategory;
 import ir.ssa.parkban.vertical.validations.annotations.NationalId;
-import ir.ssa.parkban.vertical.validations.ValidationHelper;
+import ir.ssa.parkban.service.business.validation.ValidationHelper;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
