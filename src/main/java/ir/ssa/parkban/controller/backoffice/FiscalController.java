@@ -5,6 +5,7 @@ import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
 import ir.ssa.parkban.service.bean.FiscalService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
+import ir.ssa.parkban.service.dto.request.InsertParkPriceRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -40,8 +42,8 @@ public class FiscalController extends ControllerBaseClass {
     }
 
     @RequestMapping(value = "/insertParkPrice", method = RequestMethod.POST)
-    public void insertParkPrice(@RequestBody List<ParkPriceDto> parkPriceDto){
-        fiscalService.insertParkPrice(parkPriceDto);
+    public void insertParkPrice(@RequestBody @NotNull InsertParkPriceRequest request){
+        fiscalService.insertParkPrice(request.getRegionId(),request.getParkPriceDto());
     }
 
 }

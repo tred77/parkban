@@ -22,7 +22,7 @@ public class BusinessUserValidator implements ValidationHandler {
     public void invoke(Object... args) {
     }
 
-    public void duplicatedUser(Object[] args){
+    public void DuplicatedUser(Object[] args){
         if(!ObjectUtils.isEmpty(args) && args.length==2 ){
             String username = (String) args[0];
             Long nationalId = (Long) args[1];

@@ -1,5 +1,7 @@
 package ir.ssa.parkban.vertical.validations.annotations;
 
+import ir.ssa.parkban.vertical.validations.validators.ValidationHandler;
+
 import java.lang.annotation.*;
 
 /**
@@ -10,4 +12,5 @@ import java.lang.annotation.*;
 @Target( { ElementType.ANNOTATION_TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface BusinessAnnotation {
+    Class<? extends ValidationHandler> validatedBy();
 }

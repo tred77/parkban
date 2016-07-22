@@ -75,14 +75,14 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
                     Object o = method.invoke(this);
                     if(o instanceof  BaseFilter){
                         if (result != null)
-                            result.and(((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3)))));
+                            result = result.and(((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3)))));
                         else
                             result = ((BaseFilter)o).getCriteriaExpression(getEntityPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3))));
                     }
                     else if (o instanceof Filter) {
                         Filter filter = (Filter) o;
                         if (result != null)
-                            result.and(filter.getCriteriaExpression(getFieldPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3)))));
+                            result = result.and(filter.getCriteriaExpression(getFieldPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3)))));
                         else
                             result = filter.getCriteriaExpression(getFieldPath(qentity, WordUtils.uncapitalize(method.getName().toString().substring(3))));
                     }

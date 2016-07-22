@@ -13,14 +13,13 @@ public class NationalIdConstraintValidator implements ConstraintValidator<Nation
 
     @Override
     public void initialize(NationalId nationalId) {
-
     }
 
     @Override
     public boolean isValid(Long nationalId, ConstraintValidatorContext constraintValidatorContext) {
 
         if(nationalId==null)
-            return false;
+            return true;
 
         String nationalCode = String.valueOf(nationalId);
         if (nationalCode.length() != 10)

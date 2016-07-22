@@ -3,7 +3,6 @@ package ir.ssa.parkban.vertical.core.domain.filterelement;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.NumberExpression;
 import com.mysema.query.types.expr.SimpleExpression;
-
 import java.util.Arrays;
 
 /**
@@ -14,7 +13,8 @@ public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> 
     EQUAL("eq"),
     GREATER_THAN("gt"),
     IN("in"),
-    LESS_THAN("lt");
+    LESS_THAN("lt"),
+    LIKE("lk");
 
     private String value;
     NumberFilterOperation(String val) {
@@ -38,6 +38,10 @@ public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> 
         BooleanExpression result = null;
         switch (this) {
             case EQUAL:
+                if(values != null && values.length > 0 && values[0] != null)
+                    result = expression.eq(values[0]);
+                break;
+            case LIKE:
                 if(values != null && values.length > 0 && values[0] != null)
                     result = expression.eq(values[0]);
                 break;

@@ -1,5 +1,6 @@
 package ir.ssa.parkban.vertical.validations.annotations;
 
+import ir.ssa.parkban.vertical.validations.BindingCategory;
 import ir.ssa.parkban.vertical.validations.validators.constraints.EmailConstraintValidator;
 
 import javax.validation.Constraint;

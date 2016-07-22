@@ -1,5 +1,7 @@
 package ir.ssa.parkban.vertical.validations.validators;
 
+import ir.ssa.parkban.vertical.validations.annotations.BusinessAnnotation;
+
 import java.lang.annotation.Annotation;
 
 /**

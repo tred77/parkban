@@ -10,6 +10,7 @@ import ir.ssa.parkban.repository.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
+import ir.ssa.parkban.vertical.exceptions.entity.operation.EntityNotFoundException;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -280,10 +281,24 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     /** Region Section */
 
     @ValidateRegionInsertion
-    public RegionDto insertRegion(RegionDto region) {
+    public RegionDto insertRegion(@Validated RegionDto region) {
         Region reg = ObjectMapper.map(region,Region.class);
-        region.setCode(UUID.randomUUID().toString());
-        region.setLevel(reg.getParent().getLevel().longValue()+1);
+        if(reg==null)
+            return null;
+        reg.setCode(UUID.randomUUID().toString());
+        reg.setLevel(new Long(0));
+        if(reg.getParent()!=null && reg.getParent().getId()!=null){
+            if(reg.getParent().getLevel()==null)
+            {
+                Region parent = regionDAO.findOne(reg.getParent().getId());
+                reg.setLevel(parent.getLevel()+1);
+            }else
+                reg.setLevel(reg.getParent().getLevel()+1);
+        }
+        else
+            reg.setParent(null);
+
+        reg.setActive(true);
         regionDAO.save(reg);
         return ObjectMapper.map(reg,RegionDto.class);
     }
@@ -307,8 +322,19 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         return ObjectMapper.map(regions,RegionDto.class);
     }
 
-    public void updateRegion(RegionDto regionDto) {
+    public void updateRegion(@Validated @NotNull RegionDto regionDto) {
         Region region = ObjectMapper.map(regionDto,Region.class);
+        Region orginal = regionDAO.findOne(region.getId());
+
+        if(orginal==null)
+            throw new EntityNotFoundException();
+
+        region.setLevel(orginal.getLevel());
+        region.setRegionType(orginal.getRegionType());
+        region.setParent(orginal.getParent());
+        region.setActive(orginal.getActive());
+        region.setCode(orginal.getCode());
+
         regionDAO.save(region);
     }
 

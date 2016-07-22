@@ -1,4 +1,4 @@
-package ir.ssa.parkban.vertical.validations;
+package ir.ssa.parkban.service.business.validation;
 
 /**
  * Created by Behrouz-ZD on 7/9/2016.
