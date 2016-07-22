@@ -39,11 +39,6 @@ public class MessageReceiverEntity extends DomainEntity implements MessageReceiv
         this.message = message;
     }
 
-    @Override
-    public MessageStatus getMessageStatus() {
-        return status;
-    }
-
     public Date getReceiveDate() {
         return receiveDate;
     }
@@ -55,6 +50,11 @@ public class MessageReceiverEntity extends DomainEntity implements MessageReceiv
 
     public void setReceiveDate(Date receiveDate) {
         this.receiveDate = receiveDate;
+    }
+
+    @Override
+    public void setReceiverRole(String receiverRole) {
+        this.receiverRole = receiverRole;
     }
 
     public User getReceiver() {
@@ -86,5 +86,20 @@ public class MessageReceiverEntity extends DomainEntity implements MessageReceiv
     @Override
     public String getUsername() {
         return receiver.getUsername();
+    }
+
+    @Override
+    public void setFirstName(String firstName) {
+        //this.getReceiver().setFirstName(firstName);
+    }
+
+    @Override
+    public void setLastName(String lastName) {
+        //this.getReceiver().setLastName(lastName);
+    }
+
+    @Override
+    public void setUsername(String userName) {
+        //this.getReceiver().setUsername(userName);
     }
 }

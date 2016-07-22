@@ -40,7 +40,7 @@ public class MessagingProviderImpl implements MessagingProvider {
     }
 
     @Override
-    public void sendMessage(Message message, Collection<? extends MessageReceiver> receivers) {
-
+    public void sendMessage(Message message) {
+        messagingService.sendMessage(message);
     }
 }

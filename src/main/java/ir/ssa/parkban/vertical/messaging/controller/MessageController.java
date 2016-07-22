@@ -28,7 +28,7 @@ public class MessageController {
 
     @RequestMapping(value = "/sendNewMessage", method = RequestMethod.POST)
     public void sendNewMessage(@RequestBody Message message){
-        //return (List<Message>)messagingProvider.getUserAllMessages(username);
+        messagingProvider.sendMessage(message);
     }
 
 }

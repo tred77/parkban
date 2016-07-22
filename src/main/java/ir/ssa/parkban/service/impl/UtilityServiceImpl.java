@@ -1,6 +1,7 @@
 package ir.ssa.parkban.service.impl;
 
 import ir.ssa.parkban.domain.entities.MessageEntity;
+import ir.ssa.parkban.domain.entities.MessageReceiverEntity;
 import ir.ssa.parkban.domain.filters.MessageFilter;
 import ir.ssa.parkban.domain.filters.MessageReceiverFilter;
 import ir.ssa.parkban.domain.filters.UserFilter;
@@ -17,12 +18,15 @@ import ir.ssa.parkban.vertical.messaging.core.Message;
 import ir.ssa.parkban.vertical.messaging.core.MessageReceiver;
 import ir.ssa.parkban.vertical.messaging.enums.MessageStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * @author Yeganeh
  */
+@Service
 public class UtilityServiceImpl implements UtilityService {
 
     @Autowired
@@ -60,8 +64,10 @@ public class UtilityServiceImpl implements UtilityService {
     }
 
     @Override
-    public void sendMessage(Message message, Collection<? extends MessageReceiver> receivers) {
-
+    public void sendMessage(Message message) {
+        MessageEntity messageEntity = ObjectMapper.map(message, MessageEntity.class);
+        ObjectMapper.map(message.getReceivers(), MessageReceiverEntity.class);
+        messageDAO.save(messageEntity);
     }
 
     private MessageFilter setUsernameIntoMessageFilter(String username){

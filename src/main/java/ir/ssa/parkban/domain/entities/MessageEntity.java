@@ -29,60 +29,30 @@ public class MessageEntity extends DomainEntity implements Message {
     @Column(name = "SUBJECT")
     private String subject;
 
+    @Column(name = "SENDER_ROLE")
+    private String senderRole;
+
     @Column(name = "TEXT")
     private String text;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "message")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "message", cascade = {CascadeType.PERSIST})
     private Set<MessageReceiverEntity> receivers;
 
-    @Override
-    public String getMessageSubject() {
-        return null;
-    }
 
-    @Override
-    public void setMessageText(String messageText) {
-
-    }
-
-    @Override
-    public void setMessageSender(MessageUser messageSender) {
-
-    }
-
-    @Override
-    public void setMessageReceivers(Collection<? extends MessageReceiver> messageReceivers) {
-
-    }
-
-    @Override
-    public void setMessageSentDate(Date messageSentDate) {
-
-    }
 
     @Override
     public void setSenderRole(String senderRole) {
-
+        this.senderRole = senderRole;
     }
 
     @Override
-    public void setMessageSubject(String messageSubject) {
-
+    public void setSender(MessageUser messageSender) {
+        this.sender = (User)messageSender;
     }
 
     @Override
-    public String getMessageText() {
-        return text;
-    }
-
-    @Override
-    public MessageUser getMessageSender() {
-        return null;
-    }
-
-    @Override
-    public Collection<? extends MessageReceiver> getMessageReceivers() {
-        return null;
+    public void setReceivers(Collection<? extends MessageReceiver> messageReceivers) {
+        this.receivers = (Set<MessageReceiverEntity>)messageReceivers;
     }
 
     public Date getSentDate() {
@@ -91,7 +61,7 @@ public class MessageEntity extends DomainEntity implements Message {
 
     @Override
     public String getSenderRole() {
-        return null;
+        return senderRole;
     }
 
     public void setSentDate(Date sentDate) {
@@ -100,10 +70,6 @@ public class MessageEntity extends DomainEntity implements Message {
 
     public User getSender() {
         return sender;
-    }
-
-    public void setSender(User sender) {
-        this.sender = sender;
     }
 
     public String getSubject() {
@@ -126,7 +92,4 @@ public class MessageEntity extends DomainEntity implements Message {
         return receivers;
     }
 
-    public void setReceivers(Set<MessageReceiverEntity> receivers) {
-        this.receivers = receivers;
-    }
 }
