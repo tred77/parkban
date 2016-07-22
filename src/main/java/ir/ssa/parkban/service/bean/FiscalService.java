@@ -16,7 +16,7 @@ public interface FiscalService extends BaseService {
      /*   City Section  */
 
     @Transactional
-    void insertParkPrice(List<ParkPriceDto> parkPriceDto);
+    void insertParkPrice(Long regionId,List<ParkPriceDto> parkPriceDto);
 
     List<ParkPriceDto> findAllParkPrice(ParkPriceFilter filter);
 

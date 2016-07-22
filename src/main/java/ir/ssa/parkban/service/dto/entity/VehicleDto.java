@@ -1,15 +1,20 @@
 package ir.ssa.parkban.service.dto.entity;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import ir.ssa.parkban.vertical.validations.BindingCategory;
+import ir.ssa.parkban.vertical.validations.annotations.PlakFormat;
 
 /**
  * Created by Behrouz-ZD on 5/20/2016.
  */
 public class VehicleDto extends DomainEntityDto{
 
+
     private String name;
     private String model;
+
+    @PlakFormat(groups = {BindingCategory.class})
     private String plakNumber;
+
     private VehicleOwnerDto vehicleOwner;
 
     public String getName() {

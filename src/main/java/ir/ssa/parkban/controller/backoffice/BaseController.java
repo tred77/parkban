@@ -227,7 +227,7 @@ public class BaseController extends ControllerBaseClass{
     }
 
     @RequestMapping(value = "/insertVehicleOwner",method = RequestMethod.POST)
-    public void insertVehicleOwner(@RequestBody VehicleOwnerDto vehicleOwnerDto){
+    public void insertVehicleOwner(@RequestBody @Validated(BindingCategory.class) VehicleOwnerDto vehicleOwnerDto){
          baseInformationService.insertVehicleOwner(vehicleOwnerDto);
     }
 

@@ -1,5 +1,7 @@
 package ir.ssa.parkban.service.impl;
 
+import com.sun.javaws.exceptions.InvalidArgumentException;
+import com.sun.media.sound.InvalidDataException;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.entities.ParkPrice;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
@@ -10,9 +12,14 @@ import ir.ssa.parkban.service.bean.FiscalService;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
+import ir.ssa.parkban.vertical.exceptions.data.validation.ArgumentRequiredException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
+import org.springframework.validation.annotation.Validated;
 
+import javax.validation.constraints.NotNull;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -25,35 +32,43 @@ public class FiscalServiceImpl implements FiscalService {
     ParkPriceDAO parkPriceDAO;
 
 
+
     @Override
-    public void insertParkPrice(List<ParkPriceDto> parkPriceDto) {
+    public void insertParkPrice(@Validated @NotNull Long regionId, List<ParkPriceDto> parkPriceDto) {
 
-        if(parkPriceDto==null || parkPriceDto.size()==0)
-            return;
+        List<ParkPrice> origins = parkPriceDAO.findByRegionId(regionId);
 
-        ParkPriceFilter filter=new ParkPriceFilter();
-        filter.setRegion(new RegionFilter());
-        filter.getRegion().setId(new NumberFilter());
-        filter.getRegion().getId().setElementOp(NumberFilterOperation.EQUAL.getValue());
-        filter.getRegion().getId().setValues(new Number[]{new Long(parkPriceDto.get(0).getRegion().getId())});
+        // throw exception if not exist any price for this region and input parameters is null
+        if(ObjectUtils.isEmpty(origins) && ObjectUtils.isEmpty(parkPriceDto))
+            throw new ArgumentRequiredException();
 
-        List<ParkPrice> origins = (List<ParkPrice>)parkPriceDAO.findAll(filter.getCriteriaExpression());
+        // remove or update repeated band prices
+        if(parkPriceDto!=null && parkPriceDto.size()>0){
+            Arrays.stream(origins.toArray()).forEach(item->{
 
-        for(int i=0;i<origins.size();i++){
-            boolean isExist = false;
-            for(int j=0;j<parkPriceDto.size();j++){
-                if(parkPriceDto.get(j).getId().equals(origins.get(i).getId()))
-                {
-                    isExist=true;
-                    break;
+                ParkPriceDto exist = (ParkPriceDto)Arrays.stream(parkPriceDto.toArray()).filter(p->((ParkPriceDto)p).getBand().equals(((ParkPrice)item).getBand()))
+                        .findFirst().orElse(null);
+
+                //just update price
+                if(exist!=null) {
+                    if (!exist.getPrice().equals(((ParkPrice) item).getPrice())) {
+                        ParkPrice parkPrice = (ParkPrice) item;
+                        parkPrice.setPrice(exist.getPrice());
+                        parkPriceDAO.save(parkPrice);
+                    }
+                    //remove repeated band prices from input parameters
+                    parkPriceDto.remove(exist);
                 }
-            }
-            if (!isExist)
-                parkPriceDAO.delete(origins.get(i));
-        }
+            });
 
-        List<ParkPrice> parkPrices = ObjectMapper.map(parkPriceDto,ParkPrice.class);
-        parkPriceDAO.save(parkPrices);
+            // save remained prices
+            List<ParkPrice> parkPrices = ObjectMapper.map(parkPriceDto,ParkPrice.class);
+            parkPriceDAO.save(parkPrices);
+
+        }else{
+            // delete all prices if only input params(park prices) is null
+            parkPriceDAO.delete(origins);
+        }
     }
 
     @Override
