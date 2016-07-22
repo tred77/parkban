@@ -47,12 +47,6 @@ public class Region extends DomainEntity {
     @Column(name = "LATITUDE")
     private Double latitude;
 
-    @Column(name = "Active" )
-    private Boolean active;
-
-    public Region() {
-    }
-
     public Region getParent() {
         return parent;
     }
@@ -60,6 +54,13 @@ public class Region extends DomainEntity {
     public void setParent(Region parent) {
         this.parent = parent;
     }
+
+    @Column(name = "Active" )
+    private Boolean active;
+
+    public Region() {
+    }
+
 
     public RegionNodeType getRegionType() {
         return regionType;
@@ -117,13 +118,6 @@ public class Region extends DomainEntity {
         this.level = level;
     }
 
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 
     public Double getLongitude() {
         return longitude;

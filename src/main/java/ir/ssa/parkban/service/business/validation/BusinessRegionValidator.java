@@ -1,10 +1,12 @@
 package ir.ssa.parkban.service.business.validation;
 
+import ir.ssa.parkban.domain.entities.QRegion;
 import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.enums.RegionNodeType;
 import ir.ssa.parkban.repository.RegionDAO;
 import ir.ssa.parkban.service.dto.entity.RegionDto;
 import ir.ssa.parkban.service.dto.exception.RegionInsertNotAllowedUnderLeafException;
+import ir.ssa.parkban.service.dto.exception.RegionRootInsertNotAllowedException;
 import ir.ssa.parkban.vertical.exceptions.data.validation.ArgumentRequiredException;
 import ir.ssa.parkban.vertical.exceptions.data.validation.DataValidationException;
 import ir.ssa.parkban.vertical.exceptions.entity.operation.EntityNotFoundException;
@@ -46,12 +48,16 @@ public class BusinessRegionValidator implements ValidationHandler {
             RegionDto region = (RegionDto)args[0];
             if(region==null)
                 throw new ArgumentRequiredException();
-            if(region.getParent()!=null){
+            if(region.getParent()!=null && region.getParent().getId()!=null){
                 Region parent = regionDAO.findOne(region.getParent().getId());
                 if(parent==null)
                     throw new DataValidationException();
                 if(parent.getRegionType().equals(RegionNodeType.LEAF))
                     throw new RegionInsertNotAllowedUnderLeafException();
+            }else{
+                Region parent = regionDAO.findOne(QRegion.region.parent.isNull());
+                if(parent!=null)
+                    throw new RegionRootInsertNotAllowedException();
             }
 
         }
