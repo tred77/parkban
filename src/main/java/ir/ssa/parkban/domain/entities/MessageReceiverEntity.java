@@ -90,16 +90,25 @@ public class MessageReceiverEntity extends DomainEntity implements MessageReceiv
 
     @Override
     public void setFirstName(String firstName) {
-        //this.getReceiver().setFirstName(firstName);
+        if (receiver == null ){
+            receiver = new User();
+        }
+        this.getReceiver().setFirstName(firstName);
     }
 
     @Override
     public void setLastName(String lastName) {
-        //this.getReceiver().setLastName(lastName);
+        if (receiver == null ){
+            receiver = new User();
+        }
+        this.getReceiver().setLastName(lastName);
     }
 
     @Override
     public void setUsername(String userName) {
-        //this.getReceiver().setUsername(userName);
+        if (receiver == null ){
+            receiver = new User();
+        }
+        this.getReceiver().setUsername(userName);
     }
 }

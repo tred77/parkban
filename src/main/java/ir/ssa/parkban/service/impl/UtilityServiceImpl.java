@@ -2,6 +2,7 @@ package ir.ssa.parkban.service.impl;
 
 import ir.ssa.parkban.domain.entities.MessageEntity;
 import ir.ssa.parkban.domain.entities.MessageReceiverEntity;
+import ir.ssa.parkban.domain.entities.User;
 import ir.ssa.parkban.domain.filters.MessageFilter;
 import ir.ssa.parkban.domain.filters.MessageReceiverFilter;
 import ir.ssa.parkban.domain.filters.UserFilter;
@@ -21,6 +22,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -66,7 +69,14 @@ public class UtilityServiceImpl implements UtilityService {
     @Override
     public void sendMessage(Message message) {
         MessageEntity messageEntity = ObjectMapper.map(message, MessageEntity.class);
-        ObjectMapper.map(message.getReceivers(), MessageReceiverEntity.class);
+        List<MessageReceiverEntity> listOfReceivers = ObjectMapper.map(message.getReceivers(), MessageReceiverEntity.class);
+        listOfReceivers.stream().forEach( element -> {
+                    //element.setReceiver(new User());
+                    element.getReceiver().setId(element.getId());
+                    element.setId(null);
+                }
+        );
+        messageEntity.setReceivers(new HashSet<MessageReceiverEntity>(listOfReceivers));
         messageDAO.save(messageEntity);
     }
 
