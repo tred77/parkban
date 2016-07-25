@@ -68,8 +68,7 @@ public class ParkbanController extends ControllerBaseClass {
 
     /* ParkbanTrack section*/
     @RequestMapping(value = "/getParkbanTracks", method = RequestMethod.POST)
-    public List<ParkbanTrackDto> getParkbanTracks(){
-        ParkbanTrackFilter parkbanTrackFilter = new ParkbanTrackFilter();
+    public List<ParkbanTrackDto> getParkbanTracks(@RequestBody ParkbanTrackFilter parkbanTrackFilter){
         parkbanTrackFilter.addGraphPath("region");
         parkbanTrackFilter.addGraphPath("parkban");
         return parkBanService.findAllParkbanTracks(parkbanTrackFilter);

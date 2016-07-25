@@ -4,6 +4,8 @@ import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.QParkTime;
 import ir.ssa.parkban.domain.entities.QParkbanTrack;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 
 import java.util.Date;
 
@@ -12,19 +14,12 @@ import java.util.Date;
  */
 public class ParkbanTrackFilter extends BaseFilter {
 
-    private Date parkDateTime;
+    private DateFilter parkDateTime;
     private RegionFilter region;
     private ParkbanFilter parkban;
-    private Double longitude;
-    private Double latitude;
+    private NumberFilter longitude;
+    private NumberFilter latitude;
 
-    public Date getParkDateTime() {
-        return parkDateTime;
-    }
-
-    public void setParkDateTime(Date parkDateTime) {
-        this.parkDateTime = parkDateTime;
-    }
 
     public RegionFilter getRegion() {
         return region;
@@ -42,19 +37,27 @@ public class ParkbanTrackFilter extends BaseFilter {
         this.parkban = parkban;
     }
 
-    public Double getLongitude() {
+    public DateFilter getParkDateTime() {
+        return parkDateTime;
+    }
+
+    public void setParkDateTime(DateFilter parkDateTime) {
+        this.parkDateTime = parkDateTime;
+    }
+
+    public NumberFilter getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
+    public void setLongitude(NumberFilter longitude) {
         this.longitude = longitude;
     }
 
-    public Double getLatitude() {
+    public NumberFilter getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
+    public void setLatitude(NumberFilter latitude) {
         this.latitude = latitude;
     }
 
