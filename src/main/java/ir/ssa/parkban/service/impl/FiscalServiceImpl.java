@@ -1,16 +1,11 @@
 package ir.ssa.parkban.service.impl;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-import com.sun.media.sound.InvalidDataException;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.entities.ParkPrice;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
-import ir.ssa.parkban.domain.filters.RegionFilter;
 import ir.ssa.parkban.repository.ParkPriceDAO;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.FiscalService;
-import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
-import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import ir.ssa.parkban.vertical.exceptions.data.validation.ArgumentRequiredException;
 import org.springframework.beans.factory.annotation.Autowired;
