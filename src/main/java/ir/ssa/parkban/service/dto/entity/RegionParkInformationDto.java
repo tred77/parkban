@@ -1,43 +1,18 @@
-package ir.ssa.parkban.domain.entities.warehouse;
+package ir.ssa.parkban.service.dto.entity;
 
-import ir.ssa.parkban.domain.entities.DomainEntity;
-import ir.ssa.parkban.domain.entities.Region;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
- * @author hym
+ * Created by Behrouz-ZD on 7/26/2016.
  */
-@Entity(name = "TBL_REGION_PARK_INFO")
-@SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "REGION_PARK_INFO_SEQ")
-public class RegionParkInformation extends DomainEntity {
+public class RegionParkInformationDto extends DomainEntityDto{
 
-    @Column(name = "IN_USE_DATE")
     private Date inUseDate;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "REGION_ID")
-    private Region region;
-
-    /**
-     * park duration in minute
-     */
-    @Column(name = "TOTAL_PARK_DURATION")
+    private RegionDto region;
     private Long totalParkDuration;
-
-    /**
-     * total park cost in TOOMAN
-     */
-    @Column(name = "TOTAL_PARK_COST")
     private BigDecimal totalParkCost;
-
-    /**
-     * total park cost in TOOMAN
-     */
-    @Column(name = "SETTLED_PARK_COST")
     private BigDecimal settledParkCost;
-
 
     public Date getInUseDate() {
         return inUseDate;
@@ -47,11 +22,11 @@ public class RegionParkInformation extends DomainEntity {
         this.inUseDate = inUseDate;
     }
 
-    public Region getRegion() {
+    public RegionDto getRegion() {
         return region;
     }
 
-    public void setRegion(Region region) {
+    public void setRegion(RegionDto region) {
         this.region = region;
     }
 
