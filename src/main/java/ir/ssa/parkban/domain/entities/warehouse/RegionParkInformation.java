@@ -1,5 +1,7 @@
-package ir.ssa.parkban.domain.entities;
+package ir.ssa.parkban.domain.entities.warehouse;
 
+import ir.ssa.parkban.domain.entities.DomainEntity;
+import ir.ssa.parkban.domain.entities.Region;
 import ir.ssa.parkban.domain.enums.ParkSettlementStatus;
 
 import javax.persistence.*;

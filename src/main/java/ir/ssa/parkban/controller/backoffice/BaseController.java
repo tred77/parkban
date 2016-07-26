@@ -1,12 +1,10 @@
 package ir.ssa.parkban.controller.backoffice;
 
 
-import ir.ssa.parkban.controller.ControllerBaseClass;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.service.bean.BaseInformationService;
 import ir.ssa.parkban.service.bean.frontoffice.ParkTimeService;
 import ir.ssa.parkban.service.dto.entity.*;
-import ir.ssa.parkban.service.dto.reponse.DeleteRegionResponse;
 import ir.ssa.parkban.service.dto.reponse.NationalIdIsUsedResponse;
 import ir.ssa.parkban.service.dto.reponse.UsernameAndNationalIdIsUsedResponse;
 import ir.ssa.parkban.service.dto.reponse.UsernameIsUsedResponse;
@@ -18,14 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
  * Created by hadoop on 3/27/16.
  */
 @RestController
-public class BaseController extends ControllerBaseClass{
+public class BaseController{
     @Autowired
     ParkTimeService parkTimeService;
 

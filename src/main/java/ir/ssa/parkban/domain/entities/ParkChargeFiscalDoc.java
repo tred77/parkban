@@ -6,11 +6,11 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 /**
- * Created by Behrouz-ZD on 5/20/2016.
+ * author hym
  */
-@Entity(name = "TBL_PARK_CHARGE")
-@SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "PARK_CHARGE_SEQ")
-public class ParkCharge extends DomainEntity {
+@Entity(name = "TBL_PARK_CHARGE_FISCAL_DOC")
+@SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "PARK_CHARGE_FISCAL_DOC_SEQ")
+public class ParkChargeFiscalDoc extends DomainEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OWNER_ID")
@@ -23,8 +23,19 @@ public class ParkCharge extends DomainEntity {
     @Enumerated(EnumType.STRING)
     private ParkChargeType chargeType;
 
+    @Column(name = "CHARGE_DATE")
+    private BigDecimal chargeDate;
+
     @Column(name = "AMOUNT")
     private BigDecimal amount;
+
+    public BigDecimal getChargeDate() {
+        return chargeDate;
+    }
+
+    public void setChargeDate(BigDecimal chargeDate) {
+        this.chargeDate = chargeDate;
+    }
 
     public BigDecimal getAmount() {
         return amount;

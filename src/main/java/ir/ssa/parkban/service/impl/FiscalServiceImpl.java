@@ -1,11 +1,22 @@
 package ir.ssa.parkban.service.impl;
 
+import ir.ssa.parkban.domain.entities.ParkCharge;
+import ir.ssa.parkban.domain.entities.Vehicle;
+import ir.ssa.parkban.domain.filters.ParkChargeFilter;
+import ir.ssa.parkban.domain.filters.VehicleFilter;
+import ir.ssa.parkban.domain.filters.VehicleOwnerFilter;
+import ir.ssa.parkban.repository.ParkChargeDAO;
+import ir.ssa.parkban.repository.VehicleDAO;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.entities.ParkPrice;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
 import ir.ssa.parkban.repository.ParkPriceDAO;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.FiscalService;
+import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
+import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import ir.ssa.parkban.vertical.exceptions.data.validation.ArgumentRequiredException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +25,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,6 +37,12 @@ public class FiscalServiceImpl implements FiscalService {
 
     @Autowired
     ParkPriceDAO parkPriceDAO;
+
+    @Autowired
+    VehicleDAO vehicleDAO;
+
+    @Autowired
+    ParkChargeDAO parkChargeDAO;
 
 
 
@@ -70,5 +88,50 @@ public class FiscalServiceImpl implements FiscalService {
     public List<ParkPriceDto> findAllParkPrice(ParkPriceFilter filter) {
         BaseService.setEntityGraph(parkPriceDAO, filter, "findAll");
         return ObjectMapper.map(parkPriceDAO.findAll(filter.getCriteriaExpression()), ParkPriceDto.class);
+    }
+
+    /* charge section */
+
+    @Override
+    public BigDecimal getCurrentChargeAmountForVehicle(String plateNumber) {
+
+        StringFilter pNumberFilter = new StringFilter();
+        pNumberFilter.setElementOp(StringFilterOperation.EQUAL.getValue());
+        pNumberFilter.setValues(new String[]{plateNumber});
+
+        /* 1) user charge */
+        BigDecimal totalAvailableChargeAmount = BigDecimal.ZERO;
+        VehicleFilter vehicleFilter = new VehicleFilter();
+        vehicleFilter.setPlakNumber(pNumberFilter);
+        vehicleFilter.addGraphPath("vehicleOwner");
+        BaseService.setEntityGraph(vehicleDAO, vehicleFilter, "findOne");
+        Vehicle vehicle = vehicleDAO.findOne(vehicleFilter.getCriteriaExpression());
+
+        ParkCharge parkCharge = null;
+        ParkChargeFilter parkChargeFilter = new ParkChargeFilter();
+        if(vehicle != null && vehicle.getVehicleOwner() != null){
+            VehicleOwnerFilter vehicleOwnerFilter = new VehicleOwnerFilter();
+            NumberFilter numberFilter = new NumberFilter();
+            numberFilter.setElementOp(NumberFilterOperation.EQUAL.getValue());
+            numberFilter.setValues(new Number[]{vehicle.getVehicleOwner().getId()});
+            vehicleOwnerFilter.setId(numberFilter);
+            parkChargeFilter.setOwner(vehicleOwnerFilter);
+            BaseService.setEntityGraph(parkChargeDAO, parkChargeFilter, "findOne");
+            parkCharge = parkChargeDAO.findOne(parkChargeFilter.getCriteriaExpression());
+            if(parkCharge != null){
+                totalAvailableChargeAmount = totalAvailableChargeAmount.add(parkCharge.getAmount());
+            }
+        }
+
+        /* 2) plate number charge */
+        parkChargeFilter = new ParkChargeFilter();
+        parkChargeFilter.setPlateNumber(pNumberFilter);
+        BaseService.setEntityGraph(parkChargeDAO, parkChargeFilter, "findOne");
+        parkCharge = parkChargeDAO.findOne(parkChargeFilter.getCriteriaExpression());
+        if(parkCharge != null){
+            totalAvailableChargeAmount = totalAvailableChargeAmount.add(parkCharge.getAmount());
+        }
+
+        return totalAvailableChargeAmount;
     }
 }

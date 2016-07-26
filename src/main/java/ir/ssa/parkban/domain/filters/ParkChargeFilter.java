@@ -4,6 +4,7 @@ import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.QParkCharge;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
 /**
  * Created by Behrouz-ZD on 5/20/2016.
@@ -12,7 +13,7 @@ public class ParkChargeFilter extends BaseFilter{
 
     private VehicleOwnerFilter  owner;
 
-    private VehicleFilter vehicle;
+    private StringFilter plateNumber;
 
     private NumberFilter amount;
 
@@ -25,12 +26,12 @@ public class ParkChargeFilter extends BaseFilter{
         this.owner = owner;
     }
 
-    public VehicleFilter getVehicle() {
-        return vehicle;
+    public StringFilter getPlateNumber() {
+        return plateNumber;
     }
 
-    public void setVehicle(VehicleFilter vehicle) {
-        this.vehicle = vehicle;
+    public void setPlateNumber(StringFilter plateNumber) {
+        this.plateNumber = plateNumber;
     }
 
     public NumberFilter getAmount() {
