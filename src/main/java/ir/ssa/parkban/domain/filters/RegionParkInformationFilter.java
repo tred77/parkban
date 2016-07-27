@@ -1,7 +1,7 @@
 package ir.ssa.parkban.domain.filters;
 
 import com.mysema.query.types.path.EntityPathBase;
-import ir.ssa.parkban.domain.entities.QRegionParkInformation;
+import ir.ssa.parkban.domain.entities.warehouse.QRegionParkInformation;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
 
