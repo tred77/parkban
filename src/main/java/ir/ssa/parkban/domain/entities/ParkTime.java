@@ -24,7 +24,15 @@ public class ParkTime extends DomainEntity {
     @JoinColumn(name = "REGION_ID")
     private Region region;
 
-    // parkban id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PARKBAN_ID")
+    private Parkban parkban;
+
+    @Column(name = "LATITUDE")
+    private Double latitude;
+
+    @Column(name = "LONGITUDE")
+    private Double longitude;
 
     @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
@@ -39,6 +47,30 @@ public class ParkTime extends DomainEntity {
     }
 
     public ParkTime() {
+    }
+
+    public Parkban getParkban() {
+        return parkban;
+    }
+
+    public void setParkban(Parkban parkban) {
+        this.parkban = parkban;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public String getVehicleNumber() {
