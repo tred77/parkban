@@ -2,6 +2,8 @@ package ir.ssa.parkban.domain.entities.warehouse;
 
 import ir.ssa.parkban.domain.entities.DomainEntity;
 import ir.ssa.parkban.domain.entities.Region;
+import ir.ssa.parkban.domain.enums.DateDimensionLevel;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -13,8 +15,11 @@ import java.util.Date;
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "REGION_PARK_INFO_SEQ")
 public class RegionParkInformation extends DomainEntity {
 
-    @Column(name = "IN_USE_DATE")
-    private Date inUseDate;
+    @Column(name = "START_DATE")
+    private Date startDate;
+
+    @Column(name = "END_DATE")
+    private Date endDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "REGION_ID")
@@ -29,22 +34,29 @@ public class RegionParkInformation extends DomainEntity {
     /**
      * total park cost in TOOMAN
      */
+
     @Column(name = "TOTAL_PARK_COST")
     private BigDecimal totalParkCost;
 
-    /**
-     * total park cost in TOOMAN
-     */
-    @Column(name = "SETTLED_PARK_COST")
-    private BigDecimal settledParkCost;
+    @Column(name = "DATE_DIM_LEVEL")
+    @Enumerated(EnumType.STRING)
+    private DateDimensionLevel dateDimensionLevel;
 
 
-    public Date getInUseDate() {
-        return inUseDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setInUseDate(Date inUseDate) {
-        this.inUseDate = inUseDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public Region getRegion() {
@@ -71,11 +83,11 @@ public class RegionParkInformation extends DomainEntity {
         this.totalParkCost = totalParkCost;
     }
 
-    public BigDecimal getSettledParkCost() {
-        return settledParkCost;
+    public DateDimensionLevel getDateDimensionLevel() {
+        return dateDimensionLevel;
     }
 
-    public void setSettledParkCost(BigDecimal settledParkCost) {
-        this.settledParkCost = settledParkCost;
+    public void setDateDimensionLevel(DateDimensionLevel dateDimensionLevel) {
+        this.dateDimensionLevel = dateDimensionLevel;
     }
 }

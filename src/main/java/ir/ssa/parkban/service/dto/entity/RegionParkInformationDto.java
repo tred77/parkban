@@ -1,5 +1,6 @@
 package ir.ssa.parkban.service.dto.entity;
 
+import ir.ssa.parkban.service.dto.enums.DateDimensionLevelDto;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -8,18 +9,27 @@ import java.util.Date;
  */
 public class RegionParkInformationDto extends DomainEntityDto{
 
-    private Date inUseDate;
+    private Date startDate;
+    private Date endDate;
     private RegionDto region;
     private Long totalParkDuration;
     private BigDecimal totalParkCost;
-    private BigDecimal settledParkCost;
+    private DateDimensionLevelDto dateDimensionLevel;
 
-    public Date getInUseDate() {
-        return inUseDate;
+    public Date getStartDate() {
+        return startDate;
     }
 
-    public void setInUseDate(Date inUseDate) {
-        this.inUseDate = inUseDate;
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public RegionDto getRegion() {
@@ -46,11 +56,11 @@ public class RegionParkInformationDto extends DomainEntityDto{
         this.totalParkCost = totalParkCost;
     }
 
-    public BigDecimal getSettledParkCost() {
-        return settledParkCost;
+    public DateDimensionLevelDto getDateDimensionLevel() {
+        return dateDimensionLevel;
     }
 
-    public void setSettledParkCost(BigDecimal settledParkCost) {
-        this.settledParkCost = settledParkCost;
+    public void setDateDimensionLevel(DateDimensionLevelDto dateDimensionLevel) {
+        this.dateDimensionLevel = dateDimensionLevel;
     }
 }
