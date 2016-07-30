@@ -50,4 +50,6 @@ public class VehicleController {
     public void assignVehicles(@RequestBody AssignVehiclesRequest request){
         vehicleService.assignVehicles(request.getVehicles(),request.getOwnerId());
     }
+
+
 }

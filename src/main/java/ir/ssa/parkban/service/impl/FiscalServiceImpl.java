@@ -103,7 +103,7 @@ public class FiscalServiceImpl implements FiscalService {
         /* 1) user charge */
         BigDecimal totalAvailableChargeAmount = BigDecimal.ZERO;
         VehicleFilter vehicleFilter = new VehicleFilter();
-        vehicleFilter.setPlakNumber(pNumberFilter);
+        vehicleFilter.setPlateNumber(pNumberFilter);
         vehicleFilter.addGraphPath("vehicleOwner");
         BaseService.setEntityGraph(vehicleDAO, vehicleFilter, "findOne");
         Vehicle vehicle = vehicleDAO.findOne(vehicleFilter.getCriteriaExpression());

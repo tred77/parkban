@@ -63,7 +63,7 @@ public class VehicleReportServiceImpl implements VehicleReportService {
         pNumberFilter.setElementOp(StringFilterOperation.EQUAL.getValue());
         pNumberFilter.setValues(new String[]{plateNumber});
         VehicleFilter vehicleFilter = new VehicleFilter();
-        vehicleFilter.setPlakNumber(pNumberFilter);
+        vehicleFilter.setPlateNumber(pNumberFilter);
         vehicleFilter.addGraphPath("vehicleOwner");
         BaseService.setEntityGraph(vehicleDAO, vehicleFilter, "findOne");
         Vehicle vehicle = vehicleDAO.findOne(vehicleFilter.getCriteriaExpression());
