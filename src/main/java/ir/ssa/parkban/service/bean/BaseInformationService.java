@@ -56,25 +56,6 @@ public interface BaseInformationService extends BaseService {
 
     String usernameAndNationalIdIsUsed(String username,Long nationalId);
 
-    /*   City Section  */
-
-    @Transactional
-    CityDto insertCity(CityDto cityDto);
-
-    List<CityDto> insertCities(List<CityDto> cityDtos);
-
-    @Transactional
-    void updateCity(CityDto cityDto);
-
-    @Transactional
-    void deleteCity(CityDto cityDto);
-
-    List<CityDto> findAllCity(CityFilter filter);
-
-    CityDto findCityById(long id);
-
-    List<CityDto> registerAllCities();
-
 
     /*   Region Section  */
 
@@ -93,91 +74,5 @@ public interface BaseInformationService extends BaseService {
     List<RegionDto> findAllRegion(RegionFilter filter);
 
     RegionDto findRegionById(long id);
-
-
-    /** ParkPrice */
-
-    @Transactional
-    ParkPriceDto insertParkPrice(ParkPriceDto parkPriceDto);
-
-    @Transactional
-    List<ParkPriceDto> insertParkPrices(List<ParkPriceDto> parkPriceDtos);
-
-    @Transactional
-    void updateParkPrice(ParkPriceDto parkPriceDto);
-
-    @Transactional
-    void deleteParkPrice(ParkPriceDto parkPriceDto);
-
-    List<ParkPriceDto> findAllParkPrice(ParkPriceFilter filter);
-
-    ParkPriceDto findParkPriceById(long id);
-
-
-
-    /** Parkban */
-
-    @Transactional
-    ParkbanDto insertParkban(ParkbanDto parkbanDto);
-
-    @Transactional
-    void updateParkban(ParkbanDto  parkbanDto);
-
-    @Transactional
-    void deleteParkban(ParkbanDto  parkbanDto);
-
-    List<ParkbanDto> findAllParkban(ParkbanFilter filter);
-
-    ParkbanDto findParkbanById(long id);
-
-
-    /** VehicleOwner */
-
-    @Transactional
-    void insertVehicleOwner(VehicleOwnerDto vehicleOwnerDto);
-
-    @Transactional
-    void updateVehicleOwner(VehicleOwnerDto vehicleOwnerDto);
-
-    @Transactional
-    void deleteVehicleOwner(Long Id);
-
-    List<VehicleOwnerDto> findAllVehicleOwner(VehicleOwnerFilter filter);
-
-    VehicleOwnerDto findVehicleOwnerById(long id);
-
-    @Transactional
-    void assignVehicles(List<VehicleDto> vehicles,Long ownerId);
-
-    /** Vehicle */
-
-    @Transactional
-    VehicleDto insertVehicle(VehicleDto VehicleDto);
-
-    @Transactional
-    void updateVehicle(VehicleDto VehicleDto);
-
-    @Transactional
-    void deleteVehicle(VehicleDto VehicleDto);
-
-    List<VehicleDto> findAllVehicle(VehicleFilter filter);
-
-    VehicleDto findVehicleById(long id);
-
-    /** ParkCharge */
-
-    @Transactional
-    ParkChargeDto insertParkCharge(ParkChargeDto parkChargeDto);
-
-    @Transactional
-    void updateParkCharge(ParkChargeDto parkChargeDto);
-
-    @Transactional
-    void deleteParkCharge(ParkChargeDto parkChargeDto);
-
-    List<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter);
-
-    ParkChargeDto findParkChargeById(long id);
-
 
 }

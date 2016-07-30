@@ -2,10 +2,14 @@ package ir.ssa.parkban.controller.backoffice;
 
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
 import ir.ssa.parkban.domain.filters.RegionParkInformationFilter;
+import ir.ssa.parkban.domain.filters.VehicleParkInformationFilter;
+import ir.ssa.parkban.domain.views.report.dashboard.VehicleDashboardView;
 import ir.ssa.parkban.service.bean.SettlementService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
+import ir.ssa.parkban.service.bean.report.VehicleReportService;
 import ir.ssa.parkban.service.dto.entity.ParkTimeDto;
 import ir.ssa.parkban.service.dto.entity.RegionParkInformationDto;
+import ir.ssa.parkban.service.dto.entity.VehicleParkInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +31,9 @@ public class ReportController{
     @Autowired
     RegionParkInformationService regionParkInformationService;
 
+    @Autowired
+    VehicleReportService vehicleReportService;
+
     @RequestMapping(value = "/getParkTimes1", method = RequestMethod.POST)
     public List<ParkTimeDto> getParkTimes(@RequestBody ParkTimeFilter parkTimeFilter){
         parkTimeFilter.addGraphPath("region.city");
@@ -37,6 +44,11 @@ public class ReportController{
     public List<RegionParkInformationDto> getRegionParkInformation(@RequestBody RegionParkInformationFilter filter){
         filter.addGraphPath("region");
         return regionParkInformationService.getRegionParkInformation(filter);
+    }
+
+    @RequestMapping(value = "/getVehicleParkInformation", method = RequestMethod.POST)
+    public List<VehicleParkInformationDto> getVehicleParkInformation(@RequestBody VehicleParkInformationFilter filter){
+        return vehicleReportService.getVehicleParkInformation(filter);
     }
 
 }

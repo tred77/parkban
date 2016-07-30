@@ -14,7 +14,9 @@ import ir.ssa.parkban.repository.warehouse.VehicleParkInformationDAO;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.FiscalService;
 import ir.ssa.parkban.service.bean.report.VehicleReportService;
+import ir.ssa.parkban.service.dto.entity.VehicleParkInformationDto;
 import ir.ssa.parkban.vertical.core.domain.filterelement.*;
+import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +45,9 @@ public class VehicleReportServiceImpl implements VehicleReportService {
     FiscalService fiscalService;
 
     @Override
-    public VehicleDashboardView getVehicleParkInformation(String plateNumber, DateDimensionLevel dateLevel, Date insideDate) {
+    public List<VehicleParkInformationDto> getVehicleParkInformation(VehicleParkInformationFilter vehicleParkInformationFilter){//(String plateNumber, DateDimensionLevel dateLevel, Date insideDate) {
 
+        String plateNumber = vehicleParkInformationFilter.getPlateNumber().getValues()[0];
         VehicleDashboardView vehicleDashboardView = new VehicleDashboardView();
         vehicleDashboardView.setPlateNumber(plateNumber);
 
@@ -72,9 +75,8 @@ public class VehicleReportServiceImpl implements VehicleReportService {
         }
 
         /* vehicle park information */
-        VehicleParkInformationFilter vehicleParkInformationFilter = new VehicleParkInformationFilter();
 
-        StringFilter plateFilter = new StringFilter();
+        /*StringFilter plateFilter = new StringFilter();
         plateFilter.setElementOp(StringFilterOperation.EQUAL.getValue());
         plateFilter.setValues(new String[]{plateNumber});
         vehicleParkInformationFilter.setPlateNumber(plateFilter);
@@ -92,15 +94,11 @@ public class VehicleReportServiceImpl implements VehicleReportService {
         DateFilter endDateFilter = new DateFilter();
         endDateFilter.setElementOp(DateFilterOperation.GREATER_THAN.getValue());
         endDateFilter.setValues(new Date[]{insideDate});
-        vehicleParkInformationFilter.setEndDate(endDateFilter);
+        vehicleParkInformationFilter.setEndDate(endDateFilter);*/
 
         BaseService.setEntityGraph(vehicleParkInformationDAO, vehicleParkInformationFilter, "findAll");
         Iterable<VehicleParkInformation> vehicleParkInformation = vehicleParkInformationDAO.findAll(vehicleParkInformationFilter.getCriteriaExpression());
 
-        List<VehicleParkInformation> vehicleParkInformationList = Lists.newArrayList(vehicleParkInformation);
-        vehicleDashboardView.setVehicleParkInformation(vehicleParkInformationList);
-
-
-        return vehicleDashboardView;
+        return ObjectMapper.map(vehicleParkInformation,VehicleParkInformationDto.class);
     }
 }

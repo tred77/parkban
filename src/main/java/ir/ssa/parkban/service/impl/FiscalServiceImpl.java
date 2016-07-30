@@ -7,6 +7,7 @@ import ir.ssa.parkban.domain.filters.VehicleFilter;
 import ir.ssa.parkban.domain.filters.VehicleOwnerFilter;
 import ir.ssa.parkban.repository.ParkChargeDAO;
 import ir.ssa.parkban.repository.VehicleDAO;
+import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.entities.ParkPrice;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
@@ -133,5 +134,67 @@ public class FiscalServiceImpl implements FiscalService {
         }
 
         return totalAvailableChargeAmount;
+    }
+
+    @Override
+    public ParkChargeDto insertParkCharge(ParkChargeDto parkChargeDto) {
+        ParkCharge parkCharge = ObjectMapper.map(parkChargeDto,ParkCharge.class);
+        parkChargeDAO.save(parkCharge);
+        return ObjectMapper.map(parkCharge,ParkChargeDto.class);
+    }
+
+    @Override
+    public void updateParkCharge(ParkChargeDto parkChargeDto) {
+        ParkCharge parkCharge = ObjectMapper.map(parkChargeDto,ParkCharge.class);
+        parkChargeDAO.save(parkCharge);
+    }
+
+    @Override
+    public void deleteParkCharge(ParkChargeDto parkChargeDto) {
+        ParkCharge parkCharge = ObjectMapper.map(parkChargeDto,ParkCharge.class);
+        parkChargeDAO.delete(parkCharge);
+    }
+
+    @Override
+    public List<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter) {
+        return ObjectMapper.map(parkChargeDAO.findAll(filter.getCriteriaExpression()),ParkChargeDto.class);
+    }
+
+    @Override
+    public ParkChargeDto findParkChargeById(long id) {
+        return ObjectMapper.map(parkChargeDAO.findOne(id), ParkChargeDto.class);
+    }
+
+    /** PakPrice */
+
+    @Override
+    public ParkPriceDto insertParkPrice(ParkPriceDto parkPriceDto) {
+        ParkPrice parkPrice = ObjectMapper.map(parkPriceDto,ParkPrice.class);
+        parkPriceDAO.save(parkPrice);
+        return ObjectMapper.map(parkPrice,ParkPriceDto.class);
+    }
+
+    @Override
+    public List<ParkPriceDto> insertParkPrices(List<ParkPriceDto> parkPriceDtos) {
+        List<ParkPrice> parkPrices = ObjectMapper.map(parkPriceDtos,ParkPrice.class);
+        parkPriceDAO.save(parkPrices);
+        return  ObjectMapper.map(parkPrices,ParkPriceDto.class);
+    }
+
+    @Override
+    public void updateParkPrice(ParkPriceDto parkPriceDto) {
+        ParkPrice parkPrice = ObjectMapper.map(parkPriceDto,ParkPrice.class);
+        parkPriceDAO.save(parkPrice);
+    }
+
+    @Override
+    public void deleteParkPrice(ParkPriceDto parkPriceDto) {
+        ParkPrice parkPrice = ObjectMapper.map(parkPriceDto,ParkPrice.class);
+        parkPriceDAO.delete(parkPrice);
+    }
+
+    @Override
+    public ParkPriceDto findParkPriceById(long id) {
+        return ObjectMapper.map(parkPriceDAO.findOne(id),ParkPriceDto.class);
     }
 }
