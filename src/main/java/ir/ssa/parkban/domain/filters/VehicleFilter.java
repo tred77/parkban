@@ -14,7 +14,7 @@ public class VehicleFilter extends BaseFilter {
 
     private StringFilter model;
 
-    private StringFilter plakNumber;
+    private StringFilter plateNumber;
 
     private VehicleOwnerFilter vehicleOwner;
 
@@ -34,12 +34,12 @@ public class VehicleFilter extends BaseFilter {
         this.model = model;
     }
 
-    public StringFilter getPlakNumber() {
-        return plakNumber;
+    public StringFilter getPlateNumber() {
+        return plateNumber;
     }
 
-    public void setPlakNumber(StringFilter plakNumber) {
-        this.plakNumber = plakNumber;
+    public void setPlateNumber(StringFilter plateNumber) {
+        this.plateNumber = plateNumber;
     }
 
     public VehicleOwnerFilter getVehicleOwner() {

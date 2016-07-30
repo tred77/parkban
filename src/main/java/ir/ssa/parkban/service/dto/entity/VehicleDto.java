@@ -13,7 +13,7 @@ public class VehicleDto extends DomainEntityDto{
     private String model;
 
     @PlakFormat(groups = {BindingCategory.class})
-    private String plakNumber;
+    private String plateNumber;
 
     private VehicleOwnerDto vehicleOwner;
 
@@ -33,12 +33,12 @@ public class VehicleDto extends DomainEntityDto{
         this.model = model;
     }
 
-    public String getPlakNumber() {
-        return plakNumber;
+    public String getPlateNumber() {
+        return plateNumber;
     }
 
-    public void setPlakNumber(String plakNumber) {
-        this.plakNumber = plakNumber;
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
     }
 
     public VehicleOwnerDto getVehicleOwner() {

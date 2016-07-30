@@ -1,7 +1,10 @@
 package ir.ssa.parkban.service.bean.report;
 
+import ir.ssa.parkban.domain.enums.DateDimensionLevel;
+import ir.ssa.parkban.domain.filters.VehicleParkInformationFilter;
 import ir.ssa.parkban.domain.views.report.dashboard.VehicleDashboardView;
 import ir.ssa.parkban.service.bean.BaseService;
+import ir.ssa.parkban.service.dto.entity.VehicleParkInformationDto;
 
 import java.util.Date;
 import java.util.List;
@@ -11,6 +14,6 @@ import java.util.List;
  */
 public interface VehicleReportService extends BaseService {
 
-    List<VehicleDashboardView> getVehicleParkInformation(String plateNumber, Date startDate, Date endDate);
+    List<VehicleParkInformationDto> getVehicleParkInformation(VehicleParkInformationFilter vehicleParkInformationFilter);
 
 }

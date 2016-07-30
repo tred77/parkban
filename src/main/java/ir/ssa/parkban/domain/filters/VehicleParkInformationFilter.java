@@ -1,9 +1,11 @@
 package ir.ssa.parkban.domain.filters;
 
 import com.mysema.query.types.path.EntityPathBase;
+import ir.ssa.parkban.domain.entities.warehouse.QVehicleParkInformation;
 import ir.ssa.parkban.domain.filters.enumfilter.DateLevelFilter;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
 /**
  * @author Yeganeh
@@ -17,6 +19,15 @@ public class VehicleParkInformationFilter extends BaseFilter {
     private RegionFilter region;
 
     private DateLevelFilter dateDimensionLevel;
+    private StringFilter plateNumber;
+
+    public StringFilter getPlateNumber() {
+        return plateNumber;
+    }
+
+    public void setPlateNumber(StringFilter plateNumber) {
+        this.plateNumber = plateNumber;
+    }
 
     public DateFilter getStartDate() {
         return startDate;
@@ -52,6 +63,6 @@ public class VehicleParkInformationFilter extends BaseFilter {
 
     @Override
     protected EntityPathBase getEntityPath() {
-        return null;
+        return QVehicleParkInformation.vehicleParkInformation;
     }
 }

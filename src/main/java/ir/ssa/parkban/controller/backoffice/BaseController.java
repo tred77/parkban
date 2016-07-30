@@ -30,9 +30,6 @@ public class BaseController{
     BaseInformationService baseInformationService;
 
 
-    /* park price */
-
-
     /* park region */
 
     @RequestMapping(value = "/findAllRegions", method = RequestMethod.POST)
@@ -188,61 +185,9 @@ public class BaseController{
         baseInformationService.assignRolePermission(request.getRoleId(), request.getPermissionIds());
     }
 
-
     @RequestMapping(value = "/assignRolePermission/{roleId}",method = RequestMethod.GET)
     public void assignRolePermission(@PathVariable("roleId" ) Long roleId){
         baseInformationService.assignRolePermission(roleId,null);
-    }
-
-    /** City Section */
-
-    @RequestMapping(value = "/findAllCities")
-    public List<CityDto> findAllCities(){
-        return baseInformationService.findAllCity(new CityFilter());
-    }
-
-    @RequestMapping(value = "/insertCity",method = RequestMethod.POST)
-    public CityDto insertCity(@RequestBody CityDto cityDto){
-        return baseInformationService.insertCity(cityDto);
-    }
-
-    @RequestMapping(value = "/updateCity")
-    public void updateCity(CityDto cityDto){
-        baseInformationService.updateCity(cityDto);
-    }
-
-    @RequestMapping(value = "/deleteCity")
-    public void deleteCity(CityDto cityDto){
-        baseInformationService.deleteCity(cityDto);
-    }
-
-
-    @RequestMapping(value = "/findAllVehicleOwner",method = RequestMethod.POST)
-    public List<VehicleOwnerDto> findAllVehicleOwner(@RequestBody VehicleOwnerFilter filter){
-        filter.addGraphPath("user");
-        return baseInformationService.findAllVehicleOwner(filter);
-    }
-
-    @RequestMapping(value = "/insertVehicleOwner",method = RequestMethod.POST)
-    public void insertVehicleOwner(@RequestBody @Validated(BindingCategory.class) VehicleOwnerDto vehicleOwnerDto){
-         baseInformationService.insertVehicleOwner(vehicleOwnerDto);
-    }
-
-    @RequestMapping(value = "/deleteVehicleOwner/{id}",method = RequestMethod.DELETE)
-    public void deleteVehicleOwner(@PathVariable("id") Long id){
-        baseInformationService.deleteVehicleOwner(id);
-    }
-
-
-    @RequestMapping(value = "/findAllVehicle",method = RequestMethod.POST)
-    public List<VehicleDto> findAllVehicle(@RequestBody VehicleFilter filter){
-        filter.addGraphPath("vehicleOwner");
-        return baseInformationService.findAllVehicle(filter);
-    }
-
-    @RequestMapping(value = "/assignVehicles",method = RequestMethod.POST)
-    public void assignVehicles(@RequestBody AssignVehiclesRequest request){
-        baseInformationService.assignVehicles(request.getVehicles(),request.getOwnerId());
     }
 
 

@@ -16,8 +16,8 @@ public class Vehicle extends DomainEntity {
     @Column(name = "MODEL")
     private String model;
 
-    @Column(name = "PLAK_NUMBER")
-    private String plakNumber;
+    @Column(name = "PLATE_NUMBER")
+    private String plateNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OWNER_ID",nullable = false)
@@ -47,11 +47,11 @@ public class Vehicle extends DomainEntity {
         this.model = model;
     }
 
-    public String getPlakNumber() {
-        return plakNumber;
+    public String getPlateNumber() {
+        return plateNumber;
     }
 
-    public void setPlakNumber(String plakNumber) {
-        this.plakNumber = plakNumber;
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
     }
 }

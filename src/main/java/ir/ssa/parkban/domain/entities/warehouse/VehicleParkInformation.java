@@ -42,6 +42,17 @@ public class VehicleParkInformation extends DomainEntity {
     @Enumerated(EnumType.STRING)
     private DateDimensionLevel dateDimensionLevel;
 
+    @Column(name="PLATE_NUMBER")
+    private String plateNumber;
+
+    public String getPlateNumber() {
+        return plateNumber;
+    }
+
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
+    }
+
     public DateDimensionLevel getDateDimensionLevel() {
         return dateDimensionLevel;
     }

@@ -1,5 +1,7 @@
 package ir.ssa.parkban.service.bean;
 
+import ir.ssa.parkban.domain.filters.ParkChargeFilter;
+import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +19,36 @@ public interface FiscalService extends BaseService {
 
     List<ParkPriceDto> findAllParkPrice(ParkPriceFilter filter);
 
-    /* charge section */
+    /** ParkCharge */
     BigDecimal getCurrentChargeAmountForVehicle(String plateNumber);
+
+    @Transactional
+    ParkChargeDto insertParkCharge(ParkChargeDto parkChargeDto);
+
+    @Transactional
+    void updateParkCharge(ParkChargeDto parkChargeDto);
+
+    @Transactional
+    void deleteParkCharge(ParkChargeDto parkChargeDto);
+
+    List<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter);
+
+    ParkChargeDto findParkChargeById(long id);
+
+    /** ParkPrice */
+
+    @Transactional
+    ParkPriceDto insertParkPrice(ParkPriceDto parkPriceDto);
+
+    @Transactional
+    List<ParkPriceDto> insertParkPrices(List<ParkPriceDto> parkPriceDtos);
+
+    @Transactional
+    void updateParkPrice(ParkPriceDto parkPriceDto);
+
+    @Transactional
+    void deleteParkPrice(ParkPriceDto parkPriceDto);
+
+    ParkPriceDto findParkPriceById(long id);
 
 }
