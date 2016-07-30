@@ -2,6 +2,7 @@ package ir.ssa.parkban.domain.filters;
 
 import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.warehouse.QRegionParkInformation;
+import ir.ssa.parkban.domain.filters.enumfilter.DateLevelFilter;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
 
@@ -10,15 +11,25 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
  */
 public class RegionParkInformationFilter extends BaseFilter {
 
-    private DateFilter inUseDate;
+    private DateFilter startDate;
+    private DateFilter endDate;
     private RegionFilter region;
+    private DateLevelFilter dateDimensionLevel;
 
-    public DateFilter getInUseDate() {
-        return inUseDate;
+    public DateFilter getStartDate() {
+        return startDate;
     }
 
-    public void setInUseDate(DateFilter inUseDate) {
-        this.inUseDate = inUseDate;
+    public void setStartDate(DateFilter startDate) {
+        this.startDate = startDate;
+    }
+
+    public DateFilter getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(DateFilter endDate) {
+        this.endDate = endDate;
     }
 
     public RegionFilter getRegion() {
@@ -27,6 +38,14 @@ public class RegionParkInformationFilter extends BaseFilter {
 
     public void setRegion(RegionFilter region) {
         this.region = region;
+    }
+
+    public DateLevelFilter getDateDimensionLevel() {
+        return dateDimensionLevel;
+    }
+
+    public void setDateDimensionLevel(DateLevelFilter dateDimensionLevel) {
+        this.dateDimensionLevel = dateDimensionLevel;
     }
 
     @Override

@@ -19,7 +19,7 @@ import java.util.List;
  */
 
 @RestController
-public class ReportController {
+public class ReportController{
 
     @Autowired
     SettlementService settlementService;

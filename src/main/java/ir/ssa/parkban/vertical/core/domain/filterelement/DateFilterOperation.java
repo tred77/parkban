@@ -3,6 +3,7 @@ package ir.ssa.parkban.vertical.core.domain.filterelement;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.DateTimeExpression;
 import com.mysema.query.types.expr.SimpleExpression;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -14,7 +15,9 @@ public enum DateFilterOperation implements ExpressionCriteriaProvider<Date> {
 
     EQUAL("eq"),
     GREATER_THAN("gt"),
+    GREATER_EQUAL_THAN("goe"),
     LESS_THAN("lt"),
+    LESS_EQUAL_THAN("loe"),
     BETWEEN("bw"),
     ONE_DAY("aDay"),
     ONE_WEEK("aWeek");
@@ -42,21 +45,32 @@ public enum DateFilterOperation implements ExpressionCriteriaProvider<Date> {
         BooleanExpression result = null;
         switch (this) {
             case EQUAL:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values) &&  values[0] != null)
                     result = expression.eq(values[0]);
                 break;
             case GREATER_THAN:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values) &&  values[0] != null)
                     result = expression.gt(values[0]);
                 break;
+            case GREATER_EQUAL_THAN:
+                if(!ObjectUtils.isEmpty(values) &&  values[0] != null)
+                    result = expression.goe(values[0]);
+                break;
             case LESS_THAN:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values)  && values[0] != null)
                     result = expression.lt(values[0]);
                 break;
+            case LESS_EQUAL_THAN:
+                if(!ObjectUtils.isEmpty(values) && values[0] != null)
+                    result = expression.loe(values[0]);
+                break;
             case BETWEEN:
+                if(!ObjectUtils.isEmpty(values) && values[0] != null && values[1]!=null )
+                    result = expression.loe(values[0]);
+                break;
             case ONE_DAY:
             case ONE_WEEK:
-                if(values != null && values.length > 1 && values[0] != null && values[1] != null)
+                if(!ObjectUtils.isEmpty(values) && values[0] != null && values[1] != null)
                     result = expression.between(values[0], values[1]);
                 break;
             default:
