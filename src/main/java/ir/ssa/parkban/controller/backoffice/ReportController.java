@@ -1,5 +1,6 @@
 package ir.ssa.parkban.controller.backoffice;
 
+import ir.ssa.parkban.domain.filters.ComparedRegionParkInfoFilter;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
 import ir.ssa.parkban.domain.filters.RegionParkInformationFilter;
 import ir.ssa.parkban.service.bean.SettlementService;
@@ -37,6 +38,12 @@ public class ReportController{
     public List<RegionParkInformationDto> getRegionParkInformation(@RequestBody RegionParkInformationFilter filter){
         filter.addGraphPath("region");
         return regionParkInformationService.getRegionParkInformation(filter);
+    }
+
+    @RequestMapping(value = "/getComparedRegionParkInformation", method = RequestMethod.POST)
+    public List<RegionParkInformationDto> getComparedRegionParkInformation(@RequestBody ComparedRegionParkInfoFilter filter){
+        filter.addGraphPath("region");
+        return regionParkInformationService.getComparedRegionParkInformation(filter);
     }
 
 }

@@ -24,6 +24,10 @@ public abstract class EnumFilter<T extends Enum<T>> implements Filter {
         this.elementOp = EnumFilterOperation.getFilterOperation(elementOp);
     }
 
+    public void setEnumElementOp(EnumFilterOperation elementOp) {
+        this.elementOp = elementOp;
+    }
+
     public String[] getValues() {
         if(ObjectUtils.isEmpty(this.values))
             return null;
@@ -37,6 +41,24 @@ public abstract class EnumFilter<T extends Enum<T>> implements Filter {
     }
 
     public abstract void setValues(String[] values);
+
+    public void setEnumValues(Enum<T>[] values){
+        this.values=values;
+    }
+
+    public void setEnumValue(Enum<T> value){
+        this.values=new Enum[]{value};
+    }
+
+    public Enum<T>[] getEnumValues(){
+        return this.values;
+    }
+
+    public Enum<T> getEnumValue(){
+        if(ObjectUtils.isEmpty(values))
+            return null;
+        return this.values[0];
+    }
 
     @Override
     public BooleanExpression getCriteriaExpression(SimpleExpression expression) {

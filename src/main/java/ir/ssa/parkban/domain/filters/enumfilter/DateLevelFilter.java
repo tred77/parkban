@@ -1,7 +1,6 @@
 package ir.ssa.parkban.domain.filters.enumfilter;
 
 import ir.ssa.parkban.domain.enums.DateDimensionLevel;
-import ir.ssa.parkban.service.dto.enums.RegionNodeTypeDto;
 import ir.ssa.parkban.vertical.core.domain.filterelement.EnumFilter;
 import org.springframework.util.ObjectUtils;
 

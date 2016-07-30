@@ -19,4 +19,19 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         return localDate1.getDayOfWeek();
     }
 
+    public static Date shiftShamsyToBeginningOfMonth(Date dt){
+        String shamsyDate = DateConverter.convertMiladiToShamsiWithoutTime(dt);
+        String[] sp = shamsyDate.split("/");
+        shamsyDate = sp[0]+"/"+sp[1]+"/"+"1";
+        return DateConverter.convertShamsiToMiladiBeginningOfDay(shamsyDate);
+
+    }
+
+    public static Date shiftShamsyToEndOfMonth(Date dt){
+        String shamsyDate = DateConverter.convertMiladiToShamsiWithoutTime(dt);
+        String[] sp = shamsyDate.split("/");
+        shamsyDate = sp[0]+"/"+sp[1]+"/"+"29";
+        return DateConverter.convertShamsiToMiladiEndOfDay(shamsyDate);
+    }
+
 }

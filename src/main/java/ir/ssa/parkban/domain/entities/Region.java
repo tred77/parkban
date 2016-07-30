@@ -1,5 +1,6 @@
 package ir.ssa.parkban.domain.entities;
 
+import ir.ssa.parkban.domain.entities.warehouse.RegionParkInformation;
 import ir.ssa.parkban.domain.enums.RegionNodeType;
 
 import javax.persistence.*;
@@ -41,6 +42,9 @@ public class Region extends DomainEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
     private Set<ParkPrice> parkPrices;
 
+    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
+    private Set<RegionParkInformation> regionParkInformations ;*/
+
     @Column(name = "LONGITUDE")
     private Double longitude;
 
@@ -57,6 +61,8 @@ public class Region extends DomainEntity {
 
     @Column(name = "Active" )
     private Boolean active;
+
+
 
     public Region() {
     }

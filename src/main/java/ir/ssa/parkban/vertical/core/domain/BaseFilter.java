@@ -5,7 +5,6 @@ import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.SimpleExpression;
 import com.mysema.query.types.path.CollectionPathBase;
 import com.mysema.query.types.path.EntityPathBase;
-import com.mysema.query.types.path.SetPath;
 import ir.ssa.parkban.domain.entities.QCity;
 import ir.ssa.parkban.vertical.core.domain.filterelement.Filter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
