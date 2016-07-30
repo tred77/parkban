@@ -1,11 +1,15 @@
 package ir.ssa.parkban.controller.backoffice;
 
+import ir.ssa.parkban.domain.filters.ComparedRegionParkInfoFilter;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
 import ir.ssa.parkban.domain.filters.RegionParkInformationFilter;
+import ir.ssa.parkban.domain.filters.VehicleParkInformationFilter;
 import ir.ssa.parkban.service.bean.SettlementService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
+import ir.ssa.parkban.service.bean.report.VehicleReportService;
 import ir.ssa.parkban.service.dto.entity.ParkTimeDto;
 import ir.ssa.parkban.service.dto.entity.RegionParkInformationDto;
+import ir.ssa.parkban.service.dto.entity.VehicleParkInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
