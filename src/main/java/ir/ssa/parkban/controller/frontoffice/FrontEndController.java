@@ -7,6 +7,7 @@ import ir.ssa.parkban.service.dto.entity.ParkTimeDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTrackDto;
 import ir.ssa.parkban.service.dto.entity.RegionDto;
+import ir.ssa.parkban.service.dto.reponse.ParkbanMessageResponse;
 import ir.ssa.parkban.service.dto.request.AddParkTimeRequest;
 import ir.ssa.parkban.service.dto.request.AddParkbanTrackRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +57,7 @@ public class FrontEndController {
     /* Parkban Section */
 
     @RequestMapping(value = "/addParkbanTrack", method = RequestMethod.POST)
-    public void insertParkTime(@RequestBody AddParkbanTrackRequest addParkbanTrackRequest){
+    public ParkbanMessageResponse addParkbanTrack(@RequestBody AddParkbanTrackRequest addParkbanTrackRequest){
 
         ParkbanTrackDto parkbanTrackDto = new ParkbanTrackDto();
         parkbanTrackDto.setLatitude(addParkbanTrackRequest.getLatitude());
@@ -69,10 +70,13 @@ public class FrontEndController {
         RegionDto regionDto = new RegionDto();
         regionDto.setId(addParkbanTrackRequest.getRegionId());
         parkbanTrackDto.setRegion(regionDto);
-
         parkbanTrackDto.setParkDateTime(new Date());
-
         parkBanService.insertParkbanTrack(parkbanTrackDto);
+
+        ParkbanMessageResponse parkbanMessageResponse = new ParkbanMessageResponse();
+        parkbanMessageResponse.setSubject("Test");
+        parkbanMessageResponse.setText("Message for parkban");
+        return parkbanMessageResponse;
     }
 
 }
