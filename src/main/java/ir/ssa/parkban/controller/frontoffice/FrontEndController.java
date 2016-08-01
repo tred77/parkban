@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author hym
@@ -57,7 +59,7 @@ public class FrontEndController {
     /* Parkban Section */
 
     @RequestMapping(value = "/addParkbanTrack", method = RequestMethod.POST)
-    public ParkbanMessageResponse addParkbanTrack(@RequestBody AddParkbanTrackRequest addParkbanTrackRequest){
+    public List<ParkbanMessageResponse> addParkbanTrack(@RequestBody AddParkbanTrackRequest addParkbanTrackRequest){
 
         ParkbanTrackDto parkbanTrackDto = new ParkbanTrackDto();
         parkbanTrackDto.setLatitude(addParkbanTrackRequest.getLatitude());
@@ -76,7 +78,10 @@ public class FrontEndController {
         ParkbanMessageResponse parkbanMessageResponse = new ParkbanMessageResponse();
         parkbanMessageResponse.setSubject("Test");
         parkbanMessageResponse.setText("Message for parkban");
-        return parkbanMessageResponse;
+
+        List<ParkbanMessageResponse> list = new ArrayList<>();
+        list.add(parkbanMessageResponse);
+        return list;
     }
 
 }
