@@ -15,11 +15,9 @@ import java.util.Date;
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "VEHICLE_PARK_INFO_SEQ")
 public class VehicleParkInformation extends DomainEntity {
 
-    @Column(name = "START_DATE")
-    private Date startDate;
-
-    @Column(name = "END_DATE")
-    private Date endDate;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DATE_DIM")
+    private DateDimensionEntity dateDimension;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "REGION_ID")
@@ -38,12 +36,17 @@ public class VehicleParkInformation extends DomainEntity {
     @Column(name = "TOTAL_PARK_COST")
     private BigDecimal totalParkCost;
 
-    @Column(name = "DATE_DIM_LEVEL")
-    @Enumerated(EnumType.STRING)
-    private DateDimensionLevel dateDimensionLevel;
 
     @Column(name="PLATE_NUMBER")
     private String plateNumber;
+
+    public DateDimensionEntity getDateDimension() {
+        return dateDimension;
+    }
+
+    public void setDateDimension(DateDimensionEntity dateDimension) {
+        this.dateDimension = dateDimension;
+    }
 
     public String getPlateNumber() {
         return plateNumber;
@@ -51,30 +54,6 @@ public class VehicleParkInformation extends DomainEntity {
 
     public void setPlateNumber(String plateNumber) {
         this.plateNumber = plateNumber;
-    }
-
-    public DateDimensionLevel getDateDimensionLevel() {
-        return dateDimensionLevel;
-    }
-
-    public void setDateDimensionLevel(DateDimensionLevel dateDimensionLevel) {
-        this.dateDimensionLevel = dateDimensionLevel;
-    }
-
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
     }
 
     public Region getRegion() {
