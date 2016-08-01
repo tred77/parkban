@@ -1,5 +1,6 @@
 package ir.ssa.parkban.domain.entities.warehouse;
 
+import ir.ssa.parkban.domain.entities.DomainEntity;
 import ir.ssa.parkban.domain.enums.DateDimensionLevel;
 
 import javax.persistence.*;
@@ -10,12 +11,7 @@ import java.util.Date;
  */
 @Entity(name = "TBL_DATE_DIMENSION")
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "DATE_DIMENSION_SEQ")
-public class DateDimensionEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "base_seq")
-    @Column(name = "id")
-    private Long id;
+public class DateDimensionEntity extends DomainEntity{
 
     @Column(name = "DATE_DIM_LEVEL")
     @Enumerated(EnumType.STRING)
@@ -29,14 +25,6 @@ public class DateDimensionEntity {
 
     @Column(name = "END_DATE")
     private Date endDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public DateDimensionLevel getDateDimensionLevel() {
         return dateDimensionLevel;

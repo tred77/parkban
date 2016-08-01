@@ -19,12 +19,20 @@ public class StringFilter implements Filter{
         this.elementOp = StringFilterOperation.getFilterOperation(elementOp);
     }
 
+    public void setEnumElementOp(StringFilterOperation elementOp) {
+        this.elementOp = elementOp;
+    }
+
     public String[] getValues() {
         return values;
     }
 
     public void setValues(String[] values) {
         this.values = values;
+    }
+
+    public void setValue(String value) {
+        this.setValues(new String[]{value});
     }
 
     @Override

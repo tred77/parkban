@@ -2,11 +2,8 @@ package ir.ssa.parkban.domain.entities.warehouse;
 
 import ir.ssa.parkban.domain.entities.DomainEntity;
 import ir.ssa.parkban.domain.entities.Region;
-import ir.ssa.parkban.domain.enums.DateDimensionLevel;
-
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.Date;
 
 /**
  * @author hym
@@ -15,12 +12,16 @@ import java.util.Date;
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "REGION_PARK_INFO_SEQ")
 public class RegionParkInformation extends DomainEntity {
 
-    @Column(name = "START_DATE")
-    private Date startDate;
+    /**
+     * date dimension
+     */
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "DATE_DIM_ID")
+    private DateDimensionEntity dateDimensionEntity;
 
-    @Column(name = "END_DATE")
-    private Date endDate;
-
+    /**
+     * region
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "REGION_ID")
     private Region region;
@@ -34,29 +35,15 @@ public class RegionParkInformation extends DomainEntity {
     /**
      * total park cost in TOOMAN
      */
-
     @Column(name = "TOTAL_PARK_COST")
     private BigDecimal totalParkCost;
 
-    @Column(name = "DATE_DIM_LEVEL")
-    @Enumerated(EnumType.STRING)
-    private DateDimensionLevel dateDimensionLevel;
-
-
-    public Date getStartDate() {
-        return startDate;
+    public DateDimensionEntity getDateDimensionEntity() {
+        return dateDimensionEntity;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setDateDimensionEntity(DateDimensionEntity dateDimensionEntity) {
+        this.dateDimensionEntity = dateDimensionEntity;
     }
 
     public Region getRegion() {
@@ -81,13 +68,5 @@ public class RegionParkInformation extends DomainEntity {
 
     public void setTotalParkCost(BigDecimal totalParkCost) {
         this.totalParkCost = totalParkCost;
-    }
-
-    public DateDimensionLevel getDateDimensionLevel() {
-        return dateDimensionLevel;
-    }
-
-    public void setDateDimensionLevel(DateDimensionLevel dateDimensionLevel) {
-        this.dateDimensionLevel = dateDimensionLevel;
     }
 }

@@ -26,6 +26,10 @@ public class DateFilter implements Filter {
         this.elementOp = DateFilterOperation.getFilterOperation(elementOp);
     }
 
+    public void setEnumElementOp(DateFilterOperation elementOp) {
+        this.elementOp = elementOp;
+    }
+
     public Date[] getValues() {
         return values;
     }
@@ -50,6 +54,10 @@ public class DateFilter implements Filter {
                 break;
         }
         this.values = lDate.toArray(new Date[lDate.size()]);
+    }
+
+    public void setValue(Date date) {
+        this.setValues(new Date[]{date});
     }
 
     public void setMiladiValues(Date[] miladiValues){

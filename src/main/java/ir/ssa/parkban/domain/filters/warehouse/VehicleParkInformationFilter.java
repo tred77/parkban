@@ -1,20 +1,34 @@
-package ir.ssa.parkban.domain.filters;
+package ir.ssa.parkban.domain.filters.warehouse;
 
 import com.mysema.query.types.path.EntityPathBase;
-import ir.ssa.parkban.domain.entities.warehouse.QRegionParkInformation;
+import ir.ssa.parkban.domain.entities.warehouse.QVehicleParkInformation;
+import ir.ssa.parkban.domain.filters.RegionFilter;
 import ir.ssa.parkban.domain.filters.enumfilter.DateLevelFilter;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
 /**
- * Created by Behrouz-ZD on 7/26/2016.
+ * @author Yeganeh
  */
-public class RegionParkInformationFilter extends BaseFilter {
+public class VehicleParkInformationFilter extends BaseFilter {
 
     private DateFilter startDate;
+
     private DateFilter endDate;
+
     private RegionFilter region;
+
     private DateLevelFilter dateDimensionLevel;
+    private StringFilter plateNumber;
+
+    public StringFilter getPlateNumber() {
+        return plateNumber;
+    }
+
+    public void setPlateNumber(StringFilter plateNumber) {
+        this.plateNumber = plateNumber;
+    }
 
     public DateFilter getStartDate() {
         return startDate;
@@ -50,6 +64,6 @@ public class RegionParkInformationFilter extends BaseFilter {
 
     @Override
     protected EntityPathBase getEntityPath() {
-        return QRegionParkInformation.regionParkInformation;
+        return QVehicleParkInformation.vehicleParkInformation;
     }
 }

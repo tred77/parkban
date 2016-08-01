@@ -1,12 +1,9 @@
 package ir.ssa.parkban.service.impl.report;
 
-import com.google.common.collect.Lists;
 import ir.ssa.parkban.domain.entities.Vehicle;
 import ir.ssa.parkban.domain.entities.warehouse.VehicleParkInformation;
-import ir.ssa.parkban.domain.enums.DateDimensionLevel;
 import ir.ssa.parkban.domain.filters.VehicleFilter;
-import ir.ssa.parkban.domain.filters.VehicleParkInformationFilter;
-import ir.ssa.parkban.domain.filters.enumfilter.DateLevelFilter;
+import ir.ssa.parkban.domain.filters.warehouse.VehicleParkInformationFilter;
 import ir.ssa.parkban.domain.views.report.dashboard.VehicleDashboardView;
 import ir.ssa.parkban.repository.ParkChargeFiscalDocDAO;
 import ir.ssa.parkban.repository.VehicleDAO;
@@ -21,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 /**

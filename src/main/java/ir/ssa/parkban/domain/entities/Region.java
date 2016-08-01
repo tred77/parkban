@@ -1,12 +1,9 @@
 package ir.ssa.parkban.domain.entities;
 
-import ir.ssa.parkban.domain.entities.warehouse.RegionParkInformation;
 import ir.ssa.parkban.domain.enums.RegionNodeType;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.util.Set;
-import java.util.concurrent.atomic.DoubleAccumulator;
 
 /**
  * @author hym
@@ -14,7 +11,6 @@ import java.util.concurrent.atomic.DoubleAccumulator;
 @Entity(name = "TBL_REGION")
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "REGION_SEQ")
 public class Region extends DomainEntity {
-
 
     @Size(max = 50)
     @Column(name = "NAME")
@@ -42,14 +38,17 @@ public class Region extends DomainEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
     private Set<ParkPrice> parkPrices;
 
-    /*@OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
-    private Set<RegionParkInformation> regionParkInformations ;*/
-
     @Column(name = "LONGITUDE")
     private Double longitude;
 
     @Column(name = "LATITUDE")
     private Double latitude;
+
+    @Column(name = "ACTIVE" )
+    private Boolean active;
+
+    @Column(name = "CAPACITY" )
+    private Long capacity;
 
     public Region getParent() {
         return parent;
@@ -59,14 +58,8 @@ public class Region extends DomainEntity {
         this.parent = parent;
     }
 
-    @Column(name = "Active" )
-    private Boolean active;
-
-
-
     public Region() {
     }
-
 
     public RegionNodeType getRegionType() {
         return regionType;
@@ -124,7 +117,6 @@ public class Region extends DomainEntity {
         this.level = level;
     }
 
-
     public Double getLongitude() {
         return longitude;
     }
@@ -140,5 +132,14 @@ public class Region extends DomainEntity {
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
+
+    public Long getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Long capacity) {
+        this.capacity = capacity;
+    }
+
 }
 

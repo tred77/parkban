@@ -20,12 +20,20 @@ public class NumberFilter implements Filter{
         this.elementOp = NumberFilterOperation.getFilterOperation(elementOp);
     }
 
+    public void setEnumElementOp(NumberFilterOperation elementOp) {
+        this.elementOp = elementOp;
+    }
+
     public Number[] getValues() {
         return values;
     }
 
     public void setValues(Number[] values) {
         this.values = values;
+    }
+
+    public void setValue(Number value){
+        this.setValues(new Number[]{value});
     }
 
     @Override

@@ -19,12 +19,20 @@ public class BooleanFilter implements  Filter{
         this.elementOp = elementOp;
     }
 
+    public void setEnumElementOp(BooleanFilterOperation elementOp) {
+        this.elementOp = elementOp;
+    }
+
     public Boolean[] getValues() {
         return values;
     }
 
     public void setValues(Boolean[] values) {
         this.values = values;
+    }
+
+    public void setValue(Boolean value) {
+        this.setValues(new Boolean[]{value}); ;
     }
 
     @Override

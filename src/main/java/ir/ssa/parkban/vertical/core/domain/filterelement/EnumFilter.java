@@ -47,7 +47,7 @@ public abstract class EnumFilter<T extends Enum<T>> implements Filter {
     }
 
     public void setEnumValue(Enum<T> value){
-        this.values=new Enum[]{value};
+        this.setEnumValues(new Enum[]{value});
     }
 
     public Enum<T>[] getEnumValues(){

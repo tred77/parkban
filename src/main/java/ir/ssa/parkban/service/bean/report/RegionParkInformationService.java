@@ -1,7 +1,7 @@
 package ir.ssa.parkban.service.bean.report;
 
-import ir.ssa.parkban.domain.filters.ComparedRegionParkInfoFilter;
-import ir.ssa.parkban.domain.filters.RegionParkInformationFilter;
+import ir.ssa.parkban.domain.filters.warehouse.ComparedRegionParkInfoFilter;
+import ir.ssa.parkban.domain.filters.warehouse.RegionParkInformationFilter;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.dto.entity.RegionParkInformationDto;
 

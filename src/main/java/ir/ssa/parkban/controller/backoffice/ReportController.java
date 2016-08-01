@@ -1,9 +1,9 @@
 package ir.ssa.parkban.controller.backoffice;
 
-import ir.ssa.parkban.domain.filters.ComparedRegionParkInfoFilter;
+import ir.ssa.parkban.domain.filters.warehouse.ComparedRegionParkInfoFilter;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
-import ir.ssa.parkban.domain.filters.RegionParkInformationFilter;
-import ir.ssa.parkban.domain.filters.VehicleParkInformationFilter;
+import ir.ssa.parkban.domain.filters.warehouse.RegionParkInformationFilter;
+import ir.ssa.parkban.domain.filters.warehouse.VehicleParkInformationFilter;
 import ir.ssa.parkban.service.bean.SettlementService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
 import ir.ssa.parkban.service.bean.report.VehicleReportService;
@@ -43,6 +43,7 @@ public class ReportController{
     @RequestMapping(value = "/getRegionParkInformation", method = RequestMethod.POST)
     public List<RegionParkInformationDto> getRegionParkInformation(@RequestBody RegionParkInformationFilter filter){
         filter.addGraphPath("region");
+        filter.addGraphPath("dateDimensionEntity");
         return regionParkInformationService.getRegionParkInformation(filter);
     }
 

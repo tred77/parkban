@@ -1,4 +1,4 @@
-package ir.ssa.parkban.domain.filters;
+package ir.ssa.parkban.domain.filters.warehouse;
 
 import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.warehouse.QRegionParkInformation;
