@@ -36,7 +36,7 @@ public class DateFilter implements Filter {
 
     public void setValues(Date[] dates) {
         this.values = dates;
-        List<Date> lDate = Arrays.asList(dates);
+        List<Date> lDate = new ArrayList<>(Arrays.asList(dates));
         switch (this.elementOp){
             case ONE_DAY:
                 if(lDate.size() == 1){
