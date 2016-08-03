@@ -10,6 +10,7 @@ import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
 import ir.ssa.parkban.service.dto.entity.RegionParkInformationDto;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilterOperation;
 import ir.ssa.parkban.vertical.core.domain.filterelement.EnumFilterOperation;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateConverter;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateUtils;
@@ -39,9 +40,9 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
         // shift start date and end date
         if(filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.MONTH)){
             filter.getDateDimensionEntity().getStartDate().setValues(new Date[]{DateUtils.shiftShamsyToBeginningOfMonth(filter.getDateDimensionEntity().getStartDate().getValues()[0])});
-            filter.getDateDimensionEntity().getStartDate().setElementOp("gt");
-            filter.getDateDimensionEntity().getEndDate().setValues(new Date[]{DateUtils.shiftShamsyToEndOfMonth(filter.getDateDimensionEntity().getEndDate().getValues()[0])});
-            filter.getDateDimensionEntity().getEndDate().setElementOp("lt");
+            filter.getDateDimensionEntity().getStartDate().setEnumElementOp(DateFilterOperation.GREATER_THAN);
+            filter.getDateDimensionEntity().getEndDate().setValue(DateUtils.shiftShamsyToEndOfMonth(filter.getDateDimensionEntity().getEndDate().getValues()[0]));
+            filter.getDateDimensionEntity().getEndDate().setEnumElementOp(DateFilterOperation.LESS_THAN);
         }
 
         return ObjectMapper.map(regionParkInformationDAO.findAll(filter.getCriteriaExpression()),RegionParkInformationDto.class);
@@ -61,7 +62,7 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
             informationFilter.getDateDimensionEntity().setDateDimensionLevel(dateLevelFilter);
 
             DateFilter startDate = new DateFilter();
-            startDate.setElementOp("gt");
+            startDate.setEnumElementOp(DateFilterOperation.GREATER_THAN);
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(filter.getPeriodDate().getValues()[0]);
@@ -93,10 +94,10 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
             DateFilter endDate = new DateFilter();
             String startShamsiDate = year+"/"+moth+"/01";
             String endShamsiDate = year+"/"+moth+"/29";
-            startDate.setElementOp("gt");
-            startDate.setValues(new Date[]{DateConverter.convertShamsiToMiladiBeginningOfDay(startShamsiDate)});
-            endDate.setElementOp("lt");
-            endDate.setValues(new Date[]{DateConverter.convertShamsiToMiladiBeginningOfDay(endShamsiDate)});
+            startDate.setEnumElementOp(DateFilterOperation.GREATER_THAN);
+            startDate.setValue(DateConverter.convertShamsiToMiladiBeginningOfDay(startShamsiDate));
+            endDate.setEnumElementOp(DateFilterOperation.LESS_THAN);
+            endDate.setValue(DateConverter.convertShamsiToMiladiBeginningOfDay(endShamsiDate));
 
 
             informationFilter.getDateDimensionEntity().setStartDate(startDate);
