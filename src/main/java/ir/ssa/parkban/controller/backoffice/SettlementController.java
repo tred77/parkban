@@ -23,7 +23,7 @@ public class SettlementController {
 
     @RequestMapping(value = "/getParkTimes", method = RequestMethod.POST)
     public List<ParkTimeDto> getParkTimes(@RequestBody ParkTimeFilter parkTimeFilter){
-        parkTimeFilter.addGraphPath("region.city");
+        parkTimeFilter.addGraphPath("region");
         return settlementService.findAllParkTimes(parkTimeFilter);
     }
 
