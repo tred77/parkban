@@ -1,8 +1,3 @@
--- initial cities
-insert into TBL_CITY(id,name) values(1,'تهران');
-insert into TBL_CITY(id,name) values(2,'سنندج');
-insert into TBL_CITY(id,name) values(3,'تبریز');
-insert into TBL_CITY(id,name) values(4,'اصفهان');
 
 -- initial regions
 insert into TBL_REGION(id,CODE, name, address, PARENT_ID,REGION_TYPE,ACTIVE,LEVEL) values (1,'1', 'Tehran Province ', 'Tehran',null, 'ROOT',true,0);
@@ -43,6 +38,16 @@ insert into TBL_ROLE(id,name) values(3,'User');
 insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(1,'behrooz', 'zamani', 'bzd', 'bzd', true,3733111834);
 insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(2,'hossein', 'yeganeh', 'hym', 'hym', true,3733111835);
 insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(3,'Admin', 'Admin', 'admin', 'admin', true,3733111836);
+
+-- vehicle owner
+insert into TBL_VEHICLE_OWNER (id, USER_ID) values(1, 1);
+insert into TBL_VEHICLE_OWNER (id, USER_ID) values(2, 2);
+
+-- initial vehicles
+insert into TBL_VEHICLE(id,plateNumber,OWNER_ID) values(1,'۱۲۳۴۵۶۷۸۹',1);
+insert into TBL_VEHICLE(id,plateNumber, OWNER_ID) values(2,'۹۸۷۶۵۴۳۲۱',2);
+insert into TBL_VEHICLE(id,plateNumber, OWNER_ID) values(3,'۱۱۱۱۱۱۱۱۱',1);
+insert into TBL_VEHICLE(id,plateNumber, OWNER_ID) values(4,'۲۲۲۲۲۲۲۲۲',2);
 
 -- parkban
 insert into TBL_PARKBAN(id, user_id) values(1,1);

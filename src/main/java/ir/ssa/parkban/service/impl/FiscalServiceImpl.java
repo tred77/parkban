@@ -149,22 +149,6 @@ public class FiscalServiceImpl implements FiscalService {
         parkChargeDAO.save(parkCharge);
     }
 
-    @Override
-    public void deleteParkCharge(ParkChargeDto parkChargeDto) {
-        ParkCharge parkCharge = ObjectMapper.map(parkChargeDto,ParkCharge.class);
-        parkChargeDAO.delete(parkCharge);
-    }
-
-    @Override
-    public List<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter) {
-        return ObjectMapper.map(parkChargeDAO.findAll(filter.getCriteriaExpression()),ParkChargeDto.class);
-    }
-
-    @Override
-    public ParkChargeDto findParkChargeById(long id) {
-        return ObjectMapper.map(parkChargeDAO.findOne(id), ParkChargeDto.class);
-    }
-
     /** PakPrice */
 
     @Override

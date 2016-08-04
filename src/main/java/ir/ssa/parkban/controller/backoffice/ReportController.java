@@ -4,6 +4,7 @@ import ir.ssa.parkban.domain.filters.warehouse.ComparedRegionParkInfoFilter;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
 import ir.ssa.parkban.domain.filters.warehouse.RegionParkInformationFilter;
 import ir.ssa.parkban.domain.filters.warehouse.VehicleParkInformationFilter;
+import ir.ssa.parkban.domain.views.report.dashboard.VehicleGeneralInformationView;
 import ir.ssa.parkban.service.bean.SettlementService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
 import ir.ssa.parkban.service.bean.report.VehicleReportService;
@@ -11,10 +12,7 @@ import ir.ssa.parkban.service.dto.entity.ParkTimeDto;
 import ir.ssa.parkban.service.dto.entity.RegionParkInformationDto;
 import ir.ssa.parkban.service.dto.entity.VehicleParkInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,9 +51,16 @@ public class ReportController{
         return regionParkInformationService.getComparedRegionParkInformation(filter);
     }
 
+    /* ********** Vehicle Report Section **********************/
+
     @RequestMapping(value = "/getVehicleParkInformation", method = RequestMethod.POST)
     public List<VehicleParkInformationDto> getVehicleParkInformation(@RequestBody VehicleParkInformationFilter filter){
         return vehicleReportService.getVehicleParkInformation(filter);
+    }
+
+    @RequestMapping(value = "/getVehicleGeneralInformation/{plateNumber}", method = RequestMethod.GET)
+    public VehicleGeneralInformationView getVehicleGeneralInformation(@PathVariable("plateNumber") String plateNumber){
+        return vehicleReportService.getVehicleGeneralInformation(plateNumber);
     }
 
 }

@@ -16,7 +16,7 @@ public class Vehicle extends DomainEntity {
     @Column(name = "MODEL")
     private String model;
 
-    @Column(name = "PLATE_NUMBER")
+    @Column(name = "PLATE_NUMBER", unique = true, nullable = false)
     private String plateNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)

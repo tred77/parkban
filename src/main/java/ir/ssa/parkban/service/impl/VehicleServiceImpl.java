@@ -106,6 +106,11 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
+    public VehicleDto insertVehicleInNewTransaction(VehicleDto VehicleDto) {
+        return insertVehicle(VehicleDto);
+    }
+
+    @Override
     public void updateVehicle(VehicleDto VehicleDto) {
         Vehicle vehicle = ObjectMapper.map(VehicleDto,Vehicle.class);
         vehicleDAO.save(vehicle);

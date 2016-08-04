@@ -4,6 +4,7 @@ import ir.ssa.parkban.domain.enums.ParkChargeType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by Behrouz-ZD on 5/20/2016.
@@ -25,6 +26,29 @@ public class ParkCharge extends DomainEntity {
 
     @Column(name = "AMOUNT")
     private BigDecimal amount;
+
+    @Column(name = "LAST_CHARGE_DATE")
+    private Date lastChargeDate;
+
+    @Column(name = "LAST_CHARGE_AMOUNT")
+    private BigDecimal lastChargeAmount;
+
+
+    public Date getLastChargeDate() {
+        return lastChargeDate;
+    }
+
+    public void setLastChargeDate(Date lastChargeDate) {
+        this.lastChargeDate = lastChargeDate;
+    }
+
+    public BigDecimal getLastChargeAmount() {
+        return lastChargeAmount;
+    }
+
+    public void setLastChargeAmount(BigDecimal lastChargeAmount) {
+        this.lastChargeAmount = lastChargeAmount;
+    }
 
     public BigDecimal getAmount() {
         return amount;

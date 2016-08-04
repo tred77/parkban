@@ -4,7 +4,7 @@ import ir.ssa.parkban.domain.entities.Vehicle;
 import ir.ssa.parkban.domain.entities.warehouse.VehicleParkInformation;
 import ir.ssa.parkban.domain.filters.VehicleFilter;
 import ir.ssa.parkban.domain.filters.warehouse.VehicleParkInformationFilter;
-import ir.ssa.parkban.domain.views.report.dashboard.VehicleDashboardView;
+import ir.ssa.parkban.domain.views.report.dashboard.VehicleGeneralInformationView;
 import ir.ssa.parkban.repository.ParkChargeFiscalDocDAO;
 import ir.ssa.parkban.repository.VehicleDAO;
 import ir.ssa.parkban.repository.warehouse.VehicleParkInformationDAO;
@@ -14,6 +14,7 @@ import ir.ssa.parkban.service.bean.report.VehicleReportService;
 import ir.ssa.parkban.service.dto.entity.VehicleParkInformationDto;
 import ir.ssa.parkban.vertical.core.domain.filterelement.*;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
+import ir.ssa.parkban.vertical.exceptions.entity.operation.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,10 +42,12 @@ public class VehicleReportServiceImpl implements VehicleReportService {
     FiscalService fiscalService;
 
     @Override
-    public List<VehicleParkInformationDto> getVehicleParkInformation(VehicleParkInformationFilter vehicleParkInformationFilter){//(String plateNumber, DateDimensionLevel dateLevel, Date insideDate) {
+    public VehicleGeneralInformationView getVehicleGeneralInformation(String plateNumber) {
 
-        String plateNumber = vehicleParkInformationFilter.getPlateNumber().getValues()[0];
-        VehicleDashboardView vehicleDashboardView = new VehicleDashboardView();
+        if(vehicleDAO.findByPlateNumber(plateNumber) == null)
+            throw new EntityNotFoundException();
+
+        VehicleGeneralInformationView vehicleDashboardView = new VehicleGeneralInformationView();
         vehicleDashboardView.setPlateNumber(plateNumber);
 
         /* vehicle */
@@ -65,36 +68,22 @@ public class VehicleReportServiceImpl implements VehicleReportService {
         Vehicle vehicle = vehicleDAO.findOne(vehicleFilter.getCriteriaExpression());
         if(vehicle != null && vehicle.getVehicleOwner() != null) {
             vehicleDashboardView.setOwnerFullName(vehicle.getVehicleOwner().getUser().getFirstName()+
-             " " + vehicle.getVehicleOwner().getUser().getLastName());
+                    " " + vehicle.getVehicleOwner().getUser().getLastName());
             vehicleDashboardView.setNationalId(vehicle.getVehicleOwner().getUser().getNationalId());
             vehicleDashboardView.setTel("021??????");
         }
+        return vehicleDashboardView;
+    }
 
-        /* vehicle park information */
-
-        /*StringFilter plateFilter = new StringFilter();
-        plateFilter.setElementOp(StringFilterOperation.EQUAL.getValue());
-        plateFilter.setValues(new String[]{plateNumber});
-        vehicleParkInformationFilter.setPlateNumber(plateFilter);
-
-        DateLevelFilter dateLevelFilter = new DateLevelFilter();
-        dateLevelFilter.setElementOp(EnumFilterOperation.EQUAL.getValue());
-        dateLevelFilter.setValues(new String[]{dateLevel.name()});
-        vehicleParkInformationFilter.setDateDimensionLevel(dateLevelFilter);
-
-        DateFilter startDateFilter = new DateFilter();
-        startDateFilter.setElementOp(DateFilterOperation.LESS_THAN.getValue());
-        startDateFilter.setValues(new Date[]{insideDate});
-        vehicleParkInformationFilter.setStartDate(startDateFilter);
-
-        DateFilter endDateFilter = new DateFilter();
-        endDateFilter.setElementOp(DateFilterOperation.GREATER_THAN.getValue());
-        endDateFilter.setValues(new Date[]{insideDate});
-        vehicleParkInformationFilter.setEndDate(endDateFilter);*/
+    @Override
+    public List<VehicleParkInformationDto> getVehicleParkInformation(VehicleParkInformationFilter vehicleParkInformationFilter){
 
         BaseService.setEntityGraph(vehicleParkInformationDAO, vehicleParkInformationFilter, "findAll");
         Iterable<VehicleParkInformation> vehicleParkInformation = vehicleParkInformationDAO.findAll(vehicleParkInformationFilter.getCriteriaExpression());
 
         return ObjectMapper.map(vehicleParkInformation,VehicleParkInformationDto.class);
     }
+
+
+
 }

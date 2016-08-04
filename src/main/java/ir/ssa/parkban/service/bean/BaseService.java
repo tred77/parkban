@@ -1,5 +1,6 @@
 package ir.ssa.parkban.service.bean;
 
+import com.mysema.query.types.Predicate;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.springcustom.CustomEntityGraph;
 import ir.ssa.parkban.vertical.core.domain.springcustom.springdata.CustomCrudMethodMetadata;
@@ -23,7 +24,7 @@ public interface BaseService {
         EntityGraph entityGraph = new CustomEntityGraph(filter.getEntityGraphPaths());
         Method method = null;
         try {
-            method = repository.getClass().getDeclaredMethod(methodName);
+            method = repository.getClass().getDeclaredMethod(methodName, Predicate.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
         }
