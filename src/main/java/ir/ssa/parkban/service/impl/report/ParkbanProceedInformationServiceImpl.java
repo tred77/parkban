@@ -5,12 +5,14 @@ import ir.ssa.parkban.repository.warehouse.ParkbanProceedInformationDAO;
 import ir.ssa.parkban.service.bean.report.ParkbanProceedInformationService;
 import ir.ssa.parkban.service.dto.entity.ParkbanProceedInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Behrouz-ZD on 8/4/2016.
  */
+@Service
 public class ParkbanProceedInformationServiceImpl implements ParkbanProceedInformationService{
 
 
