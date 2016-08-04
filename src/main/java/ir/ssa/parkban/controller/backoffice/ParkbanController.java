@@ -4,6 +4,7 @@ import ir.ssa.parkban.domain.filters.ParkbanFilter;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
 import ir.ssa.parkban.domain.filters.ParkbanTrackFilter;
 import ir.ssa.parkban.service.bean.ParkBanService;
+import ir.ssa.parkban.service.dto.entity.ParkFacilityDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTrackDto;
@@ -61,6 +62,11 @@ public class ParkbanController {
         parkBanService.deleteParkban(id);
     }
 
+    @RequestMapping(value = "/insertParkFacilities", method = RequestMethod.POST)
+    public void insertParkFacilities(@RequestBody List<ParkFacilityDto> parkFacilities){
+        parkBanService.insertParkFacilities(parkFacilities);
+    }
+
     /* ParkbanTrack section*/
     @RequestMapping(value = "/getParkbanTracks", method = RequestMethod.POST)
     public List<ParkbanTrackDto> getParkbanTracks(@RequestBody ParkbanTrackFilter parkbanTrackFilter){
@@ -73,7 +79,5 @@ public class ParkbanController {
     public void insertParkban(@RequestBody ParkbanTrackDto parkbanTrackDto){
         parkBanService.insertParkbanTrack(parkbanTrackDto);
     }
-
-
 
 }

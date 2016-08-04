@@ -2,13 +2,16 @@ package ir.ssa.parkban.controller.backoffice;
 
 import ir.ssa.parkban.domain.filters.warehouse.ComparedRegionParkInfoFilter;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
+import ir.ssa.parkban.domain.filters.warehouse.ParkbanProceedInformationFilter;
 import ir.ssa.parkban.domain.filters.warehouse.RegionParkInformationFilter;
 import ir.ssa.parkban.domain.filters.warehouse.VehicleParkInformationFilter;
 import ir.ssa.parkban.domain.views.report.dashboard.VehicleGeneralInformationView;
 import ir.ssa.parkban.service.bean.SettlementService;
+import ir.ssa.parkban.service.bean.report.ParkbanProceedInformationService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
 import ir.ssa.parkban.service.bean.report.VehicleReportService;
 import ir.ssa.parkban.service.dto.entity.ParkTimeDto;
+import ir.ssa.parkban.service.dto.entity.ParkbanProceedInformationDto;
 import ir.ssa.parkban.service.dto.entity.RegionParkInformationDto;
 import ir.ssa.parkban.service.dto.entity.VehicleParkInformationDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ public class ReportController{
 
     @Autowired
     VehicleReportService vehicleReportService;
+
+    @Autowired
+    ParkbanProceedInformationService parkbanProceedInformationService;
 
     @RequestMapping(value = "/getParkTimes1", method = RequestMethod.POST)
     public List<ParkTimeDto> getParkTimes(@RequestBody ParkTimeFilter parkTimeFilter){
@@ -61,6 +67,11 @@ public class ReportController{
     @RequestMapping(value = "/getVehicleGeneralInformation/{plateNumber}", method = RequestMethod.GET)
     public VehicleGeneralInformationView getVehicleGeneralInformation(@PathVariable("plateNumber") String plateNumber){
         return vehicleReportService.getVehicleGeneralInformation(plateNumber);
+    }
+
+    @RequestMapping(value = "/getParkbanProceedInformation", method = RequestMethod.POST)
+    public List<ParkbanProceedInformationDto> getParkbanProceedInformation(@RequestBody ParkbanProceedInformationFilter filter){
+        return parkbanProceedInformationService.getParkbanProceedInformation(filter);
     }
 
 }
