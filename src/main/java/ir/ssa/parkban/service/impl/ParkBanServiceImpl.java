@@ -1,21 +1,16 @@
 package ir.ssa.parkban.service.impl;
 
 import com.google.common.collect.Lists;
-import ir.ssa.parkban.domain.entities.Parkban;
-import ir.ssa.parkban.domain.entities.ParkbanTimeTable;
-import ir.ssa.parkban.domain.entities.ParkbanTrack;
-import ir.ssa.parkban.domain.entities.Region;
+import ir.ssa.parkban.domain.entities.*;
 import ir.ssa.parkban.domain.filters.ParkbanFilter;
 import ir.ssa.parkban.domain.filters.ParkbanTimeTableFilter;
 import ir.ssa.parkban.domain.filters.ParkbanTrackFilter;
 import ir.ssa.parkban.domain.filters.RegionFilter;
 import ir.ssa.parkban.domain.views.ParkbanTimeTableView;
-import ir.ssa.parkban.repository.ParkbanDAO;
-import ir.ssa.parkban.repository.ParkbanTimeTableDAO;
-import ir.ssa.parkban.repository.ParkbanTrackDAO;
-import ir.ssa.parkban.repository.RegionDAO;
+import ir.ssa.parkban.repository.*;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.ParkBanService;
+import ir.ssa.parkban.service.dto.entity.ParkFacilityDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTrackDto;
@@ -50,6 +45,9 @@ public class ParkBanServiceImpl implements ParkBanService {
 
     @Autowired
     ParkbanTrackDAO parkbanTrackDAO;
+
+    @Autowired
+    ParkFacilityDAO parkFacilityDAO;
 
     @Override
     public ParkbanTimeTableDto insertParkbanTimeTable(ParkbanTimeTableDto parkbanTimeTableDto) {
@@ -164,5 +162,10 @@ public class ParkBanServiceImpl implements ParkBanService {
     @Override
     public void insertParkbanTrack(ParkbanTrackDto parkbanTrackDto) {
         parkbanTrackDAO.save(ObjectMapper.map(parkbanTrackDto,ParkbanTrack.class));
+    }
+
+    @Override
+    public void insertParkFacilities(List<ParkFacilityDto> parkFacilities){
+        parkFacilityDAO.save(ObjectMapper.map(parkFacilities, ParkFacility.class));
     }
 }
