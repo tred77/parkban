@@ -1,8 +1,6 @@
 package ir.ssa.parkban.domain.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
 
 /**
  * Created by Behrouz-ZD on 8/4/2016.
@@ -20,7 +18,8 @@ public class ParkFacility extends DomainEntity{
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "PARKBAN_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PARKBAN_ID")
     private Parkban parkban;
 
 

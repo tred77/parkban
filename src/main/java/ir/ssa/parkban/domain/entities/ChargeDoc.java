@@ -14,7 +14,8 @@ import javax.persistence.*;
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "CHARGE_DOC_SEQ")
 public class ChargeDoc extends DomainEntity {
 
-    @Column(name = "OWNER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "OWNER_ID")
     private VehicleOwner vehicleOwner;
 
     @Column(name = "PLATE_NUMBER")
@@ -28,10 +29,12 @@ public class ChargeDoc extends DomainEntity {
     @Enumerated(EnumType.STRING)
     private ChargeChannelType chargeChannelType;
 
-    @Column(name = "PARKBAN_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PARKBAN_ID")
     private Parkban parkban;
 
-    @Column(name = "REGION_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "REGION_ID")
     private Region region;
 
 
