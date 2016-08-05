@@ -26,17 +26,13 @@ public class DateDimensionEntity extends DomainEntity{
     @Column(name = "END_DATE")
     private Date endDate;
 
-    @Column(name = "YEAR")
-    private Short year;
+    @Column(name = "START_DATE_FA")
+    private Long startDateFa;
 
-    @Column(name = "MONTH")
-    private Short month;
+    @Column(name = "END_DATE_FA")
+    private Long endDateFa;
 
-    @Column(name = "WEEK")
-    private Short week;
 
-    @Column(name = "DAY")
-    private Short day;
 
     public DateDimensionLevel getDateDimensionLevel() {
         return dateDimensionLevel;
@@ -70,35 +66,19 @@ public class DateDimensionEntity extends DomainEntity{
         this.endDate = endDate;
     }
 
-    public Short getYear() {
-        return year;
+    public Long getStartDateFa() {
+        return startDateFa;
     }
 
-    public void setYear(Short year) {
-        this.year = year;
+    public void setStartDateFa(Long startDateFa) {
+        this.startDateFa = startDateFa;
     }
 
-    public Short getMonth() {
-        return month;
+    public Long getEndDateFa() {
+        return endDateFa;
     }
 
-    public void setMonth(Short month) {
-        this.month = month;
-    }
-
-    public Short getWeek() {
-        return week;
-    }
-
-    public void setWeek(Short week) {
-        this.week = week;
-    }
-
-    public Short getDay() {
-        return day;
-    }
-
-    public void setDay(Short day) {
-        this.day = day;
+    public void setEndDateFa(Long endDateFa) {
+        this.endDateFa = endDateFa;
     }
 }

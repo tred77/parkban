@@ -74,11 +74,13 @@ public class CalendarUtils {
         return calendar.getTime();
     }
 
-    public static Date getLastOfShamsiMonth(int year,int month){
+    public static int getLastDayOfShamsiMonth(int year,int month){
         String startShamsiDate = year+"/"+month+"/01";
-        Date sdt = DateConverter.convertShamsiToMiladiBeginningOfDay(startShamsiDate);
-        return CalendarUtils.shiftShamsyToEndOfMonth(sdt);
+        Date dt = CalendarUtils.shiftShamsyToEndOfMonth(DateConverter.convertShamsiToMiladiBeginningOfDay(startShamsiDate));
+        String[] sm = DateConverter.convertMiladiToShamsiWithoutTime(dt).split("/");
+        return new Integer(sm[2]);
     }
+
 
     public static Date getBeginningOfShamsiMonth(int year, int month){
         String startShamsiDate = year+"/"+month+"/01";
@@ -102,5 +104,7 @@ public class CalendarUtils {
         String[] sp = shamsyDate.split("/");
         return Short.parseShort(sp[1]);
     }
+
+
 
 }
