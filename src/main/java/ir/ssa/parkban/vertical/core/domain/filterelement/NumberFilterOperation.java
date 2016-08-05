@@ -3,6 +3,8 @@ package ir.ssa.parkban.vertical.core.domain.filterelement;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.NumberExpression;
 import com.mysema.query.types.expr.SimpleExpression;
+import org.springframework.util.ObjectUtils;
+
 import java.util.Arrays;
 
 /**
@@ -14,7 +16,8 @@ public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> 
     GREATER_THAN("gt"),
     IN("in"),
     LESS_THAN("lt"),
-    LIKE("lk");
+    LIKE("lk"),
+    BETWEEN("lk");
 
     private String value;
     NumberFilterOperation(String val) {
@@ -38,24 +41,28 @@ public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> 
         BooleanExpression result = null;
         switch (this) {
             case EQUAL:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values) && values[0] != null)
                     result = expression.eq(values[0]);
                 break;
             case LIKE:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values) && values[0] != null)
                     result = expression.eq(values[0]);
                 break;
             case GREATER_THAN:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values) && values[0] != null)
                     result = expression.gt(values[0]);
                 break;
             case LESS_THAN:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values) && values[0] != null)
                     result = expression.lt(values[0]);
                 break;
             case IN:
-                if(values != null && values.length > 0)
+                if(!ObjectUtils.isEmpty(values))
                     result = expression.in(values);
+                break;
+            case BETWEEN:
+                if(!ObjectUtils.isEmpty(values) && values[0]!=null && values[1]!=null)
+                    result = expression.between(values[0],values[1]);
                 break;
             default:
                 //throw new RuntimeException("No matched operation for String Operation");

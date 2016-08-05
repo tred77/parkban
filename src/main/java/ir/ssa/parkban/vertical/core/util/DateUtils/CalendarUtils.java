@@ -46,4 +46,61 @@ public class CalendarUtils {
         return dates;
     }
 
+    public static Date shiftShamsyToBeginningOfMonth(Date dt){
+        String shamsyDate = DateConverter.convertMiladiToShamsiWithoutTime(dt);
+        String[] sp = shamsyDate.split("/");
+        shamsyDate = sp[0]+"/"+sp[1]+"/"+"1";
+        return DateConverter.convertShamsiToMiladiBeginningOfDay(shamsyDate);
+    }
+
+    public static Date shiftShamsyToEndOfMonth(Date dt){
+        String shamsyDate = DateConverter.convertMiladiToShamsiWithoutTime(dt);
+        String[] sp = shamsyDate.split("/");
+        int year=Integer.parseInt(sp[0]);
+        int month=Integer.parseInt(sp[1]);
+        if(month == 12){
+            month = 1;
+            year=year+1;
+        }
+        else{
+            month=month+1;
+        }
+        shamsyDate = year+"/"+month+"/"+"1";
+        Date end = DateConverter.convertShamsiToMiladiEndOfDay(shamsyDate);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(end);
+        calendar.add(Calendar.DATE, -1);
+
+        return calendar.getTime();
+    }
+
+    public static Date getLastOfShamsiMonth(int year,int month){
+        String startShamsiDate = year+"/"+month+"/01";
+        Date sdt = DateConverter.convertShamsiToMiladiBeginningOfDay(startShamsiDate);
+        return CalendarUtils.shiftShamsyToEndOfMonth(sdt);
+    }
+
+    public static Date getBeginningOfShamsiMonth(int year, int month){
+        String startShamsiDate = year+"/"+month+"/01";
+        return DateConverter.convertShamsiToMiladiBeginningOfDay(startShamsiDate);
+    }
+
+    public static short getDayOfShamsiDate(Date date){
+        String shamsyDate = DateConverter.convertMiladiToShamsiWithoutTime(date);
+        String[] sp = shamsyDate.split("/");
+        return Short.parseShort(sp[2]);
+    }
+
+    public static short getYearOfShamsiDate(Date date){
+        String shamsyDate = DateConverter.convertMiladiToShamsiWithoutTime(date);
+        String[] sp = shamsyDate.split("/");
+        return Short.parseShort(sp[0]);
+    }
+
+    public static short getMonthOfShamsiDate(Date date){
+        String shamsyDate = DateConverter.convertMiladiToShamsiWithoutTime(date);
+        String[] sp = shamsyDate.split("/");
+        return Short.parseShort(sp[1]);
+    }
+
 }

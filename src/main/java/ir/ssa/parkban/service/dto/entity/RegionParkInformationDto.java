@@ -9,27 +9,33 @@ import java.util.Date;
  */
 public class RegionParkInformationDto extends DomainEntityDto{
 
-    private Date startDate;
-    private Date endDate;
+    /**
+     * Date Dim Level
+     */
+    private DateDimensionEntityDto dateDimensionEntity;
+
+    /**
+     * region
+     */
     private RegionDto region;
+
+    /**
+     * park duration in minute
+     */
     private Long totalParkDuration;
+
+    /**
+     * total park cost in TOOMAN
+     */
     private BigDecimal totalParkCost;
-    private DateDimensionLevelDto dateDimensionLevel;
 
-    public Date getStartDate() {
-        return startDate;
+
+    public DateDimensionEntityDto getDateDimensionEntity() {
+        return dateDimensionEntity;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setDateDimensionEntity(DateDimensionEntityDto dateDimensionEntity) {
+        this.dateDimensionEntity = dateDimensionEntity;
     }
 
     public RegionDto getRegion() {
@@ -54,13 +60,5 @@ public class RegionParkInformationDto extends DomainEntityDto{
 
     public void setTotalParkCost(BigDecimal totalParkCost) {
         this.totalParkCost = totalParkCost;
-    }
-
-    public DateDimensionLevelDto getDateDimensionLevel() {
-        return dateDimensionLevel;
-    }
-
-    public void setDateDimensionLevel(DateDimensionLevelDto dateDimensionLevel) {
-        this.dateDimensionLevel = dateDimensionLevel;
     }
 }
