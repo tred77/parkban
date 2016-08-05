@@ -1,11 +1,11 @@
 package ir.ssa.parkban.service.dto.exception;
 
-import ir.ssa.parkban.vertical.exceptions.business.BaseBuinessException;
+import ir.ssa.parkban.vertical.exceptions.business.BaseBusinessException;
 
 /**
  * Created by Behrouz-ZD on 7/19/2016.
  */
-public class RegionInsertNotAllowedUnderLeafException extends BaseBuinessException{
+public class RegionInsertNotAllowedUnderLeafException extends BaseBusinessException {
 
     public RegionInsertNotAllowedUnderLeafException() {
         super();

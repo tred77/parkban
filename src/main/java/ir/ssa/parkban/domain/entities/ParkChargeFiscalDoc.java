@@ -4,6 +4,7 @@ import ir.ssa.parkban.domain.enums.ParkChargeType;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * author hym
@@ -24,16 +25,16 @@ public class ParkChargeFiscalDoc extends DomainEntity {
     private ParkChargeType chargeType;
 
     @Column(name = "CHARGE_DATE")
-    private BigDecimal chargeDate;
+    private Date chargeDate;
 
     @Column(name = "AMOUNT")
     private BigDecimal amount;
 
-    public BigDecimal getChargeDate() {
+    public Date getChargeDate() {
         return chargeDate;
     }
 
-    public void setChargeDate(BigDecimal chargeDate) {
+    public void setChargeDate(Date chargeDate) {
         this.chargeDate = chargeDate;
     }
 
