@@ -3,9 +3,7 @@ package ir.ssa.parkban.domain.filters.warehouse;
 import com.mysema.query.types.path.EntityPathBase;
 import ir.ssa.parkban.domain.entities.warehouse.QVehicleParkInformation;
 import ir.ssa.parkban.domain.filters.RegionFilter;
-import ir.ssa.parkban.domain.filters.enumfilter.DateLevelFilter;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
-import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
 /**
@@ -13,13 +11,10 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
  */
 public class VehicleParkInformationFilter extends BaseFilter {
 
-    private DateFilter startDate;
-
-    private DateFilter endDate;
-
     private RegionFilter region;
 
-    private DateLevelFilter dateDimensionLevel;
+    private DateDimensionEntityFilter dateDimension;
+
     private StringFilter plateNumber;
 
     public StringFilter getPlateNumber() {
@@ -30,22 +25,6 @@ public class VehicleParkInformationFilter extends BaseFilter {
         this.plateNumber = plateNumber;
     }
 
-    public DateFilter getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(DateFilter startDate) {
-        this.startDate = startDate;
-    }
-
-    public DateFilter getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(DateFilter endDate) {
-        this.endDate = endDate;
-    }
-
     public RegionFilter getRegion() {
         return region;
     }
@@ -54,16 +33,16 @@ public class VehicleParkInformationFilter extends BaseFilter {
         this.region = region;
     }
 
-    public DateLevelFilter getDateDimensionLevel() {
-        return dateDimensionLevel;
-    }
-
-    public void setDateDimensionLevel(DateLevelFilter dateDimensionLevel) {
-        this.dateDimensionLevel = dateDimensionLevel;
-    }
-
     @Override
     protected EntityPathBase getEntityPath() {
         return QVehicleParkInformation.vehicleParkInformation;
+    }
+
+    public DateDimensionEntityFilter getDateDimension() {
+        return dateDimension;
+    }
+
+    public void setDateDimension(DateDimensionEntityFilter dateDimension) {
+        this.dateDimension = dateDimension;
     }
 }
