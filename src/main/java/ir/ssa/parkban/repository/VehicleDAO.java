@@ -15,4 +15,6 @@ import java.util.List;
 public interface VehicleDAO extends CrudRepository<Vehicle, Long>, JpaSpecificationExecutor<Vehicle>, QueryDslPredicateExecutor<Vehicle> {
 
     List<Vehicle> findByVehicleOwnerId(Long id);
+
+    Vehicle findByPlateNumber(String plateNumber);
 }

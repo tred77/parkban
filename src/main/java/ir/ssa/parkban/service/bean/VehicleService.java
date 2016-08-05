@@ -4,6 +4,7 @@ import ir.ssa.parkban.domain.filters.VehicleFilter;
 import ir.ssa.parkban.domain.filters.VehicleOwnerFilter;
 import ir.ssa.parkban.service.dto.entity.VehicleDto;
 import ir.ssa.parkban.service.dto.entity.VehicleOwnerDto;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -35,6 +36,9 @@ public interface VehicleService extends BaseService {
 
     @Transactional
     VehicleDto insertVehicle(VehicleDto VehicleDto);
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    VehicleDto insertVehicleInNewTransaction(VehicleDto VehicleDto);
 
     @Transactional
     void updateVehicle(VehicleDto VehicleDto);

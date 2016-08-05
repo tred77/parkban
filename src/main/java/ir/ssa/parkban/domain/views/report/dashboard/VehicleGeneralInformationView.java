@@ -1,15 +1,12 @@
 package ir.ssa.parkban.domain.views.report.dashboard;
 
-import ir.ssa.parkban.domain.entities.warehouse.VehicleParkInformation;
-
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Yeganeh
  */
-public class VehicleDashboardView {
+public class VehicleGeneralInformationView {
     String plateNumber;
 
     /* owner information */
@@ -21,9 +18,6 @@ public class VehicleDashboardView {
     BigDecimal currentCharge;
     Date lastChargeDate;
     BigDecimal lastChargeAmount;
-
-    /* region based information */
-    List<VehicleParkInformation> vehicleParkInformation;
 
 
     public String getPlateNumber() {
@@ -82,11 +76,4 @@ public class VehicleDashboardView {
         this.lastChargeAmount = lastChargeAmount;
     }
 
-    public List<VehicleParkInformation> getVehicleParkInformation() {
-        return vehicleParkInformation;
-    }
-
-    public void setVehicleParkInformation(List<VehicleParkInformation> vehicleParkInformation) {
-        this.vehicleParkInformation = vehicleParkInformation;
-    }
 }

@@ -11,7 +11,7 @@ import java.util.Set;
 public class VehicleOwner extends DomainEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="USER_ID")
+    @JoinColumn(name="USER_ID", unique = true)
     private User user;
 
     @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.PERSIST,CascadeType.MERGE},mappedBy = "vehicleOwner")
