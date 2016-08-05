@@ -66,4 +66,16 @@ public class DateConverter {
         }
     }
 
+    public static Long convertShamsiDateToNumber(Date date){
+        String shamsiDate = convertMiladiToShamsiWithoutTime(date);
+        String[] sp = shamsiDate.split("/");
+        if(sp[1].length()==1)
+            sp[1] = "0"+sp[1];
+        if(sp[2].length()==1)
+            sp[2]="0"+sp[2];
+
+        return new Long(sp[0]+sp[1]+sp[2]);
+    }
+
+
 }

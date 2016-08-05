@@ -14,8 +14,10 @@ public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> 
 
     EQUAL("eq"),
     GREATER_THAN("gt"),
+    GREATER_EQUAL_THAN("goe"),
     IN("in"),
     LESS_THAN("lt"),
+    LESS_EQUAL_THAN("loe"),
     LIKE("lk"),
     BETWEEN("lk");
 
@@ -52,9 +54,17 @@ public enum NumberFilterOperation implements ExpressionCriteriaProvider<Number> 
                 if(!ObjectUtils.isEmpty(values) && values[0] != null)
                     result = expression.gt(values[0]);
                 break;
+            case GREATER_EQUAL_THAN:
+                if(!ObjectUtils.isEmpty(values) && values[0] != null )
+                    result = expression.goe(values[0]);
+                break;
             case LESS_THAN:
                 if(!ObjectUtils.isEmpty(values) && values[0] != null)
                     result = expression.lt(values[0]);
+                break;
+            case LESS_EQUAL_THAN:
+                if(!ObjectUtils.isEmpty(values) && values[0] != null)
+                    result = expression.loe(values[0]);
                 break;
             case IN:
                 if(!ObjectUtils.isEmpty(values))

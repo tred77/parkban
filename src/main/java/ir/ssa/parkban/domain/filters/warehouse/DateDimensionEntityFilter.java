@@ -15,10 +15,8 @@ public class DateDimensionEntityFilter extends BaseFilter {
     private DateLevelFilter dateDimensionLevel;
     private DateFilter startDate;
     private DateFilter endDate;
-    private NumberFilter year;
-    private NumberFilter month;
-    private NumberFilter day;
-    private NumberFilter week;
+    private NumberFilter startDateFa;
+    private NumberFilter endDateFa;
 
     public DateLevelFilter getDateDimensionLevel() {
         return dateDimensionLevel;
@@ -45,36 +43,20 @@ public class DateDimensionEntityFilter extends BaseFilter {
         this.endDate = endDate;
     }
 
-    public NumberFilter getYear() {
-        return year;
+    public NumberFilter getStartDateFa() {
+        return startDateFa;
     }
 
-    public void setYear(NumberFilter year) {
-        this.year = year;
+    public void setStartDateFa(NumberFilter startDateFa) {
+        this.startDateFa = startDateFa;
     }
 
-    public NumberFilter getMonth() {
-        return month;
+    public NumberFilter getEndDateFa() {
+        return endDateFa;
     }
 
-    public void setMonth(NumberFilter month) {
-        this.month = month;
-    }
-
-    public NumberFilter getDay() {
-        return day;
-    }
-
-    public void setDay(NumberFilter day) {
-        this.day = day;
-    }
-
-    public NumberFilter getWeek() {
-        return week;
-    }
-
-    public void setWeek(NumberFilter week) {
-        this.week = week;
+    public void setEndDateFa(NumberFilter endDateFa) {
+        this.endDateFa = endDateFa;
     }
 
     @Override
