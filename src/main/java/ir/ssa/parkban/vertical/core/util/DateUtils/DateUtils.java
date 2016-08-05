@@ -2,6 +2,7 @@ package ir.ssa.parkban.vertical.core.util.DateUtils;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -19,19 +20,32 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         return localDate1.getDayOfWeek();
     }
 
-    public static Date shiftShamsyToBeginningOfMonth(Date dt){
-        String shamsyDate = DateConverter.convertMiladiToShamsiWithoutTime(dt);
-        String[] sp = shamsyDate.split("/");
-        shamsyDate = sp[0]+"/"+sp[1]+"/"+"1";
-        return DateConverter.convertShamsiToMiladiBeginningOfDay(shamsyDate);
-
+    public static Date getNextDay(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, 1);
+        return  calendar.getTime();
     }
 
-    public static Date shiftShamsyToEndOfMonth(Date dt){
-        String shamsyDate = DateConverter.convertMiladiToShamsiWithoutTime(dt);
-        String[] sp = shamsyDate.split("/");
-        shamsyDate = sp[0]+"/"+sp[1]+"/"+"29";
-        return DateConverter.convertShamsiToMiladiEndOfDay(shamsyDate);
+    public static Date getPreviousDay(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, -1);
+        return  calendar.getTime();
     }
+
+    public static Date getLastDayOfMonth(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, 1);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.add(Calendar.DATE, -1);
+        Date lastDayOfMonth = calendar.getTime();
+        return lastDayOfMonth;
+    }
+
+
+
+
 
 }

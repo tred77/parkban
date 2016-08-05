@@ -9,10 +9,8 @@ import ir.ssa.parkban.repository.warehouse.RegionParkInformationDAO;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
 import ir.ssa.parkban.service.dto.entity.RegionParkInformationDto;
-import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
-import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilterOperation;
-import ir.ssa.parkban.vertical.core.domain.filterelement.EnumFilterOperation;
-import ir.ssa.parkban.vertical.core.util.DateUtils.DateConverter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.*;
+import ir.ssa.parkban.vertical.core.util.DateUtils.CalendarUtils;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateUtils;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -37,12 +34,10 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
     public List<RegionParkInformationDto> getRegionParkInformation(RegionParkInformationFilter filter) {
         BaseService.setEntityGraph(regionParkInformationDAO,filter,"findAll");
 
-        // shift start date and end date
-        if(filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.MONTH)){
-            filter.getDateDimensionEntity().getStartDate().setValues(new Date[]{DateUtils.shiftShamsyToBeginningOfMonth(filter.getDateDimensionEntity().getStartDate().getValues()[0])});
-            filter.getDateDimensionEntity().getStartDate().setEnumElementOp(DateFilterOperation.GREATER_THAN);
-            filter.getDateDimensionEntity().getEndDate().setValue(DateUtils.shiftShamsyToEndOfMonth(filter.getDateDimensionEntity().getEndDate().getValues()[0]));
-            filter.getDateDimensionEntity().getEndDate().setEnumElementOp(DateFilterOperation.LESS_THAN);
+        if(filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.DAY)){
+            prepareIntervalFilterForDay(filter.getDateDimensionEntity());
+        }else if(filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.MONTH)){
+            prepareIntervalFilterForMonth(filter.getDateDimensionEntity());
         }
 
         return ObjectMapper.map(regionParkInformationDAO.findAll(filter.getCriteriaExpression()),RegionParkInformationDto.class);
@@ -54,58 +49,100 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
         DateLevelFilter dateLevelFilter = new DateLevelFilter();
         dateLevelFilter.setEnumElementOp(EnumFilterOperation.EQUAL);
         informationFilter.addGraphPath("region");
+        informationFilter.addGraphPath("dateDimensionEntity");
         informationFilter.setDateDimensionEntity(new DateDimensionEntityFilter());
         BaseService.setEntityGraph(regionParkInformationDAO,informationFilter,"findAll");
 
         if(filter.getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.DAY)){
             dateLevelFilter.setEnumValue(DateDimensionLevel.DAY);
             informationFilter.getDateDimensionEntity().setDateDimensionLevel(dateLevelFilter);
-
-            DateFilter startDate = new DateFilter();
-            startDate.setEnumElementOp(DateFilterOperation.GREATER_THAN);
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(filter.getPeriodDate().getValues()[0]);
-            calendar.add(Calendar.DAY_OF_MONTH,-1);
-            startDate.setValues(new Date[]{calendar.getTime()});
-
-            DateFilter endDate = new DateFilter();
-            endDate.setElementOp("lt");
-            calendar.add(Calendar.DAY_OF_MONTH,2);
-            endDate.setValues(new Date[]{calendar.getTime()});
-
-            informationFilter.getDateDimensionEntity().setStartDate(startDate);
-            informationFilter.getDateDimensionEntity().setEndDate(endDate);
-
+            prepareFilterForDay(informationFilter.getDateDimensionEntity(),filter.getPeriodDate());
             return ObjectMapper.map(regionParkInformationDAO.findAll(informationFilter.getCriteriaExpression()),RegionParkInformationDto.class);
 
         }else if(filter.getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.WEEK)){
-
-            //
-
-        }else if(filter.getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.MONTH)){
-
-            dateLevelFilter.setEnumValue(DateDimensionLevel.MONTH);
+            dateLevelFilter.setEnumValue(DateDimensionLevel.WEEK);
             informationFilter.getDateDimensionEntity().setDateDimensionLevel(dateLevelFilter);
-
-            Integer moth = (Integer) filter.getMonth().getValues()[0];
-            Integer year = (Integer) filter.getYear().getValues()[0];
-            DateFilter startDate = new DateFilter();
-            DateFilter endDate = new DateFilter();
-            String startShamsiDate = year+"/"+moth+"/01";
-            String endShamsiDate = year+"/"+moth+"/29";
-            startDate.setEnumElementOp(DateFilterOperation.GREATER_THAN);
-            startDate.setValue(DateConverter.convertShamsiToMiladiBeginningOfDay(startShamsiDate));
-            endDate.setEnumElementOp(DateFilterOperation.LESS_THAN);
-            endDate.setValue(DateConverter.convertShamsiToMiladiBeginningOfDay(endShamsiDate));
-
-
-            informationFilter.getDateDimensionEntity().setStartDate(startDate);
-            informationFilter.getDateDimensionEntity().setEndDate(endDate);
+            informationFilter.getDateDimensionEntity().setWeek(filter.getWeek());
+            informationFilter.getDateDimensionEntity().setMonth(filter.getMonth());
+            informationFilter.getDateDimensionEntity().setYear(filter.getYear());
             return ObjectMapper.map(regionParkInformationDAO.findAll(informationFilter.getCriteriaExpression()),RegionParkInformationDto.class);
 
-
+        }else if(filter.getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.MONTH)){
+            dateLevelFilter.setEnumValue(DateDimensionLevel.MONTH);
+            informationFilter.getDateDimensionEntity().setDateDimensionLevel(dateLevelFilter);
+            informationFilter.getDateDimensionEntity().setMonth(filter.getMonth());
+            informationFilter.getDateDimensionEntity().setYear(filter.getYear());
+            return ObjectMapper.map(regionParkInformationDAO.findAll(informationFilter.getCriteriaExpression()),RegionParkInformationDto.class);
         }
         return null;
     }
+
+    private void prepareIntervalFilterForDay(DateDimensionEntityFilter filter){
+
+        short startYear = CalendarUtils.getYearOfShamsiDate(filter.getStartDate().getValues()[0]);
+        short startMonth = CalendarUtils.getMonthOfShamsiDate(filter.getStartDate().getValues()[0]);
+        short startDay = CalendarUtils.getDayOfShamsiDate(filter.getStartDate().getValues()[0]);
+
+        short endYear = CalendarUtils.getYearOfShamsiDate(filter.getEndDate().getValues()[0]);
+        short endMonth = CalendarUtils.getMonthOfShamsiDate(filter.getEndDate().getValues()[0]);
+        short endDay = CalendarUtils.getDayOfShamsiDate(filter.getEndDate().getValues()[0]);
+
+        filter.setYear(new NumberFilter());
+        filter.getYear().setEnumElementOp(NumberFilterOperation.BETWEEN);
+        filter.getYear().setValues(new Number[]{startYear,endYear});
+
+        filter.setMonth(new NumberFilter());
+        filter.getMonth().setEnumElementOp(NumberFilterOperation.BETWEEN);
+        filter.getMonth().setValues(new Number[]{startMonth,endMonth});
+
+        filter.setDay(new NumberFilter());
+        filter.getDay().setEnumElementOp(NumberFilterOperation.BETWEEN);
+        filter.getDay().setValues(new Number[]{startDay,endDay});
+
+    }
+
+    private void prepareIntervalFilterForMonth(DateDimensionEntityFilter filter){
+
+        short startYear = CalendarUtils.getYearOfShamsiDate(filter.getStartDate().getValues()[0]);
+        short startMonth = CalendarUtils.getMonthOfShamsiDate(filter.getStartDate().getValues()[0]);
+
+        short endYear = CalendarUtils.getYearOfShamsiDate(filter.getEndDate().getValues()[0]);
+        short endMonth = CalendarUtils.getMonthOfShamsiDate(filter.getEndDate().getValues()[0]);
+
+        filter.setYear(new NumberFilter());
+        filter.getYear().setEnumElementOp(NumberFilterOperation.BETWEEN);
+        filter.getYear().setValues(new Number[]{startYear,endYear});
+
+        filter.setMonth(new NumberFilter());
+        filter.getMonth().setEnumElementOp(NumberFilterOperation.BETWEEN);
+        filter.getMonth().setValues(new Number[]{startMonth,endMonth});
+
+
+    }
+
+    private void prepareIntervalFilterForWeek(DateDimensionEntityFilter filter){
+
+
+    }
+
+    private void prepareFilterForDay(DateDimensionEntityFilter filter,DateFilter dateFilter){
+
+        short year = CalendarUtils.getYearOfShamsiDate(dateFilter.getValues()[0]);
+        short month = CalendarUtils.getMonthOfShamsiDate(dateFilter.getValues()[0]);
+        short day = CalendarUtils.getDayOfShamsiDate(dateFilter.getValues()[0]);
+
+        filter.setYear(new NumberFilter());
+        filter.getYear().setEnumElementOp(NumberFilterOperation.EQUAL);
+        filter.getYear().setValue(new Long(year));
+
+        filter.setMonth(new NumberFilter());
+        filter.getMonth().setEnumElementOp(NumberFilterOperation.EQUAL);
+        filter.getMonth().setValue(new Long(month));
+
+        filter.setDay(new NumberFilter());
+        filter.getDay().setEnumElementOp(NumberFilterOperation.EQUAL);
+        filter.getDay().setValue(new Long(day));
+
+    }
+
 }
