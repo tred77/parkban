@@ -38,6 +38,8 @@ public class RegionParkInformation extends DomainEntity {
     @Column(name = "TOTAL_PARK_COST")
     private BigDecimal totalParkCost;
 
+
+
     public DateDimensionEntity getDateDimensionEntity() {
         return dateDimensionEntity;
     }
