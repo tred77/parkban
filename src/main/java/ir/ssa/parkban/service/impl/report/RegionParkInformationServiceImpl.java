@@ -62,9 +62,11 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
             startDate = DateConverter.convertShamsiDateToNumber(filter.getDateDimensionEntity().getStartDate().getValues()[0]);
             endDate = DateConverter.convertShamsiDateToNumber(filter.getDateDimensionEntity().getEndDate().getValues()[0]);
         }else if(filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.WEEK)){
-
+            startDate = dateDimensionEntityService.getStartDateOfWeekInShamsi(filter.getDateDimensionEntity().getStartDate().getValues()[0]);
+            endDate = dateDimensionEntityService.getEndDateOfWeekInShamsi(filter.getDateDimensionEntity().getEndDate().getValues()[0]);
         }else if(filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.MONTH)){
-
+            startDate = dateDimensionEntityService.getStartDateOfMonthInShamsi(filter.getDateDimensionEntity().getStartDate().getValues()[0]);
+            endDate = dateDimensionEntityService.getEndDateOfMonthInShamsi(filter.getDateDimensionEntity().getEndDate().getValues()[0]);
         }
 
         informationFilter.getDateDimensionEntity().setStartDateFa(new NumberFilter());
