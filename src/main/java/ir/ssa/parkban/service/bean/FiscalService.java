@@ -2,6 +2,7 @@ package ir.ssa.parkban.service.bean;
 
 import ir.ssa.parkban.domain.filters.ParkChargeFilter;
 import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
+import ir.ssa.parkban.service.dto.entity.ParkChargeFiscalDocDto;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +24,7 @@ public interface FiscalService extends BaseService {
     BigDecimal getCurrentChargeAmountForVehicle(String plateNumber);
 
     @Transactional
-    ParkChargeDto insertParkCharge(ParkChargeDto parkChargeDto);
+    void increaseCharge(ParkChargeFiscalDocDto parkChargeFiscalDocDto);
 
     @Transactional
     void updateParkCharge(ParkChargeDto parkChargeDto);

@@ -1,13 +1,17 @@
 package ir.ssa.parkban.service.impl;
 
 import ir.ssa.parkban.domain.entities.ParkCharge;
+import ir.ssa.parkban.domain.entities.ParkChargeFiscalDoc;
 import ir.ssa.parkban.domain.entities.Vehicle;
+import ir.ssa.parkban.domain.enums.ParkChargeType;
 import ir.ssa.parkban.domain.filters.ParkChargeFilter;
 import ir.ssa.parkban.domain.filters.VehicleFilter;
 import ir.ssa.parkban.domain.filters.VehicleOwnerFilter;
 import ir.ssa.parkban.repository.ParkChargeDAO;
+import ir.ssa.parkban.repository.ParkChargeFiscalDocDAO;
 import ir.ssa.parkban.repository.VehicleDAO;
 import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
+import ir.ssa.parkban.service.dto.entity.ParkChargeFiscalDocDto;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.entities.ParkPrice;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
@@ -19,6 +23,7 @@ import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilterOperation;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
+import ir.ssa.parkban.vertical.exceptions.business.fiscal.UndefinedChargeTypeException;
 import ir.ssa.parkban.vertical.exceptions.data.validation.ArgumentRequiredException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +50,8 @@ public class FiscalServiceImpl implements FiscalService {
     @Autowired
     ParkChargeDAO parkChargeDAO;
 
-
+    @Autowired
+    ParkChargeFiscalDocDAO parkChargeFiscalDocDAO;
 
     @Override
     public void insertParkPrice(@Validated @NotNull Long regionId, List<ParkPriceDto> parkPriceDto) {
@@ -137,10 +143,33 @@ public class FiscalServiceImpl implements FiscalService {
     }
 
     @Override
-    public ParkChargeDto insertParkCharge(ParkChargeDto parkChargeDto) {
-        ParkCharge parkCharge = ObjectMapper.map(parkChargeDto,ParkCharge.class);
+    public void increaseCharge(ParkChargeFiscalDocDto parkChargeFiscalDocDto) {
+        /* 1) saving charge document */
+        ParkChargeFiscalDoc parkChargeFiscalDoc = ObjectMapper.map(parkChargeFiscalDocDto,ParkChargeFiscalDoc.class);
+        parkChargeFiscalDocDAO.save(parkChargeFiscalDoc);
+
+        /* 2) increase charge amount */
+        ParkCharge parkCharge = null;
+        if(parkChargeFiscalDoc.getChargeType() == ParkChargeType.Vehicle){
+            parkCharge = parkChargeDAO.findByPlateNumber(parkChargeFiscalDoc.getPlateNumber());
+        }else if(parkChargeFiscalDoc.getChargeType() == ParkChargeType.Owner){
+            parkCharge = parkChargeDAO.findByOwner(parkChargeFiscalDoc.getOwner());
+        }else{
+            throw new UndefinedChargeTypeException();
+        }
+
+        if(parkCharge == null){
+            parkCharge = new ParkCharge();
+            parkCharge.setPlateNumber(parkChargeFiscalDoc.getPlateNumber());
+            parkCharge.setAmount(parkChargeFiscalDoc.getAmount());
+            parkCharge.setChargeType(parkChargeFiscalDoc.getChargeType());
+            parkCharge.setOwner(parkChargeFiscalDoc.getOwner());
+        }else{
+            parkCharge.setAmount(parkCharge.getAmount().add(parkChargeFiscalDoc.getAmount()));
+        }
+        parkCharge.setLastChargeAmount(parkChargeFiscalDoc.getAmount());
+        parkCharge.setLastChargeDate(parkChargeFiscalDoc.getChargeDate());
         parkChargeDAO.save(parkCharge);
-        return ObjectMapper.map(parkCharge,ParkChargeDto.class);
     }
 
     @Override

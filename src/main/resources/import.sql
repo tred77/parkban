@@ -44,10 +44,10 @@ insert into TBL_VEHICLE_OWNER (id, USER_ID) values(1, 1);
 insert into TBL_VEHICLE_OWNER (id, USER_ID) values(2, 2);
 
 -- initial vehicles
-insert into TBL_VEHICLE(id,plateNumber,OWNER_ID) values(1,'۱۲۳۴۵۶۷۸۹',1);
-insert into TBL_VEHICLE(id,plateNumber, OWNER_ID) values(2,'۹۸۷۶۵۴۳۲۱',2);
-insert into TBL_VEHICLE(id,plateNumber, OWNER_ID) values(3,'۱۱۱۱۱۱۱۱۱',1);
-insert into TBL_VEHICLE(id,plateNumber, OWNER_ID) values(4,'۲۲۲۲۲۲۲۲۲',2);
+insert into TBL_VEHICLE(id,plate_Number,OWNER_ID) values(1,'123456789',1);
+insert into TBL_VEHICLE(id,plate_Number, OWNER_ID) values(2,'987654321',2);
+insert into TBL_VEHICLE(id,plate_Number, OWNER_ID) values(3,'111111111',1);
+insert into TBL_VEHICLE(id,plate_Number, OWNER_ID) values(4,'222222222',2);
 
 -- parkban
 insert into TBL_PARKBAN(id, user_id) values(1,1);
