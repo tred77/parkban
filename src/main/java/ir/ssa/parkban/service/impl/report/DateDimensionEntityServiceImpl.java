@@ -6,12 +6,14 @@ import ir.ssa.parkban.service.bean.DateDimensionEntityService;
 import ir.ssa.parkban.service.dto.entity.DateDimensionEntityDto;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by Behrouz-ZD on 8/6/2016.
  */
+@Service
 public class DateDimensionEntityServiceImpl implements DateDimensionEntityService {
 
     @Autowired

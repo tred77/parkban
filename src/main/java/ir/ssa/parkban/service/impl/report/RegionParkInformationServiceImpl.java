@@ -10,7 +10,6 @@ import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
 import ir.ssa.parkban.service.dto.entity.RegionParkInformationDto;
 import ir.ssa.parkban.vertical.core.domain.filterelement.*;
-import ir.ssa.parkban.vertical.core.util.DateUtils.CalendarUtils;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateConverter;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,31 +82,15 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
         }else if(filter.getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.WEEK)){
             dateLevelFilter.setEnumValue(DateDimensionLevel.WEEK);
             informationFilter.getDateDimensionEntity().setDateDimensionLevel(dateLevelFilter);
-            //
+            informationFilter.getDateDimensionEntity().setYear(filter.getYear());
+            informationFilter.getDateDimensionEntity().setMonth(filter.getMonth());
+            informationFilter.getDateDimensionEntity().setWeek(filter.getWeek());
 
         }else if(filter.getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.MONTH)){
             dateLevelFilter.setEnumValue(DateDimensionLevel.MONTH);
             informationFilter.getDateDimensionEntity().setDateDimensionLevel(dateLevelFilter);
-            String year = filter.getYear().getValues()[0].toString();
-            String month = filter.getMonth().getValues()[0].toString();
-            if(month.length()==1)
-                month = "0"+month;
-            Long startDate = new Long(year+month+"01");
-
-            Integer lastDay = CalendarUtils.getLastDayOfShamsiMonth((int)filter.getYear().getValues()[0],(int)filter.getMonth().getValues()[0]);
-            Long endDate;
-            if(lastDay.toString().length()==1)
-                endDate = new Long(year+month+"0"+lastDay);
-            else
-                endDate = new Long(year+month+lastDay);
-
-            informationFilter.getDateDimensionEntity().setStartDateFa(new NumberFilter());
-            informationFilter.getDateDimensionEntity().getStartDateFa().setEnumElementOp(NumberFilterOperation.EQUAL);
-            informationFilter.getDateDimensionEntity().getStartDateFa().setValue(startDate);
-
-            informationFilter.getDateDimensionEntity().setEndDateFa(new NumberFilter());
-            informationFilter.getDateDimensionEntity().getEndDateFa().setEnumElementOp(NumberFilterOperation.EQUAL);
-            informationFilter.getDateDimensionEntity().getEndDateFa().setValue(endDate);
+            informationFilter.getDateDimensionEntity().setYear(filter.getYear());
+            informationFilter.getDateDimensionEntity().setMonth(filter.getMonth());
 
         }
 
