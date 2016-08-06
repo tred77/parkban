@@ -1,19 +1,14 @@
 package ir.ssa.parkban.controller.backoffice;
 
-import ir.ssa.parkban.domain.filters.warehouse.ComparedRegionParkInfoFilter;
+import ir.ssa.parkban.domain.filters.warehouse.*;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
-import ir.ssa.parkban.domain.filters.warehouse.ParkbanProceedInformationFilter;
-import ir.ssa.parkban.domain.filters.warehouse.RegionParkInformationFilter;
-import ir.ssa.parkban.domain.filters.warehouse.VehicleParkInformationFilter;
 import ir.ssa.parkban.domain.views.report.dashboard.VehicleGeneralInformationView;
+import ir.ssa.parkban.service.bean.DateDimensionEntityService;
 import ir.ssa.parkban.service.bean.SettlementService;
 import ir.ssa.parkban.service.bean.report.ParkbanProceedInformationService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
 import ir.ssa.parkban.service.bean.report.VehicleReportService;
-import ir.ssa.parkban.service.dto.entity.ParkTimeDto;
-import ir.ssa.parkban.service.dto.entity.ParkbanProceedInformationDto;
-import ir.ssa.parkban.service.dto.entity.RegionParkInformationDto;
-import ir.ssa.parkban.service.dto.entity.VehicleParkInformationDto;
+import ir.ssa.parkban.service.dto.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,11 +33,25 @@ public class ReportController{
     @Autowired
     ParkbanProceedInformationService parkbanProceedInformationService;
 
-    @RequestMapping(value = "/getParkTimes1", method = RequestMethod.POST)
+    @Autowired
+    DateDimensionEntityService dateDimensionEntityService;
+
+     /* ********** Date Dimension Section **********************/
+
+    @RequestMapping(value = "/getDateDimensionEntities", method = RequestMethod.POST)
+    public List<DateDimensionEntityDto> getDateDimensionEntities(@RequestBody DateDimensionEntityFilter filter){
+        return dateDimensionEntityService.findAllDateDimensionEntity(filter);
+    }
+
+    /* ********** Park Time Section **********************/
+
+    @RequestMapping(value = "/getParkTimes", method = RequestMethod.POST)
     public List<ParkTimeDto> getParkTimes(@RequestBody ParkTimeFilter parkTimeFilter){
         parkTimeFilter.addGraphPath("region.city");
         return settlementService.findAllParkTimes(parkTimeFilter);
     }
+
+    /* ********** Park Region Report Section **********************/
 
     @RequestMapping(value = "/getRegionParkInformation", method = RequestMethod.POST)
     public List<RegionParkInformationDto> getRegionParkInformation(@RequestBody RegionParkInformationFilter filter){
@@ -69,9 +78,13 @@ public class ReportController{
         return vehicleReportService.getVehicleGeneralInformation(plateNumber);
     }
 
+    /* ********** Parkban Proceed Report Section **********************/
+
     @RequestMapping(value = "/getParkbanProceedInformation", method = RequestMethod.POST)
     public List<ParkbanProceedInformationDto> getParkbanProceedInformation(@RequestBody ParkbanProceedInformationFilter filter){
         return parkbanProceedInformationService.getParkbanProceedInformation(filter);
     }
+
+
 
 }

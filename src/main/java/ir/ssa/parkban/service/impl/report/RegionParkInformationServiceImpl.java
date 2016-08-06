@@ -16,10 +16,7 @@ import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-
 import javax.validation.constraints.NotNull;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
