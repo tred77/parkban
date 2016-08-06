@@ -5,8 +5,10 @@ import ir.ssa.parkban.domain.filters.warehouse.ComparedRegionParkInfoFilter;
 import ir.ssa.parkban.domain.filters.warehouse.DateDimensionEntityFilter;
 import ir.ssa.parkban.domain.filters.warehouse.RegionParkInformationFilter;
 import ir.ssa.parkban.domain.filters.enumfilter.DateLevelFilter;
+import ir.ssa.parkban.repository.DateDimensionEntityDAO;
 import ir.ssa.parkban.repository.warehouse.RegionParkInformationDAO;
 import ir.ssa.parkban.service.bean.BaseService;
+import ir.ssa.parkban.service.bean.DateDimensionEntityService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
 import ir.ssa.parkban.service.dto.entity.RegionParkInformationDto;
 import ir.ssa.parkban.vertical.core.domain.filterelement.*;
@@ -26,6 +28,9 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
 
     @Autowired
     RegionParkInformationDAO regionParkInformationDAO;
+
+    @Autowired
+    DateDimensionEntityService dateDimensionEntityService;
 
     @Override
     public List<RegionParkInformationDto> getRegionParkInformation(RegionParkInformationFilter filter) {
@@ -50,8 +55,17 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
         informationFilter.setRegion(filter.getRegion());
         informationFilter.getDateDimensionEntity().setDateDimensionLevel(filter.getDateDimensionEntity().getDateDimensionLevel());
 
-        Long startDate = DateConverter.convertShamsiDateToNumber(filter.getDateDimensionEntity().getStartDate().getValues()[0]);
-        Long endDate = DateConverter.convertShamsiDateToNumber(filter.getDateDimensionEntity().getEndDate().getValues()[0]);
+        Long startDate=null;
+        Long endDate=null;
+
+        if(filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.DAY)){
+            startDate = DateConverter.convertShamsiDateToNumber(filter.getDateDimensionEntity().getStartDate().getValues()[0]);
+            endDate = DateConverter.convertShamsiDateToNumber(filter.getDateDimensionEntity().getEndDate().getValues()[0]);
+        }else if(filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.WEEK)){
+
+        }else if(filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.MONTH)){
+
+        }
 
         informationFilter.getDateDimensionEntity().setStartDateFa(new NumberFilter());
         informationFilter.getDateDimensionEntity().getStartDateFa().setValue(startDate);

@@ -2,7 +2,6 @@ package ir.ssa.parkban.service.impl.report;
 
 import ir.ssa.parkban.domain.entities.Vehicle;
 import ir.ssa.parkban.domain.entities.warehouse.VehicleParkInformation;
-import ir.ssa.parkban.domain.enums.DateDimensionLevel;
 import ir.ssa.parkban.domain.filters.VehicleFilter;
 import ir.ssa.parkban.domain.filters.warehouse.VehicleParkInformationFilter;
 import ir.ssa.parkban.domain.views.report.dashboard.VehicleGeneralInformationView;
