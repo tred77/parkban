@@ -14,6 +14,10 @@ public class DateDimensionEntityDto extends DomainEntityDto {
     private Date endDate;
     private Date startDateFa;
     private Date endDateFa;
+    private Short year;
+    private Short month;
+    private Short day;
+    private Short week;
 
     public DateDimensionLevelDto getDateDimensionLevel() {
         return dateDimensionLevel;
@@ -61,5 +65,37 @@ public class DateDimensionEntityDto extends DomainEntityDto {
 
     public void setEndDateFa(Date endDateFa) {
         this.endDateFa = endDateFa;
+    }
+
+    public Short getYear() {
+        return year;
+    }
+
+    public void setYear(Short year) {
+        this.year = year;
+    }
+
+    public Short getMonth() {
+        return month;
+    }
+
+    public void setMonth(Short month) {
+        this.month = month;
+    }
+
+    public Short getDay() {
+        return day;
+    }
+
+    public void setDay(Short day) {
+        this.day = day;
+    }
+
+    public Short getWeek() {
+        return week;
+    }
+
+    public void setWeek(Short week) {
+        this.week = week;
     }
 }
