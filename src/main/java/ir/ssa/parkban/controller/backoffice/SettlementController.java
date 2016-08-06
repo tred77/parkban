@@ -21,7 +21,7 @@ public class SettlementController {
     @Autowired
     SettlementService settlementService;
 
-    @RequestMapping(value = "/getParkTimes", method = RequestMethod.POST)
+    @RequestMapping(value = "/getParkTimes1", method = RequestMethod.POST)
     public List<ParkTimeDto> getParkTimes(@RequestBody ParkTimeFilter parkTimeFilter){
         parkTimeFilter.addGraphPath("region");
         return settlementService.findAllParkTimes(parkTimeFilter);
