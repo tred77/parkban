@@ -40,7 +40,7 @@ public class RegionParkInformation extends DomainEntity {
 
 
     @Column(name = "TOTAL_PARK_TIME_CAPACITY")
-    private BigDecimal totalParkTimeCapacity;
+    private Long totalParkTimeCapacity;
 
     public DateDimensionEntity getDateDimensionEntity() {
         return dateDimensionEntity;
@@ -74,11 +74,11 @@ public class RegionParkInformation extends DomainEntity {
         this.totalParkCost = totalParkCost;
     }
 
-    public BigDecimal getTotalParkTimeCapacity() {
+    public Long getTotalParkTimeCapacity() {
         return totalParkTimeCapacity;
     }
 
-    public void setTotalParkTimeCapacity(BigDecimal totalParkTimeCapacity) {
+    public void setTotalParkTimeCapacity(Long totalParkTimeCapacity) {
         this.totalParkTimeCapacity = totalParkTimeCapacity;
     }
 }

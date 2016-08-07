@@ -29,6 +29,8 @@ public class RegionParkInformationDto extends DomainEntityDto{
      */
     private BigDecimal totalParkCost;
 
+    private Long totalParkTimeCapacity;
+
 
     public DateDimensionEntityDto getDateDimensionEntity() {
         return dateDimensionEntity;
@@ -60,5 +62,13 @@ public class RegionParkInformationDto extends DomainEntityDto{
 
     public void setTotalParkCost(BigDecimal totalParkCost) {
         this.totalParkCost = totalParkCost;
+    }
+
+    public Long getTotalParkTimeCapacity() {
+        return totalParkTimeCapacity;
+    }
+
+    public void setTotalParkTimeCapacity(Long totalParkTimeCapacity) {
+        this.totalParkTimeCapacity = totalParkTimeCapacity;
     }
 }

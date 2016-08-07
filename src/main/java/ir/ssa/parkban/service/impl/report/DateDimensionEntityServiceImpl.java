@@ -113,7 +113,36 @@ public class DateDimensionEntityServiceImpl implements DateDimensionEntityServic
         return null;
     }
 
-    private DateDimensionEntityFilter prepareDateDimensionEntityFilter(DateDimensionLevel level,Date date, Short year, Short month, Short week){
+
+    @Override
+    public Long prepareStartDateDimensionLevel(DateDimensionLevel level, Date startDate) {
+        if(level==null || startDate == null)
+            return null;
+        if(level.equals(DateDimensionLevel.DAY)){
+            return DateConverter.convertShamsiDateToNumber(startDate);
+        }else if(level.equals(DateDimensionLevel.WEEK)){
+            return getStartDateOfWeekInShamsi(startDate);
+        }else if(level.equals(DateDimensionLevel.MONTH)){
+            return getStartDateOfMonthInShamsi(startDate);
+        }
+        return null;
+    }
+
+    @Override
+    public Long prepareEndDateDimensionLevel(DateDimensionLevel level, Date endDate) {
+        if(level==null || endDate == null)
+            return null;
+        if(level.equals(DateDimensionLevel.DAY)){
+            return DateConverter.convertShamsiDateToNumber(endDate);
+        }else if(level.equals(DateDimensionLevel.WEEK)){
+            return getEndDateOfWeekInShamsi(endDate);
+        }else if(level.equals(DateDimensionLevel.MONTH)){
+            return getEndDateOfMonthInShamsi(endDate);
+        }
+        return null;
+    }
+
+    private DateDimensionEntityFilter prepareDateDimensionEntityFilter(DateDimensionLevel level, Date date, Short year, Short month, Short week){
         DateDimensionEntityFilter filter = new DateDimensionEntityFilter();
         filter.setDateDimensionLevel(new DateLevelFilter());
         filter.getDateDimensionLevel().setEnumElementOp(EnumFilterOperation.EQUAL);

@@ -55,8 +55,6 @@ public class ReportController{
 
     @RequestMapping(value = "/getRegionParkInformation", method = RequestMethod.POST)
     public List<RegionParkInformationDto> getRegionParkInformation(@RequestBody RegionParkInformationFilter filter){
-        filter.addGraphPath("region");
-        filter.addGraphPath("dateDimensionEntity");
         return regionParkInformationService.getRegionParkInformation(filter);
     }
 

@@ -30,7 +30,7 @@ public class ParkbanProceedInformation extends DomainEntity {
     private BigDecimal chargeAmount;
 
     @Column(name = "PARK_REGISTER_COUNT")
-    private BigDecimal parkRegisterCount;
+    private Long parkRegisterCount;
 
     public DateDimensionEntity getDateDimensionEntity() {
         return dateDimensionEntity;
@@ -64,11 +64,11 @@ public class ParkbanProceedInformation extends DomainEntity {
         this.chargeAmount = chargeAmount;
     }
 
-    public BigDecimal getParkRegisterCount() {
+    public Long getParkRegisterCount() {
         return parkRegisterCount;
     }
 
-    public void setParkRegisterCount(BigDecimal parkRegisterCount) {
+    public void setParkRegisterCount(Long parkRegisterCount) {
         this.parkRegisterCount = parkRegisterCount;
     }
 }

@@ -1,5 +1,6 @@
 package ir.ssa.parkban.service.bean;
 
+import ir.ssa.parkban.domain.enums.DateDimensionLevel;
 import ir.ssa.parkban.domain.filters.warehouse.DateDimensionEntityFilter;
 import ir.ssa.parkban.service.dto.entity.DateDimensionEntityDto;
 
@@ -15,7 +16,6 @@ public interface DateDimensionEntityService extends BaseService {
 
     // return shamsi format date : 13950103
     Long getStartDateOfWeekInShamsi(short year,short month,short week);
-
 
     // return shamsi format date : 13950103
     Long getStartDateOfWeekInShamsi(Date date);
@@ -38,5 +38,8 @@ public interface DateDimensionEntityService extends BaseService {
     // return shamsi format date : 13950103
     Long getEndDateOfMonthInShamsi(Date date);
 
+    Long prepareStartDateDimensionLevel(DateDimensionLevel level,Date startDate);
+
+    Long prepareEndDateDimensionLevel(DateDimensionLevel level,Date endDate);
 
 }

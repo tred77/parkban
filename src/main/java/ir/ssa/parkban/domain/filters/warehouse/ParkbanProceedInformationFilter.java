@@ -1,6 +1,7 @@
 package ir.ssa.parkban.domain.filters.warehouse;
 
 import com.mysema.query.types.path.EntityPathBase;
+import ir.ssa.parkban.domain.entities.warehouse.QParkbanProceedInformation;
 import ir.ssa.parkban.domain.filters.ParkbanFilter;
 import ir.ssa.parkban.domain.filters.RegionFilter;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
@@ -41,6 +42,6 @@ public class ParkbanProceedInformationFilter extends BaseFilter {
 
     @Override
     protected EntityPathBase getEntityPath() {
-        return null;
+        return QParkbanProceedInformation.parkbanProceedInformation;
     }
 }

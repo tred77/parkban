@@ -11,7 +11,7 @@ public class ParkbanProceedInformationDto extends DomainEntityDto {
     private RegionDto region;
     private ParkbanDto parkban;
     private BigDecimal chargeAmount;
-    private BigDecimal parkRegisterCount;
+    private Long parkRegisterCount;
 
     public DateDimensionEntityDto getDateDimensionEntity() {
         return dateDimensionEntity;
@@ -45,11 +45,11 @@ public class ParkbanProceedInformationDto extends DomainEntityDto {
         this.chargeAmount = chargeAmount;
     }
 
-    public BigDecimal getParkRegisterCount() {
+    public Long getParkRegisterCount() {
         return parkRegisterCount;
     }
 
-    public void setParkRegisterCount(BigDecimal parkRegisterCount) {
+    public void setParkRegisterCount(Long parkRegisterCount) {
         this.parkRegisterCount = parkRegisterCount;
     }
 }
