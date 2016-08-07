@@ -45,6 +45,8 @@ public class ParkbanProceedInformationServiceImpl implements ParkbanProceedInfor
         parkbanProceedInformationFilter.setRegion(filter.getRegion());
         parkbanProceedInformationFilter.getDateDimensionEntity().setDateDimensionLevel(filter.getDateDimensionEntity().getDateDimensionLevel());
 
+        parkbanProceedInformationFilter.setParkban(filter.getParkban());
+
         Long startDate=dateDimensionEntityService.prepareStartDateDimensionLevel((DateDimensionLevel)filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue(),filter.getDateDimensionEntity().getStartDate().getValues()[0]);
         Long endDate=dateDimensionEntityService.prepareEndDateDimensionLevel((DateDimensionLevel)filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue(),filter.getDateDimensionEntity().getEndDate().getValues()[0]);
 
