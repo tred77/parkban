@@ -61,7 +61,7 @@ public class ReportController{
     }
 
     @RequestMapping(value = "/getComparedRegionParkInformation", method = RequestMethod.POST)
-    public List<RegionParkInformationDto> getComparedRegionParkInformation(@RequestBody ComparedRegionParkInfoFilter filter){
+    public List<RegionParkInformationDto> getComparedRegionParkInformation(@RequestBody RegionParkInformationFilter filter){
         filter.addGraphPath("region");
         return regionParkInformationService.getComparedRegionParkInformation(filter);
     }

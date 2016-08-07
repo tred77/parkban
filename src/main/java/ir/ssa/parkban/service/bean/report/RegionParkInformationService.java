@@ -14,5 +14,5 @@ public interface RegionParkInformationService extends BaseService {
 
     List<RegionParkInformationDto> getRegionParkInformation( RegionParkInformationFilter filter);
 
-    List<RegionParkInformationDto> getComparedRegionParkInformation( ComparedRegionParkInfoFilter filter);
+    List<RegionParkInformationDto> getComparedRegionParkInformation( RegionParkInformationFilter filter);
 }

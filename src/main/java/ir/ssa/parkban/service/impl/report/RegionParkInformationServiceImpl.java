@@ -5,7 +5,6 @@ import ir.ssa.parkban.domain.filters.warehouse.ComparedRegionParkInfoFilter;
 import ir.ssa.parkban.domain.filters.warehouse.DateDimensionEntityFilter;
 import ir.ssa.parkban.domain.filters.warehouse.RegionParkInformationFilter;
 import ir.ssa.parkban.domain.filters.enumfilter.DateLevelFilter;
-import ir.ssa.parkban.repository.DateDimensionEntityDAO;
 import ir.ssa.parkban.repository.warehouse.RegionParkInformationDAO;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.DateDimensionEntityService;
@@ -40,12 +39,17 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
     }
 
     @Override
-    public List<RegionParkInformationDto> getComparedRegionParkInformation(@Validated @NotNull ComparedRegionParkInfoFilter filter){
-        RegionParkInformationFilter informationFilter = prepareComparedRegionParkInfoFilter(filter);
-        informationFilter.addGraphPath("region");
-        informationFilter.addGraphPath("dateDimensionEntity");
-        BaseService.setEntityGraph(regionParkInformationDAO,informationFilter,"findAll");
-        return ObjectMapper.map(regionParkInformationDAO.findAll(informationFilter.getCriteriaExpression()),RegionParkInformationDto.class);
+    public List<RegionParkInformationDto> getComparedRegionParkInformation(@Validated @NotNull RegionParkInformationFilter filter){
+        filter.addGraphPath("region");
+        filter.addGraphPath("dateDimensionEntity");
+        BaseService.setEntityGraph(regionParkInformationDAO,filter,"findAll");
+        if(filter.getDateDimensionEntity().getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.DAY)){
+            filter.getDateDimensionEntity().setStartDateFa(new NumberFilter());
+            filter.getDateDimensionEntity().getStartDateFa().setEnumElementOp(NumberFilterOperation.EQUAL);
+            filter.getDateDimensionEntity().getStartDateFa().setValue(DateConverter.convertShamsiDateToNumber(filter.getDateDimensionEntity().getStartDate().getValues()[0]));
+            filter.getDateDimensionEntity().setStartDate(null);
+        }
+        return ObjectMapper.map(regionParkInformationDAO.findAll(filter.getCriteriaExpression()),RegionParkInformationDto.class);
     }
 
     private RegionParkInformationFilter prepareRegionParkInfoFilter(RegionParkInformationFilter filter){
@@ -77,38 +81,6 @@ public class RegionParkInformationServiceImpl implements RegionParkInformationSe
         informationFilter.getDateDimensionEntity().getEndDateFa().setEnumElementOp(NumberFilterOperation.LESS_EQUAL_THAN);
         informationFilter.getDateDimensionEntity().getEndDateFa().setValue(endDate);
 
-
-        return informationFilter;
-    }
-
-    private RegionParkInformationFilter prepareComparedRegionParkInfoFilter(ComparedRegionParkInfoFilter filter){
-
-        RegionParkInformationFilter informationFilter = new RegionParkInformationFilter();
-        DateLevelFilter dateLevelFilter = new DateLevelFilter();
-        dateLevelFilter.setEnumElementOp(EnumFilterOperation.EQUAL);
-        informationFilter.setDateDimensionEntity(new DateDimensionEntityFilter());
-
-        if(filter.getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.DAY)){
-            dateLevelFilter.setEnumValue(DateDimensionLevel.DAY);
-            informationFilter.getDateDimensionEntity().setDateDimensionLevel(dateLevelFilter);
-            informationFilter.getDateDimensionEntity().setStartDateFa(new NumberFilter());
-            informationFilter.getDateDimensionEntity().getStartDateFa().setEnumElementOp(NumberFilterOperation.EQUAL);
-            informationFilter.getDateDimensionEntity().getStartDateFa().setValue(DateConverter.convertShamsiDateToNumber(filter.getPeriodDate().getValues()[0]));
-
-        }else if(filter.getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.WEEK)){
-            dateLevelFilter.setEnumValue(DateDimensionLevel.WEEK);
-            informationFilter.getDateDimensionEntity().setDateDimensionLevel(dateLevelFilter);
-            informationFilter.getDateDimensionEntity().setYear(filter.getYear());
-            informationFilter.getDateDimensionEntity().setMonth(filter.getMonth());
-            informationFilter.getDateDimensionEntity().setWeek(filter.getWeek());
-
-        }else if(filter.getDateDimensionLevel().getEnumValue().equals(DateDimensionLevel.MONTH)){
-            dateLevelFilter.setEnumValue(DateDimensionLevel.MONTH);
-            informationFilter.getDateDimensionEntity().setDateDimensionLevel(dateLevelFilter);
-            informationFilter.getDateDimensionEntity().setYear(filter.getYear());
-            informationFilter.getDateDimensionEntity().setMonth(filter.getMonth());
-
-        }
 
         return informationFilter;
     }
