@@ -12,4 +12,6 @@ import java.util.List;
 public interface ParkbanProceedInformationService extends BaseService {
 
     List<ParkbanProceedInformationDto> getParkbanProceedInformation(ParkbanProceedInformationFilter filter);
+
+    byte[] printParkbanProceedInformation(ParkbanProceedInformationFilter filter);
 }

@@ -12,6 +12,7 @@ import ir.ssa.parkban.service.dto.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -83,6 +84,12 @@ public class ReportController{
         return parkbanProceedInformationService.getParkbanProceedInformation(filter);
     }
 
+    @RequestMapping(value = "/printParkbanProceedInformation", method = RequestMethod.POST)
+    public byte[] printParkbanProceedInformation(@RequestBody ParkbanProceedInformationFilter filter,HttpServletResponse response){
+        response.setHeader("Content-Disposition", "inline; filename=file.pdf");
+        response.setContentType("application/pdf");
+        return parkbanProceedInformationService.printParkbanProceedInformation(filter);
+    }
 
 
 }
