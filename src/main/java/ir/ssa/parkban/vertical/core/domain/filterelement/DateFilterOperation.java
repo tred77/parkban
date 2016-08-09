@@ -66,7 +66,7 @@ public enum DateFilterOperation implements ExpressionCriteriaProvider<Date> {
                 break;
             case BETWEEN:
                 if(!ObjectUtils.isEmpty(values) && values[0] != null && values[1]!=null )
-                    result = expression.loe(values[0]);
+                    result = expression.between(values[0],values[1]);
                 break;
             case ONE_DAY:
             case ONE_WEEK:

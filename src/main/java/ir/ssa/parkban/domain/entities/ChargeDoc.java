@@ -4,6 +4,8 @@ import ir.ssa.parkban.domain.enums.ChargeChannelType;
 import ir.ssa.parkban.domain.enums.ParkChargeType;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by Behrouz-ZD on 8/4/2016.
@@ -21,7 +23,7 @@ public class ChargeDoc extends DomainEntity {
     @Column(name = "PLATE_NUMBER")
     private String plateNumber;
 
-    @Column(name = "PARK_CHARGE_TYPE")
+    @Column(name = "CHARGE_TYPE")
     @Enumerated(EnumType.STRING)
     private ParkChargeType parkChargeType;
 
@@ -37,6 +39,19 @@ public class ChargeDoc extends DomainEntity {
     @JoinColumn(name = "REGION_ID")
     private Region region;
 
+    @Column(name = "AMOUNT")
+    private BigDecimal amount;
+
+    @Column(name = "DATE")
+    private Date date;
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public ChargeChannelType getChargeChannelType() {
         return chargeChannelType;
@@ -70,7 +85,13 @@ public class ChargeDoc extends DomainEntity {
         this.parkChargeType = parkChargeType;
     }
 
+    public BigDecimal getAmount() {
+        return amount;
+    }
 
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
 
     public Parkban getParkban() {
         return parkban;

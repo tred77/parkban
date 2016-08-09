@@ -4,6 +4,10 @@ import ir.ssa.parkban.domain.enums.DateDimensionLevel;
 import ir.ssa.parkban.vertical.core.domain.filterelement.EnumFilter;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 /**
  * author hym
@@ -15,10 +19,15 @@ public class DateLevelFilter extends EnumFilter<DateDimensionLevel> {
         if(ObjectUtils.isEmpty(values))
             this.values = null;
         else {
-            this.values = new  DateDimensionLevel[values.length];
-            for(int i=0;i<this.values.length;i++){
-                this.values[i] = DateDimensionLevel.valueOf(values[i]);
-            }
+            List<DateDimensionLevel> tmp = new ArrayList<>();
+            Arrays.stream(values).forEach(item->{
+                if(item!=null){
+                    tmp.add(DateDimensionLevel.valueOf(item));
+                }
+            });
+            this.values = new DateDimensionLevel[tmp.size()];
+            for(int i=0;i<tmp.size();i++)
+                this.values[i] =tmp.get(i);
         }
     }
 }

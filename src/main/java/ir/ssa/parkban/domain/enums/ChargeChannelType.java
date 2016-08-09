@@ -5,6 +5,6 @@ package ir.ssa.parkban.domain.enums;
  */
 public enum ChargeChannelType {
 
-    Parkban,
-    Internet
+    PARKBAN,
+    INTERNET
 }

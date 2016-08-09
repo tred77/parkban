@@ -3,6 +3,7 @@ package ir.ssa.parkban.vertical.core.domain.filterelement;
 import com.mysema.query.types.expr.BooleanExpression;
 import com.mysema.query.types.expr.SimpleExpression;
 import com.mysema.query.types.expr.StringExpression;
+import org.springframework.util.ObjectUtils;
 
 import java.util.Arrays;
 
@@ -39,19 +40,19 @@ public enum StringFilterOperation implements ExpressionCriteriaProvider<String>{
         BooleanExpression result = null;
         switch (this) {
             case EQUAL:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values ) && !ObjectUtils.isEmpty(values[0]))
                     result = stringExpression.eq(values[0]);
                 break;
             case LIKE:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values ) && !ObjectUtils.isEmpty(values[0]))
                     result = stringExpression.like("%"+values[0]+"%");
                 break;
             case NOT_LIKE:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values ) && !ObjectUtils.isEmpty(values[0]))
                     result = stringExpression.notLike(values[0]);
                 break;
             case IN:
-                if(values != null && values.length > 0 && values[0] != null)
+                if(!ObjectUtils.isEmpty(values ) && !ObjectUtils.isEmpty(values[0]))
                     result = stringExpression.in(values);
                 break;
             default:

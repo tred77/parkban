@@ -1,6 +1,8 @@
 package ir.ssa.parkban.service.bean;
 
+import ir.ssa.parkban.domain.filters.ChargeDocFilter;
 import ir.ssa.parkban.domain.filters.ParkChargeFilter;
+import ir.ssa.parkban.service.dto.entity.ChargeDocDto;
 import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
 import ir.ssa.parkban.service.dto.entity.ParkChargeFiscalDocDto;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
@@ -30,6 +32,8 @@ public interface FiscalService extends BaseService {
     void updateParkCharge(ParkChargeDto parkChargeDto);
 
     List<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter);
+
+    List<ChargeDocDto> findAllChargeDoc(ChargeDocFilter filter);
 
     /** ParkPrice */
 

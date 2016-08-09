@@ -4,18 +4,13 @@ import ir.ssa.parkban.domain.entities.ParkCharge;
 import ir.ssa.parkban.domain.entities.ParkChargeFiscalDoc;
 import ir.ssa.parkban.domain.entities.Vehicle;
 import ir.ssa.parkban.domain.enums.ParkChargeType;
-import ir.ssa.parkban.domain.filters.ParkChargeFilter;
-import ir.ssa.parkban.domain.filters.VehicleFilter;
-import ir.ssa.parkban.domain.filters.VehicleOwnerFilter;
-import ir.ssa.parkban.repository.ParkChargeDAO;
-import ir.ssa.parkban.repository.ParkChargeFiscalDocDAO;
-import ir.ssa.parkban.repository.VehicleDAO;
+import ir.ssa.parkban.domain.filters.*;
+import ir.ssa.parkban.repository.*;
+import ir.ssa.parkban.service.dto.entity.ChargeDocDto;
 import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
 import ir.ssa.parkban.service.dto.entity.ParkChargeFiscalDocDto;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.entities.ParkPrice;
-import ir.ssa.parkban.domain.filters.ParkPriceFilter;
-import ir.ssa.parkban.repository.ParkPriceDAO;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.FiscalService;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
@@ -52,6 +47,9 @@ public class FiscalServiceImpl implements FiscalService {
 
     @Autowired
     ParkChargeFiscalDocDAO parkChargeFiscalDocDAO;
+
+    @Autowired
+    ChargeDocDAO chargeDocDAO;
 
     @Override
     public void insertParkPrice(@Validated @NotNull Long regionId, List<ParkPriceDto> parkPriceDto) {
@@ -183,6 +181,15 @@ public class FiscalServiceImpl implements FiscalService {
         filter.addGraphPath("owner");
         BaseService.setEntityGraph(parkChargeDAO,filter,"findAll");
         return ObjectMapper.map(parkChargeDAO.findAll(filter.getCriteriaExpression()),ParkChargeDto.class);
+    }
+
+    @Override
+    public List<ChargeDocDto> findAllChargeDoc(ChargeDocFilter filter) {
+        filter.addGraphPath("vehicleOwner");
+        filter.addGraphPath("parkban");
+        filter.addGraphPath("region");
+        BaseService.setEntityGraph(chargeDocDAO,filter,"findAll");
+        return ObjectMapper.map(chargeDocDAO.findAll(filter.getCriteriaExpression()),ChargeDocDto.class);
     }
 
     /** PakPrice */

@@ -1,8 +1,10 @@
 package ir.ssa.parkban.controller.backoffice;
 
+import ir.ssa.parkban.domain.filters.ChargeDocFilter;
 import ir.ssa.parkban.domain.filters.ParkChargeFilter;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
 import ir.ssa.parkban.service.bean.FiscalService;
+import ir.ssa.parkban.service.dto.entity.ChargeDocDto;
 import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.service.dto.request.InsertParkPriceRequest;
@@ -48,6 +50,11 @@ public class FiscalController {
     @RequestMapping(value = "/findAllParkCharge", method = RequestMethod.POST)
     public List<ParkChargeDto> findAllParkCharge(@RequestBody ParkChargeFilter filter){
         return fiscalService.findAllParkCharge(filter);
+    }
+
+    @RequestMapping(value = "/findAllChargeDoc", method = RequestMethod.POST)
+    public List<ChargeDocDto> findAllChargeDoc(@RequestBody ChargeDocFilter filter){
+        return fiscalService.findAllChargeDoc(filter);
     }
 
 }
