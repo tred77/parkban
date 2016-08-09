@@ -178,6 +178,13 @@ public class FiscalServiceImpl implements FiscalService {
         parkChargeDAO.save(parkCharge);
     }
 
+    @Override
+    public List<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter) {
+        filter.addGraphPath("owner");
+        BaseService.setEntityGraph(parkChargeDAO,filter,"findAll");
+        return ObjectMapper.map(parkChargeDAO.findAll(filter.getCriteriaExpression()),ParkChargeDto.class);
+    }
+
     /** PakPrice */
 
     @Override

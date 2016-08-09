@@ -1,7 +1,9 @@
 package ir.ssa.parkban.controller.backoffice;
 
+import ir.ssa.parkban.domain.filters.ParkChargeFilter;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
 import ir.ssa.parkban.service.bean.FiscalService;
+import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.service.dto.request.InsertParkPriceRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,13 @@ public class FiscalController {
     @RequestMapping(value = "/insertParkPrice", method = RequestMethod.POST)
     public void insertParkPrice(@RequestBody @NotNull InsertParkPriceRequest request){
         fiscalService.insertParkPrice(request.getRegionId(),request.getParkPriceDto());
+    }
+
+    /******************** Park Charge Report **********************************/
+
+    @RequestMapping(value = "/findAllParkCharge", method = RequestMethod.POST)
+    public List<ParkChargeDto> findAllParkCharge(@RequestBody ParkChargeFilter filter){
+        return fiscalService.findAllParkCharge(filter);
     }
 
 }

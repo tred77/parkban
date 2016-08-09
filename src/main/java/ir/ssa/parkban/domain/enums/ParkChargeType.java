@@ -5,8 +5,7 @@ import java.util.Arrays;
 /**
  * Created by Behrouz-ZD on 5/20/2016.
  */
-public enum
-ParkChargeType {
+public enum ParkChargeType {
     Owner("O"),
     Vehicle("V");
 

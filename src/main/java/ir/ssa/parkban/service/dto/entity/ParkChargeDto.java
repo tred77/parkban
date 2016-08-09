@@ -3,34 +3,34 @@ package ir.ssa.parkban.service.dto.entity;
 import ir.ssa.parkban.service.dto.enums.ParkChargeTypeDto;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by Behrouz-ZD on 5/20/2016.
  */
 public class ParkChargeDto extends DomainEntityDto{
 
-    private VehicleOwnerDto  owgner;
-
-    private VehicleDto vehicle;
-
+    private VehicleOwnerDto  owner;
+    private String plateNumber;
     private ParkChargeTypeDto chargeType;
-
     private BigDecimal amount;
+    private Date lastChargeDate;
+    private BigDecimal lastChargeAmount;
 
-    public VehicleOwnerDto getOwgner() {
-        return owgner;
+    public VehicleOwnerDto getOwner() {
+        return owner;
     }
 
-    public void setOwgner(VehicleOwnerDto owgner) {
-        this.owgner = owgner;
+    public void setOwner(VehicleOwnerDto owner) {
+        this.owner = owner;
     }
 
-    public VehicleDto getVehicle() {
-        return vehicle;
+    public String getPlateNumber() {
+        return plateNumber;
     }
 
-    public void setVehicle(VehicleDto vehicle) {
-        this.vehicle = vehicle;
+    public void setPlateNumber(String plateNumber) {
+        this.plateNumber = plateNumber;
     }
 
     public ParkChargeTypeDto getChargeType() {
@@ -47,5 +47,21 @@ public class ParkChargeDto extends DomainEntityDto{
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public Date getLastChargeDate() {
+        return lastChargeDate;
+    }
+
+    public void setLastChargeDate(Date lastChargeDate) {
+        this.lastChargeDate = lastChargeDate;
+    }
+
+    public BigDecimal getLastChargeAmount() {
+        return lastChargeAmount;
+    }
+
+    public void setLastChargeAmount(BigDecimal lastChargeAmount) {
+        this.lastChargeAmount = lastChargeAmount;
     }
 }

@@ -29,6 +29,8 @@ public interface FiscalService extends BaseService {
     @Transactional
     void updateParkCharge(ParkChargeDto parkChargeDto);
 
+    List<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter);
+
     /** ParkPrice */
 
     @Transactional
