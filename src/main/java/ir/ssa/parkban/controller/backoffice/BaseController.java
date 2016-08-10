@@ -141,6 +141,11 @@ public class BaseController{
         baseInformationService.assignUserRoles(userId, roleIds);
     }
 
+    @RequestMapping(value = "/assignUserRoles/{userId}",method = RequestMethod.GET)
+    public void assignUserRoles(@PathVariable("userId") Long userId){
+        baseInformationService.assignUserRoles(userId, null);
+    }
+
     @RequestMapping(value = "/findAllPermissions",method = RequestMethod.POST)
     public List<PermissionDto> findAllPermissions(@RequestBody PermissionFilter filter) {
         filter.addGraphPath("role");
