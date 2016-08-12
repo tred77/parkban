@@ -5,22 +5,22 @@ package ir.ssa.parkban.vertical.core.domain;
  */
 public class PagingInfo {
 
-    private Integer from;
-    private Integer to;
+    private Integer page;
+    private Integer size;
 
-    public Integer getFrom() {
-        return from;
+    public Integer getPage() {
+        return page;
     }
 
-    public void setFrom(Integer from) {
-        this.from = from;
+    public void setPage(Integer page) {
+        this.page = page;
     }
 
-    public Integer getTo() {
-        return to;
+    public Integer getSize() {
+        return size;
     }
 
-    public void setTo(Integer to) {
-        this.to = to;
+    public void setSize(Integer size) {
+        this.size = size;
     }
 }

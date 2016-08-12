@@ -1,8 +1,8 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
-import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.expr.DateTimeExpression;
-import com.mysema.query.types.expr.SimpleExpression;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.DateTimeExpression;
+import com.querydsl.core.types.dsl.SimpleExpression;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Arrays;

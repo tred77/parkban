@@ -7,6 +7,7 @@ import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
 import ir.ssa.parkban.service.dto.entity.ParkChargeFiscalDocDto;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.filters.ParkPriceFilter;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -20,7 +21,7 @@ public interface FiscalService extends BaseService {
     @Transactional
     void insertParkPrice(Long regionId,List<ParkPriceDto> parkPriceDto);
 
-    List<ParkPriceDto> findAllParkPrice(ParkPriceFilter filter);
+    PagingList<ParkPriceDto> findAllParkPrice(ParkPriceFilter filter);
 
     /** ParkCharge */
     BigDecimal getCurrentChargeAmountForVehicle(String plateNumber);

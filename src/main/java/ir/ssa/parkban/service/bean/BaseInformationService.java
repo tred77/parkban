@@ -2,6 +2,7 @@ package ir.ssa.parkban.service.bean;
 
 import ir.ssa.parkban.service.dto.entity.*;
 import ir.ssa.parkban.domain.filters.*;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,7 +24,9 @@ public interface BaseInformationService extends BaseService {
 
     UserDto findUserById(Long id);
 
-    List<UserDto> findAllUser(UserFilter filter);
+    PagingList<UserDto> findAllUser(UserFilter filter);
+
+    PagingList<UserDto> findPagedUser(UserFilter filter);
 
     @Transactional
     RoleDto insertRole(RoleDto roleDto);

@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.3.5.RELEASE</version>
+		<version>1.4.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
@@ -23,8 +23,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<jstl.version>1.2</jstl.version>
-		<querydsl.version>3.6.3</querydsl.version>
-		<boot.starters.version>1.3.5.RELEASE</boot.starters.version>
+		<querydsl.version>3.7.4</querydsl.version>
+		<boot.starters.version>1.4.0.RELEASE</boot.starters.version>
 		<oracle.connector.version>1.7</oracle.connector.version>
 		<java.version>1.8</java.version>
 		<dozer.version>5.5.1</dozer.version>
@@ -179,21 +179,27 @@
 			<version>3.1.3</version>
 		</dependency>
 
+
+
 		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
+			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-core</artifactId>
-			<version>${querydsl.version}</version>
+			<version>4.1.3</version>
 		</dependency>
+
 		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
+			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
-			<version>${querydsl.version}</version>
+			<version>4.1.3</version>
 		</dependency>
+
 		<dependency>
-			<groupId>com.mysema.querydsl</groupId>
-			<artifactId>querydsl-jpa</artifactId>
-			<version>${querydsl.version}</version>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-sql</artifactId>
+			<version>4.1.3</version>
 		</dependency>
+
+
 
 		<!-- our libraries -->
 		<dependency>
@@ -232,11 +238,19 @@
 						<goals>
 							<goal>process</goal>
 						</goals>
-						<configuration><outputDirectory>${project.build.directory}/generated-sources/java</outputDirectory>
-							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
 						</configuration>
 					</execution>
 				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>com.querydsl</groupId>
+						<artifactId>querydsl-apt</artifactId>
+						<version>4.1.3</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 
 		</plugins>

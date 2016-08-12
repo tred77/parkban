@@ -1,16 +1,12 @@
 package ir.ssa.parkban.domain.filters;
 
-import com.mysema.query.types.path.EntityPathBase;
-import ir.ssa.parkban.domain.entities.MessageReceiverEntity;
+import com.querydsl.core.types.dsl.EntityPathBase;
 import ir.ssa.parkban.domain.entities.QMessageEntity;
-import ir.ssa.parkban.domain.entities.User;
+
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
 
 /**
  * @author hym

@@ -8,6 +8,7 @@ import ir.ssa.parkban.service.dto.entity.ChargeDocDto;
 import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
 import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.service.dto.request.InsertParkPriceRequest;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,7 @@ public class FiscalController {
     }
 
     @RequestMapping(value = "/findAllParkPrice", method = RequestMethod.POST)
-    public List<ParkPriceDto> findAllParkPrice(@RequestBody ParkPriceFilter filter){
+    public PagingList<ParkPriceDto> findAllParkPrice(@RequestBody ParkPriceFilter filter){
         filter.addGraphPath("region.parent");
         return fiscalService.findAllParkPrice(filter);
     }

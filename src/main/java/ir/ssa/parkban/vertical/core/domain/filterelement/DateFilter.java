@@ -1,7 +1,7 @@
 package ir.ssa.parkban.vertical.core.domain.filterelement;
 
-import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.expr.SimpleExpression;
+import com.querydsl.core.types.dsl.SimpleExpression;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import ir.ssa.parkban.vertical.core.util.DateUtils.CalendarUtils;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateConverter;
 

@@ -1,6 +1,6 @@
 package ir.ssa.parkban.service.bean;
 
-import com.mysema.query.types.Predicate;
+import com.querydsl.core.types.Predicate;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.springcustom.CustomEntityGraph;
 import ir.ssa.parkban.vertical.core.domain.springcustom.springdata.CustomCrudMethodMetadata;

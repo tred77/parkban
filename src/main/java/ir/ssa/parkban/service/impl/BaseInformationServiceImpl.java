@@ -18,10 +18,12 @@ import ir.ssa.parkban.service.dto.entity.PermissionDto;
 import ir.ssa.parkban.service.dto.entity.RegionDto;
 import ir.ssa.parkban.service.dto.entity.RoleDto;
 import ir.ssa.parkban.service.dto.entity.UserDto;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import ir.ssa.parkban.vertical.exceptions.entity.operation.EntityNotFoundException;
 import org.apache.commons.collections.IteratorUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -71,9 +73,18 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         return ObjectMapper.map(userDAO.findOne(id),UserDto.class);
     }
 
-    public List<UserDto> findAllUser(UserFilter filter) {
+    public PagingList<UserDto> findAllUser(UserFilter filter) {
         BaseService.setEntityGraph(userDAO, filter, "findAll");
-        return ObjectMapper.map(userDAO.findAll(filter.getCriteriaExpression()),UserDto.class);
+        Page<UserDto> page = ObjectMapper.map(userDAO.findAll(filter.getCriteriaExpression(),filter.getPageable()),UserDto.class);
+        return ObjectMapper.mapPagedList(page,UserDto.class);
+
+    }
+
+    @Override
+    public PagingList<UserDto> findPagedUser(UserFilter filter) {
+        BaseService.setEntityGraph(userDAO, filter, "findAll");
+        Page<UserDto> page = ObjectMapper.map(userDAO.findAll(filter.getCriteriaExpression(),filter.getPageable()),UserDto.class);
+        return ObjectMapper.mapPagedList(page,UserDto.class);
     }
 
     public RoleDto insertRole(RoleDto roleDto) {
@@ -239,18 +250,6 @@ public class BaseInformationServiceImpl implements BaseInformationService {
         return ObjectMapper.map(reg,RegionDto.class);
     }
 
-    private void registerRootRegion(){
-        Region region = regionDAO.findOne(QRegion.region.parent.isNull());
-        if(region == null){
-            Region root = new Region();
-            root.setLevel(new Long(0));
-            root.setCode(UUID.randomUUID().toString());
-            root.setName("Region Root");
-            root.setAddress("Region Root");
-            root.setParent(null);
-            regionDAO.save(root);
-        }
-    }
 
     public List<RegionDto> insertRegions(List<RegionDto> regionDtos) {
         List<Region> regions = ObjectMapper.map(regionDtos,Region.class);

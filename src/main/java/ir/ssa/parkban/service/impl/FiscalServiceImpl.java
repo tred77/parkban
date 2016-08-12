@@ -13,6 +13,7 @@ import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
 import ir.ssa.parkban.domain.entities.ParkPrice;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.FiscalService;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import ir.ssa.parkban.vertical.core.domain.filterelement.StringFilter;
@@ -21,6 +22,7 @@ import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import ir.ssa.parkban.vertical.exceptions.business.fiscal.UndefinedChargeTypeException;
 import ir.ssa.parkban.vertical.exceptions.data.validation.ArgumentRequiredException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
@@ -90,9 +92,10 @@ public class FiscalServiceImpl implements FiscalService {
     }
 
     @Override
-    public List<ParkPriceDto> findAllParkPrice(ParkPriceFilter filter) {
+    public PagingList<ParkPriceDto> findAllParkPrice(ParkPriceFilter filter) {
         BaseService.setEntityGraph(parkPriceDAO, filter, "findAll");
-        return ObjectMapper.map(parkPriceDAO.findAll(filter.getCriteriaExpression()), ParkPriceDto.class);
+        Page<ParkPriceDto> parkPriceDtos =ObjectMapper.map(parkPriceDAO.findAll(filter.getCriteriaExpression(),filter.getPageable()), ParkPriceDto.class);
+        return ObjectMapper.mapPagedList(parkPriceDtos,ParkPriceDto.class);
     }
 
     /* charge section */

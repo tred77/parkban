@@ -1,6 +1,6 @@
 package ir.ssa.parkban.domain.filters.warehouse;
 
-import com.mysema.query.types.path.EntityPathBase;
+import com.querydsl.core.types.dsl.EntityPathBase;
 import ir.ssa.parkban.domain.entities.warehouse.QRegionParkInformation;
 import ir.ssa.parkban.domain.filters.RegionFilter;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;

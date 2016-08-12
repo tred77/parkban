@@ -38,6 +38,21 @@ insert into TBL_ROLE(id,name) values(3,'User');
 insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(1,'behrooz', 'zamani', 'bzd', 'bzd', true,3733111834);
 insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(2,'hossein', 'yeganeh', 'hym', 'hym', true,3733111835);
 insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(3,'Admin', 'Admin', 'admin', 'admin', true,3733111836);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(4,'iman', 'akbari', 'iman', 'iman', true,3733111837);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(5,'reza', 'nouri', 'reza', 'nouri', true,3733111838);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(6,'sedigh', 'rigi', 'sedigh', 'rigi', true,3733111839);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(7,'ali', 'kia', 'ali', 'kia', true,3733111840);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(8,'amir', 'amir', 'amir', 'amir', true,37331118341);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(9,'reza', 'alaei', 'reza', 'alaie', true,3733111842);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(10,'fouad', 'bahr', 'fouad', 'bahr', true,3733111843);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(11,'loghman', 'rahimzadeh', 'logh', 'logh', true,3733111844);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(12,'ahmad', 'kolivand', 'ahmad', 'koliv', true,3733111845);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(13,'mohsen', 'jenadeleh', 'mohsen', 'jende', true,3733111846);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(14,'mahmood', 'sadeghi', 'mahmood', 'sadeghi', true,3733111847);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(15,'Goli', 'razi', 'goli', 'razi', true,3733111848);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(16,'sasa', 'sasa', 'sasa', 'sasa', true,3733111849);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(17,'babak', 'eghbali', 'babak', 'eghi', true,3733111850);
+insert into TBL_USER(id, first_name,last_name,username,password,active,national_id) values(18,'khaleh', 'beti', 'khale', 'beti', true,3733111851);
 
 -- vehicle owner
 insert into TBL_VEHICLE_OWNER (id, USER_ID) values(1, 1);

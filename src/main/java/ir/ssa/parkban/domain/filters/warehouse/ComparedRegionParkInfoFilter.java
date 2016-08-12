@@ -1,7 +1,8 @@
 package ir.ssa.parkban.domain.filters.warehouse;
 
-import com.mysema.query.types.path.EntityPathBase;
+import com.querydsl.core.types.dsl.EntityPathBase;
 import ir.ssa.parkban.domain.entities.warehouse.QRegionParkInformation;
+import ir.ssa.parkban.domain.entities.warehouse.RegionParkInformation;
 import ir.ssa.parkban.domain.filters.enumfilter.DateLevelFilter;
 import ir.ssa.parkban.vertical.core.domain.BaseFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
@@ -59,7 +60,7 @@ public class ComparedRegionParkInfoFilter extends BaseFilter {
     }
 
     @Override
-    protected EntityPathBase getEntityPath() {
+    protected EntityPathBase<RegionParkInformation> getEntityPath() {
         return QRegionParkInformation.regionParkInformation;
     }
 }

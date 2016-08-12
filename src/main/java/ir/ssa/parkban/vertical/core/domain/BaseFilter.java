@@ -1,14 +1,16 @@
 package ir.ssa.parkban.vertical.core.domain;
 
-import com.mysema.query.types.Path;
-import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.expr.SimpleExpression;
-import com.mysema.query.types.path.CollectionPathBase;
-import com.mysema.query.types.path.EntityPathBase;
-import ir.ssa.parkban.domain.entities.QCity;
+
+import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.CollectionPathBase;
+import com.querydsl.core.types.dsl.EntityPathBase;
+import com.querydsl.core.types.dsl.SimpleExpression;
 import ir.ssa.parkban.vertical.core.domain.filterelement.Filter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 import org.apache.commons.lang3.text.WordUtils;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -37,6 +39,13 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
         if(entityGraphPaths == null)
             entityGraphPaths = new ArrayList<>();
         entityGraphPaths.add(path);
+    }
+
+    public Pageable getPageable(){
+        if(this.pagingInfo != null){
+            return new PageRequest(pagingInfo.getPage(),pagingInfo.getSize());
+        }
+        return null;
     }
 
     public PagingInfo getPagingInfo() {
@@ -91,7 +100,6 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
                 // TODO log this
             }
         }
-
         return result;
 
         //return name.getElementOp().getCriteriaExpression(city.name,name.getValues());
@@ -125,9 +133,6 @@ public abstract class BaseFilter implements FilterCriteriaProvider{
         }
     }
 
-    private void test(){
-        QCity qCity = QCity.city;
-        //qCity.regions.any().city;
-    }
+
 
 }
