@@ -120,7 +120,7 @@ public class CustomQueryDslJpaRepository<T, ID extends Serializable> extends Sim
     @Override
     public Page<T> findAll(Predicate predicate, Pageable pageable) {
 
-        final JPQLQuery<?> countQuery = createQuery(predicate);
+        final JPQLQuery<?> countQuery = createCountQuery(predicate);
         JPQLQuery<T> query = querydsl.applyPagination(pageable, createQuery(predicate).select(path));
 
         return PageableExecutionUtils.getPage(query.fetch(), pageable, new TotalSupplier() {
@@ -171,6 +171,25 @@ public class CustomQueryDslJpaRepository<T, ID extends Serializable> extends Sim
         for (Entry<String, Object> hint : getQueryHints().entrySet()) {
             query.setHint(hint.getKey(), hint.getValue());
         }
+
+        return query;
+    }
+
+    protected JPQLQuery<?> createCountQuery(Predicate... predicate) {
+
+        AbstractJPAQuery<?, ?> query = querydsl.createQuery(path).where(predicate);
+        CrudMethodMetadata metadata = getRepositoryMethodMetadata();
+
+        if (metadata == null) {
+            return query;
+        }
+
+        LockModeType type = metadata.getLockModeType();
+        query = type == null ? query : query.setLockMode(type);
+
+        /*for (Entry<String, Object> hint : getQueryHints().entrySet()) {
+            query.setHint(hint.getKey(), hint.getValue());
+        }*/
 
         return query;
     }
