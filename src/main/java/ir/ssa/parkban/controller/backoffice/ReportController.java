@@ -10,6 +10,7 @@ import ir.ssa.parkban.service.bean.report.ParkbanProceedInformationService;
 import ir.ssa.parkban.service.bean.report.RegionParkInformationService;
 import ir.ssa.parkban.service.bean.report.VehicleReportService;
 import ir.ssa.parkban.service.dto.entity.*;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -81,7 +82,7 @@ public class ReportController{
     /* ********** Parkban Proceed Report Section **********************/
 
     @RequestMapping(value = "/getParkbanProceedInformation", method = RequestMethod.POST)
-    public List<ParkbanProceedInformationDto> getParkbanProceedInformation(@RequestBody ParkbanProceedInformationFilter filter){
+    public PagingList<ParkbanProceedInformationDto> getParkbanProceedInformation(@RequestBody ParkbanProceedInformationFilter filter){
         return parkbanProceedInformationService.getParkbanProceedInformation(filter);
     }
 

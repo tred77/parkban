@@ -8,6 +8,7 @@ import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.DateDimensionEntityService;
 import ir.ssa.parkban.service.bean.report.ParkbanProceedInformationService;
 import ir.ssa.parkban.service.dto.entity.ParkbanProceedInformationDto;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.NumberFilterOperation;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
@@ -21,12 +22,10 @@ import net.sf.dynamicreports.report.exception.DRException;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperRunManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.HashMap;
-import java.util.List;
+
 
 /**
  * Created by Behrouz-ZD on 8/4/2016.
@@ -41,14 +40,14 @@ public class ParkbanProceedInformationServiceImpl implements ParkbanProceedInfor
     DateDimensionEntityService dateDimensionEntityService;
 
     @Override
-    public List<ParkbanProceedInformationDto> getParkbanProceedInformation(ParkbanProceedInformationFilter filter) {
+    public PagingList<ParkbanProceedInformationDto> getParkbanProceedInformation(ParkbanProceedInformationFilter filter) {
         return getParkbanProceedInformations(filter);
     }
 
     @Override
     public byte[] printParkbanProceedInformation(ParkbanProceedInformationFilter filter) {
 
-        List<ParkbanProceedInformationDto> list =  getParkbanProceedInformations(filter);
+        PagingList<ParkbanProceedInformationDto> list =  getParkbanProceedInformations(filter);
 
         JasperReportBuilder report = DynamicReports.report();
         report
@@ -61,7 +60,7 @@ public class ParkbanProceedInformationServiceImpl implements ParkbanProceedInfor
                 .title(//title of the report
                         Components.text("گزارش")
                                 .setHorizontalAlignment(HorizontalAlignment.CENTER))
-                .pageFooter(Components.pageXofY()).setDataSource(list);
+                .pageFooter(Components.pageXofY()).setDataSource(list.getContent());
 
 
         byte[] breortArray = null;
@@ -78,13 +77,15 @@ public class ParkbanProceedInformationServiceImpl implements ParkbanProceedInfor
     }
 
 
-    private List<ParkbanProceedInformationDto> getParkbanProceedInformations(ParkbanProceedInformationFilter filter) {
+    private PagingList<ParkbanProceedInformationDto> getParkbanProceedInformations(ParkbanProceedInformationFilter filter) {
         ParkbanProceedInformationFilter parkbanProceedInformationFilter =  prepareParkbanProceedInformationFilter(filter);
         parkbanProceedInformationFilter.addGraphPath("region");
         parkbanProceedInformationFilter.addGraphPath("parkban");
         parkbanProceedInformationFilter.addGraphPath("dateDimensionEntity");
         BaseService.setEntityGraph(parkbanProceedInformationDAO,parkbanProceedInformationFilter,"findAll");
-        return ObjectMapper.map(parkbanProceedInformationDAO.findAll(parkbanProceedInformationFilter.getCriteriaExpression()),ParkbanProceedInformationDto.class);
+        Page page = parkbanProceedInformationDAO.findAll(parkbanProceedInformationFilter.getCriteriaExpression(),parkbanProceedInformationFilter.getPageable());
+
+        return ObjectMapper.mapPagedList(page,ParkbanProceedInformationDto.class);
     }
 
     private ParkbanProceedInformationFilter prepareParkbanProceedInformationFilter(ParkbanProceedInformationFilter filter){
