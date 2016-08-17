@@ -120,6 +120,7 @@ public class BaseInformationServiceImpl implements BaseInformationService {
     }
 
     public List<RoleDto> findAllRoles(RoleFilter roleFilter){
+        BaseService.setEntityGraph(roleDAO, roleFilter, "findAll");
         return ObjectMapper.map(roleDAO.findAll(roleFilter.getCriteriaExpression()),RoleDto.class);
     }
 
