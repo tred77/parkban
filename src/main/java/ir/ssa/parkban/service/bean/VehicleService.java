@@ -4,6 +4,7 @@ import ir.ssa.parkban.domain.filters.VehicleFilter;
 import ir.ssa.parkban.domain.filters.VehicleOwnerFilter;
 import ir.ssa.parkban.service.dto.entity.VehicleDto;
 import ir.ssa.parkban.service.dto.entity.VehicleOwnerDto;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,7 +26,7 @@ public interface VehicleService extends BaseService {
     @Transactional
     void deleteVehicleOwner(Long Id);
 
-    List<VehicleOwnerDto> findAllVehicleOwner(VehicleOwnerFilter filter);
+    PagingList<VehicleOwnerDto> findAllVehicleOwner(VehicleOwnerFilter filter);
 
     VehicleOwnerDto findVehicleOwnerById(long id);
 

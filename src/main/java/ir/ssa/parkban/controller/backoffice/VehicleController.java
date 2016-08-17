@@ -6,6 +6,7 @@ import ir.ssa.parkban.service.bean.VehicleService;
 import ir.ssa.parkban.service.dto.entity.VehicleDto;
 import ir.ssa.parkban.service.dto.entity.VehicleOwnerDto;
 import ir.ssa.parkban.service.dto.request.AssignVehiclesRequest;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import ir.ssa.parkban.vertical.validations.BindingCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -24,7 +25,7 @@ public class VehicleController {
     VehicleService vehicleService;
 
     @RequestMapping(value = "/findAllVehicleOwner",method = RequestMethod.POST)
-    public List<VehicleOwnerDto> findAllVehicleOwner(@RequestBody VehicleOwnerFilter filter){
+    public PagingList<VehicleOwnerDto> findAllVehicleOwner(@RequestBody VehicleOwnerFilter filter){
         filter.addGraphPath("user");
         return vehicleService.findAllVehicleOwner(filter);
     }

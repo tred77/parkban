@@ -10,8 +10,10 @@ import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.VehicleService;
 import ir.ssa.parkban.service.dto.entity.VehicleDto;
 import ir.ssa.parkban.service.dto.entity.VehicleOwnerDto;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -59,11 +61,12 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<VehicleOwnerDto> findAllVehicleOwner(VehicleOwnerFilter filter) {
+    public PagingList<VehicleOwnerDto> findAllVehicleOwner(VehicleOwnerFilter filter) {
         BaseService.setEntityGraph(vehicleOwnerDAO, filter, "findAll");
-        List<VehicleOwnerDto>  lst = ObjectMapper.map(vehicleOwnerDAO.findAll(filter.getCriteriaExpression()),VehicleOwnerDto.class);
-        if(lst!=null)
+        Page<VehicleOwnerDto> plst = ObjectMapper.map(vehicleOwnerDAO.findAll(filter.getCriteriaExpression(),filter.getPageable()),VehicleOwnerDto.class);
+        if(plst!=null &&  plst.getContent()!=null)
         {
+            List lst = plst.getContent();
             Arrays.stream(lst.toArray()).forEach(item->{
                 if(((VehicleOwnerDto)item).getVehicles()!=null){
                     Arrays.stream(((VehicleOwnerDto)item).getVehicles().toArray()).forEach(subItem->{
@@ -72,7 +75,7 @@ public class VehicleServiceImpl implements VehicleService {
                 }
             });
         }
-        return lst;
+        return ObjectMapper.mapPagedList(plst,VehicleOwnerDto.class);
     }
 
     @Override
