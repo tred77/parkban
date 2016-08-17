@@ -49,7 +49,7 @@ public class FiscalController {
     /******************** Park Charge Report **********************************/
 
     @RequestMapping(value = "/findAllParkCharge", method = RequestMethod.POST)
-    public List<ParkChargeDto> findAllParkCharge(@RequestBody ParkChargeFilter filter){
+    public PagingList<ParkChargeDto> findAllParkCharge(@RequestBody ParkChargeFilter filter){
         return fiscalService.findAllParkCharge(filter);
     }
 

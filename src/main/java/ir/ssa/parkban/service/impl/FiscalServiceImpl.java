@@ -180,10 +180,11 @@ public class FiscalServiceImpl implements FiscalService {
     }
 
     @Override
-    public List<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter) {
+    public PagingList<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter) {
         filter.addGraphPath("owner");
         BaseService.setEntityGraph(parkChargeDAO,filter,"findAll");
-        return ObjectMapper.map(parkChargeDAO.findAll(filter.getCriteriaExpression()),ParkChargeDto.class);
+        Page page = parkChargeDAO.findAll(filter.getCriteriaExpression(),filter.getPageable());
+        return ObjectMapper.mapPagedList(page,ParkChargeDto.class);
     }
 
     @Override
