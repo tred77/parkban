@@ -54,7 +54,7 @@ public class FiscalController {
     }
 
     @RequestMapping(value = "/findAllChargeDoc", method = RequestMethod.POST)
-    public List<ChargeDocDto> findAllChargeDoc(@RequestBody ChargeDocFilter filter){
+    public PagingList<ChargeDocDto> findAllChargeDoc(@RequestBody ChargeDocFilter filter){
         return fiscalService.findAllChargeDoc(filter);
     }
 

@@ -34,7 +34,7 @@ public interface FiscalService extends BaseService {
 
     PagingList<ParkChargeDto> findAllParkCharge(ParkChargeFilter filter);
 
-    List<ChargeDocDto> findAllChargeDoc(ChargeDocFilter filter);
+    PagingList<ChargeDocDto> findAllChargeDoc(ChargeDocFilter filter);
 
     /** ParkPrice */
 

@@ -188,12 +188,13 @@ public class FiscalServiceImpl implements FiscalService {
     }
 
     @Override
-    public List<ChargeDocDto> findAllChargeDoc(ChargeDocFilter filter) {
+    public PagingList<ChargeDocDto> findAllChargeDoc(ChargeDocFilter filter) {
         filter.addGraphPath("vehicleOwner");
         filter.addGraphPath("parkban");
         filter.addGraphPath("region");
         BaseService.setEntityGraph(chargeDocDAO,filter,"findAll");
-        return ObjectMapper.map(chargeDocDAO.findAll(filter.getCriteriaExpression()),ChargeDocDto.class);
+        Page page = chargeDocDAO.findAll(filter.getCriteriaExpression(),filter.getPageable());
+        return ObjectMapper.mapPagedList(page,ChargeDocDto.class);
     }
 
     /** PakPrice */
