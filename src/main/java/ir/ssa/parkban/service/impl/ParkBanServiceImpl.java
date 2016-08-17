@@ -15,12 +15,14 @@ import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTrackDto;
 import ir.ssa.parkban.service.dto.view.ParkbanTimeTableViewDto;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
 import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilterOperation;
 import ir.ssa.parkban.vertical.core.util.DateUtils.CalendarUtils;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateUtils;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -131,9 +133,10 @@ public class ParkBanServiceImpl implements ParkBanService {
 
 
     /* Parkban Section*/
-    public List<ParkbanDto> findAllParkbans(ParkbanFilter filter){
+    public PagingList<ParkbanDto> findAllParkbans(ParkbanFilter filter){
         BaseService.setEntityGraph(parkbanDAO, filter, "findAll");
-        return ObjectMapper.map(parkbanDAO.findAll(filter.getCriteriaExpression()),ParkbanDto.class);
+        Page page = parkbanDAO.findAll(filter.getCriteriaExpression(),filter.getPageable());
+        return ObjectMapper.mapPagedList(page,ParkbanDto.class);
     }
 
     @Override

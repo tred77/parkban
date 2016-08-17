@@ -9,6 +9,7 @@ import ir.ssa.parkban.service.dto.entity.ParkbanDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTimeTableDto;
 import ir.ssa.parkban.service.dto.entity.ParkbanTrackDto;
 import ir.ssa.parkban.service.dto.view.ParkbanTimeTableViewDto;
+import ir.ssa.parkban.vertical.core.domain.PagingList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,7 +43,7 @@ public class ParkbanController {
     }
 
     @RequestMapping(value = "/getParkbans", method = RequestMethod.POST)
-    public List<ParkbanDto> getParkbans(@RequestBody ParkbanFilter parkbanFilter){
+    public PagingList<ParkbanDto> getParkbans(@RequestBody ParkbanFilter parkbanFilter){
         parkbanFilter.addGraphPath("user");
         return parkBanService.findAllParkbans(parkbanFilter);
     }
