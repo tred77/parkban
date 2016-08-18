@@ -23,6 +23,28 @@ public class Vehicle extends DomainEntity {
     @JoinColumn(name = "OWNER_ID",nullable = false)
     private VehicleOwner vehicleOwner;
 
+    @Column(name = "OWNER_NAME")
+    private String ownerName;
+
+    @Column(name = "MOBILE_NUMBER")
+    private String mobileNumber;
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
+
     public VehicleOwner getVehicleOwner() {
         return vehicleOwner;
     }

@@ -27,6 +27,9 @@ public class ParkCharge extends DomainEntity {
     @Column(name = "AMOUNT")
     private BigDecimal amount;
 
+    @Column(name = "UNSETTLED_AMOUNT")
+    private BigDecimal unsettledAmount;
+
     @Column(name = "LAST_CHARGE_DATE")
     private Date lastChargeDate;
 
@@ -80,5 +83,13 @@ public class ParkCharge extends DomainEntity {
 
     public void setPlateNumber(String plateNumber) {
         this.plateNumber = plateNumber;
+    }
+
+    public BigDecimal getUnsettledAmount() {
+        return unsettledAmount;
+    }
+
+    public void setUnsettledAmount(BigDecimal unsettledAmount) {
+        this.unsettledAmount = unsettledAmount;
     }
 }
