@@ -1,0 +1,18 @@
+
+@font-face {
+    font-family: yekan;
+    src: url(fonts/yekan.ttf);
+}
+
+@charset "utf-8";
+@font-face {
+    font-family: "Parkyar";
+    src: url("fonts/Tahoma.eot?") format("eot"), url("fonts/Tahoma.woff") format("woff"), url("fonts/Tahoma.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'ParkyarBold';
+    src: url("fonts/Tahoma-Bold.eot") format("eot"), url("fonts/Tahoma-Bold.woff") format("woff"), url('fonts/Tahoma-Bold.ttf') format('truetype')
+}

@@ -9,11 +9,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templateresolver.ServletContextTemplateResolver;
+import org.thymeleaf.templateresolver.TemplateResolver;
 
 import java.util.Locale;
 
@@ -47,6 +52,32 @@ public class WebMVCAdapter extends WebMvcConfigurerAdapter {
         return lci;
     }
 
+
+    /*@Bean
+    public TemplateResolver templateResolver(){
+        ServletContextTemplateResolver templateResolver=new ServletContextTemplateResolver();
+        templateResolver.setPrefix(prefix);
+        templateResolver.setSuffix(suffix);
+        templateResolver.setTemplateMode("HTML5");
+        return templateResolver;
+    }
+
+    @Bean
+    public SpringTemplateEngine templateEngine(){
+        SpringTemplateEngine templateEngine =new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.setMessageSource(messageSource());
+        return templateEngine;
+    }
+
+    @Bean
+    public ViewResolver viewResolver(){
+        ThymeleafViewResolver viewResolver  =new ThymeleafViewResolver();
+        viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setOrder(1);
+        viewResolver.setViewNames(new String[]{"*"});
+        return viewResolver;
+    }*/
 
     @Bean
     public InternalResourceViewResolver defaultViewResolver() {
