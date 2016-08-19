@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 /**
  * Created by hadoop on 3/28/16.
@@ -54,18 +53,5 @@ public class FiscalController {
         return fiscalService.findAllChargeDoc(filter);
     }
 
-    /******************** Park settlement **********************************/
-
-    @RequestMapping(value = "/findAllParkUnSettlement", method = RequestMethod.POST)
-    public PagingList<ParkUnSettlementDto> findAllParkUnSettlement(@RequestBody ParkUnSettlementFilter filter){
-        filter.addGraphPath("region");
-        return fiscalService.findAllParkUnSettlement(filter);
-    }
-
-    @RequestMapping(value = "/findAllRegionDailySettlement", method = RequestMethod.POST)
-    public PagingList<RegionDailySettlementDto> findAllRegionDailySettlement(@RequestBody RegionDailySettlementFilter filter){
-        filter.addGraphPath("region");
-        return fiscalService.findAllRegionDailySettlement(filter);
-    }
 
 }
