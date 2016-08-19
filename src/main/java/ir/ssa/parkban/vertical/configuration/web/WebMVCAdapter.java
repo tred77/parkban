@@ -79,7 +79,7 @@ public class WebMVCAdapter extends WebMvcConfigurerAdapter {
         return viewResolver;
     }*/
 
-    @Bean
+    /*@Bean
     public InternalResourceViewResolver defaultViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
         resolver.setPrefix(prefix);
@@ -87,7 +87,7 @@ public class WebMVCAdapter extends WebMvcConfigurerAdapter {
         resolver.setOrder(0);
         resolver.setViewClass(JstlView.class);
         return resolver;
-    }
+    }*/
 
 
     @Override

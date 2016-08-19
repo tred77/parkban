@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class EndUserController {
 
-    @RequestMapping(value = "/pub/test")
+    @RequestMapping(value = "/pub/main")
     public String start(){
         return "index";
     }

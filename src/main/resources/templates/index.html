@@ -1,8 +1,753 @@
-<html>
-<head>
-	<title>Title</title>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+	<title>Spring Framework Guru</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta content="telephone=no" name="format-detection" />										<!--Remove styling of telephone numbers on IOS-->
+	<meta name="description" content="A Template by Designzway Team" /> 							<!--Change content-->
+	<meta name="keywords" content="HTML, LESS, CSS, JavaScript" /> 								<!--Change content-->
+	<meta name="author" content="Designzway Team" /> 												<!--Change content-->
+	<title>پارکیار</title>															<!--Change title-->
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<link href="css/switcher.css" rel="stylesheet" />											<!--Color panel-->
+	<link href="root.css" rel="stylesheet" />											<!--Color panel-->
+	<link href="css/style.css?v=1" rel="stylesheet"/>    										<!-- Stylesheet -->
+	<link href="css/style_default.css" rel="stylesheet" media="all"/>    						<!-- Stylesheet -->
+
+	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+		ul#navigation > li , section > div.row > div {
+			float: right;
+		}
+
+		ul#navigation {
+			font-family: "ParkyarBold";
+			font-size: 12px;
+		}
+
+		.section-header {
+			font-family: yekan;
+			font-size: 20px;
+		}
+
+		#customers h4 , .common-text , .circle-text{
+			font-family: Parkyar;
+			font-size: 13px;
+		}
+
+		.common-text {
+			font-size: 13px;
+		}
+
+		.circle-text {
+			font-size: 11px;
+		}
+
+	</style>
+
+
+
 </head>
-<body>
+<body style="text-align: right">
+<div class="wrapper">
+	<!-- Begin header -->
+	<header>
+		<div class="presentation">
+			<!-- Begin top navigation -->
+			<!--<div class="top-info">
+                   <div class="container">
+                    <p class="top-info__text pull-left hidden-xs small">
+                        Get acquainted with amazing app <a href="#">here</a>
+                    </p>
+                    <p class="top-info__text pull-right small">
+                        Have any questions? Just call us <span class="text-highlight">1-222-345-6789</span>
+                    </p>
+                   </div>
+            </div>-->
+			<!-- End top navigation -->
+
+			<!-- Begin main navigation -->
+			<div class="main-nav">
+
+				<div class="divider-circle"></div>
+
+				<nav class="container">
+
+					<!-- Main navigation-->
+					<div class="pull-right" id="navigation-box">
+						<a id="navigation-toggle" href="#">
+							<span class="menu-icon"></span>
+						</a>
+						<ul id="navigation">
+							<li class="active-item">
+								<span class="sub-nav-toggle plus"></span>
+								<a href="index1.html">
+									خانه
+								</a>
+							</li>
+							<li><a href="about.html">
+								درباره ما
+							</a></li>
+							<li>
+								<span class="sub-nav-toggle plus"></span>
+								<a href="services.html">
+									پشتیبانی
+								</a>
+							</li>
+							<li>
+								<span class="sub-nav-toggle plus"></span>
+								<a href="#">
+									گالری
+								</a>
+								<ul>
+									<li><a href="gallery-random.html">داشبورد مدیر</a></li>
+								</ul>
+							</li>
+							<li><a href="contact.html">
+								ارتباط با ما
+							</a></li>
+							<li>
+								<span class="sub-nav-toggle plus"></span>
+								<a href="shop-catalogue.html">
+									ورود به سیستم
+								</a>
+								<ul>
+									<li><a href="single-product.html">
+										صاحبان وسایل
+									</a></li>
+									<li><a href="single-product.html">
+										پارکداران
+									</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+
+					<!-- Logo -->
+					<div class="logo pull-left">
+						<a href="index1.html">
+							<!-- Remove comments to choose image and add comment to h1 -->
+							<!--<img class="logo-img" src="images/logo.png" alt="Appic logo">-->
+							<h1 class="logo-text">PA<span class="text-highlight">RK</span>YAR</h1>
+						</a>
+					</div>
+					<!-- End Logo -->
+
+				</nav>
+			</div>
+			<!-- End main navigation -->
+		</div>
+		<!-- End presentation-->
+
+	</header>
+	<!-- End header -->
+
+	<!-- Page title -->
+	<div class="home-title-wrapper">
+		<div class="pattern-light-wrapper">
+			<div class="container">
+				<h2 class="page-title-main" style="font-size: 50px">
+					سیستم مدیریت پارک وسایط نقلیه
+				</h2>
+				<h3 class="page-title-secondary" style="font-size: 20px">
+					منابع، فضا و افراد خود را به صورت یکپارچه مدیریت کنید و بهترین سرویس را به مشتریان خود بدهید
+				</h3>
+			</div>
+
+			<div class="decorative-lines"></div>
+			<div class="container">
+
+				<div class="circle-info-buttons">
+					<!-- Circle info button -->
+					<div class="circle-info-wrapper">
+						<div class="circle-info">
+							<div class="circle-info__front">
+								<h4 class="circle-info__title" style="font-family: yekan">
+									کامل
+								</h4>
+							</div>
+							<div class="circle-info__back">
+								<h4 class="circle-info__title">
+									کامل
+								</h4>
+								<p class="circle-info__text hidden-xs circle-text">
+									به نظر می‌رسد مصدومیتی مشابه مصدومیت سانتیاگو کانیزارس
+								</p>
+								<a href="#"><i class="icon-circle icon-circle--small fa fa-arrow-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<!-- End Circle info button -->
+
+					<!-- Circle info button -->
+					<div class="circle-info-wrapper">
+						<div class="circle-info">
+							<div class="circle-info__front">
+								<h4 class="circle-info__title" style="font-family: yekan">
+									انعطاف پذیر
+								</h4>
+							</div>
+							<div class="circle-info__back">
+								<h4 class="circle-info__title">
+									انعطاف پذیر
+								</h4>
+								<p class="circle-info__text hidden-xs circle-text">
+									به نظر می‌رسد مصدومیتی مشابه مصدومیت سانتیاگو کانیزارس
+								</p>
+								<a href="#"><i class="icon-circle icon-circle--small fa fa-arrow-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<!-- End Circle info button -->
+
+					<!-- Circle info button -->
+					<div class="circle-info-wrapper">
+						<div class="circle-info">
+							<div class="circle-info__front">
+								<h4 class="circle-info__title" style="font-family: yekan">
+									به روز
+								</h4>
+							</div>
+							<div class="circle-info__back">
+								<h4 class="circle-info__title">
+									به روز
+								</h4>
+								<p class="circle-info__text hidden-xs circle-text">
+									به نظر می‌رسد مصدومیتی مشابه مصدومیت سانتیاگو کانیزارس
+								</p>
+								<a href="#"><i class="icon-circle icon-circle--small fa fa-arrow-right"></i></a>
+							</div>
+						</div>
+					</div>
+					<!-- End Circle info button -->
+				</div>
+			</div>
+
+			<div class="divider-simple"></div>
+		</div>
+	</div>
+	<!-- End Page title -->
+
+
+	<!-- Begin main content -->
+
+	<!-- Begin page section -->
+	<br/>
+	<section class="container benefits" >
+		<div class="row">
+			<div class="col-xs-12 col-md-7">
+				<span class="text-highlight section-header">
+					ویژگی ها
+				</span>
+				<br/><br/>
+				<ul class="list-arrow list-arrow--hover-efect common-text">
+					<li class="list__item">
+						<i class="icon-circle icon-circle--thin fa fa-arrow-left"></i>
+						<strong>
+							سرمربی برزیل: نیمار یک هیولا است
+						</strong>
+						روجریکو میکیل، سرمربی تیم ملی المپیک برزیل نیمار را به یک هیولا تشبیه کرد و مدعی شد که نمی‌داند او چگونه به این سطح رسیده است.
+					</li>
+					<li class="list__item">
+						<i class="icon-circle icon-circle--thin fa fa-arrow-left"></i>
+						<strong>
+							درخشش شجاعی و کنار رفتن ارنتی
+						</strong>
+						با توجه به عملکرد قابل قبول مسعود شجاعی در تمرینات و بازی های دوستانه پانیونیوس سرمربی این تیم اعلام کرده دیگر به وجود ارنتی ترکیه ای نیازمند نیست.
+					</li>
+					<li class="list__item">
+						<i class="icon-circle icon-circle--thin fa fa-arrow-left"></i>
+						<strong>
+							نگاهی به هفته سوم لیگ یک
+						</strong>
+						عصر فردا در شهرهای مختلف شاهد برگزاری دیدارهای هفته سوم رقابت های فوتبال قهرمانی دسته اول باشگاه های کشور – جام آزادگان در شهرهای مختلف خواهیم بود
+					</li>
+					<li class="list__item">
+						<i class="icon-circle icon-circle--thin fa fa-arrow-left"></i>
+						<strong>
+							شهبازاده مقابل بشیکتاش بازی می‌کند
+						</strong>
+						تیم آلانیا اسپور مهیای اولین بازی در سوپر لیگ ترکیه می شود. مسابقه ای که روز شنبه و در برابر مدافع عنوان قهرمانی در فصل گذشته برگزار می شود
+					</li>
+				</ul>
+			</div>
+			<div class="col-xs-8 col-md-3 col-xs-offset-2 col-md-offset-1 roundabout-wrapper" style="float: left">
+				<ul class="roundabout">
+					<li class="roundabout-slide"><img src="images/iphone-blue.png" alt=""/></li>
+					<li class="roundabout-slide"><img src="images/iphone-dark.png" alt=""/></li>
+					<li class="roundabout-slide"><img src="images/iphone-pink.png" alt=""/></li>
+				</ul>
+				<div class="roundabout-controls">
+					<a class="prev" href="#"></a>
+					<a class="next" href="#"></a>
+				</div>
+			</div>
+		</div>
+		<!-- End row -->
+	</section>
+	<!-- End page section -->
+
+	<!-- Begin page section -->
+	<section class="services services--preview">
+		<div class="container" style="margin-bottom: 30px">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="divider-circle divider-circle--light"></div>
+					<br/>
+					<span class="text-highlight section-header">
+						شهرها و مناطقی که به پارکیار پیوسته اند
+					</span>
+
+				</div>
+			</div>
+		</div>
+		<!-- Decorated slider -->
+		<div class="decorated-slider-wrapper">
+			<div class="decorative-lines"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12">
+
+						<div class="swiper-controls decorated-slider-controls">
+							<a class="prev-arrow" href="#"></a>
+							<a class="next-arrow" href="#"></a>
+						</div>
+
+						<div class="clearfix"></div>
+
+						<div id="customers" class="swiper-container decorated-slider">
+							<div class="swiper-wrapper" >
+
+								<div class="swiper-slide swiper-slide--active" data-order="slide1">
+									<div class="services__item">
+										<i class="icon icon-circle icon-circle--lg fa fa-cog"></i>
+										<h4 class="service__title">
+											منطقه یک
+										</h4>
+									</div>
+								</div>
+
+								<div class="swiper-slide" data-order="slide2">
+									<div class="services__item">
+										<!--<i class="icon icon-circle icon-circle&#45;&#45;lg fa fa-users"></i>-->
+										<i class="icon icon-circle icon-circle--lg fa fa-cog"></i>
+										<h4 class="service__title">
+											منطقه دو
+										</h4>
+									</div>
+								</div>
+
+								<div class="swiper-slide" data-order="slide3">
+									<div class="services__item">
+										<!--<i class="icon icon-circle icon-circle&#45;&#45;lg fa fa-cloud"></i>-->
+										<i class="icon icon-circle icon-circle--lg fa fa-cog"></i>
+										<h4 class="service__title">
+											جای شما
+										</h4>
+									</div>
+								</div>
+
+								<div class="swiper-slide" data-order="slide4">
+									<div class="services__item">
+										<!--<i class="icon icon-circle icon-circle&#45;&#45;lg fa fa-tags"></i>-->
+										<i class="icon icon-circle icon-circle--lg fa fa-cog"></i>
+										<h4 class="service__title">
+											جای شما
+										</h4>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="service__info common-text">
+							<p class="service__description slide1 service__description--active">
+								<strong>
+									انتقاد تند انریکه از برنامه ریزی سوپرکاپ‌ها
+								</strong>
+								به گزارش "ورزش سه"، شاگردان انریکه شب گذشته موفق شدند 3-0 سویا را شکست داده و در مجموع با برتری 5-0 قهرمان سوپرکاپ اسپانیا شوند. با این حال‌ آنها روز شنبه میزبان رئال بتیس در لالیگا خواهند بود و انریکه از این برنامه ریزی مسئولین لالیگا انتقاد کرد.
+
+								او گفت:" با وجود اینکه جام را بردیم ولی برگزاری این جام غیرمنقطی است. ما روزهای کمی برای آمادگی برای بازی اولمان فرصت داریم ولی سال گذشته اوضاع بدتر بود. سوپرکاپ اروپا را دو روز پیش از سفر به سن مامس برگزار کردیم. فوتبال ورزش فوق‌العاده ای است و نباید در گذشته گیر کند. اگر مسئولین نخواهند آن را تغییر دهند، یه یک افتضاح بزرگ تبدیل خواهد شد."
+							</p>
+							<p class="service__description slide2">
+								<strong>
+									نانی: هر چه دارم از یونایتد است
+								</strong>
+								نانی، هافبک سابق منچستریونایتد مدعی شد که سر الکس فرگوسن برای او مثل پدرش بوده و هر آنچه که در زندگی دارد از باشگاه منچستریونایتد است
+							</p>
+							<p class="service__description slide3">
+								<strong>
+									بگوویچ: از مس کینه‌ای به دل ندارم
+								</strong>
+								وینگو بگوویچ در آستانه بازی با مس کرمان گفت: این بازی هم فقط 3 امتیاز دارد و نباید به حساسیت ها دامن زد.
+							</p>
+							<p class="service__description slide4">
+								<strong>
+									پیشنهاد 60 میلیونی چلسی برای کولیبالی
+								</strong>
+								باشگاه چلسی پیشنهادی 60 میلیون پوندی برای جذب کالیدو کولیبالی، مدافع ناپولی ارائه کرده است.
+							</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Decorated slider -->
+
+	</section>
+	<!-- End page section -->
+
+	<!-- Begin page section -->
+	<section class="universe hidden-xs">
+		<div class="pattern-light-wrapper">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-md-5" style="float: right">
+
+						<h2 class="section-title section-title--light" style="font-family: yekan; font-size: 35px">
+							راههای پیام رسانی به کاربران
+							<!--<span class="text-highlight">
+                                پارکیار
+                            </span>--></h2>
+					</div>
+
+					<div class="col-sm-8 col-md-7 circle-buttons-holder">
+						<!-- Circle button -->
+						<div class="circle-button-wrapper circle-button--smaller-wraper">
+							<div class="circle-button circle-button--smaller">
+								<h4 class="circle-button__title">
+									SMS
+								</h4>
+								<a class="circle-button-second" href="#">
+									<h4 class="circle-button__title">SMS</h4>
+								</a>
+							</div>
+						</div>
+						<!-- End Circle button -->
+
+						<!-- Circle button -->
+						<div class="circle-button-wrapper circle-button--smaller-wraper">
+							<div class="circle-button circle-button--smaller">
+								<h4 class="circle-button__title">
+									Telegram
+								</h4>
+								<a class="circle-button-second" href="#">
+									<h4 class="circle-button__title">Telegram</h4>
+								</a>
+							</div>
+						</div>
+						<!-- End Circle button -->
+
+						<!-- Circle button -->
+						<div class="circle-button-wrapper circle-button--smaller-wraper">
+							<div class="circle-button circle-button--smaller">
+								<h4 class="circle-button__title">
+									Email
+								</h4>
+								<a class="circle-button-second" href="#">
+									<h4 class="circle-button__title">Email</h4>
+								</a>
+							</div>
+						</div>
+						<!-- End Circle button -->
+					</div>
+				</div>
+
+			</div>
+			<div class="decorative-lines"></div>
+		</div>
+	</section>
+	<!-- End page section -->
+
+	<!-- Begin page section -->
+	<br/><br/>
+	<section class="container client-says">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="divider-circle divider-circle--light visible-xs"></div>
+
+
+				<span class="text-highlight section-header">
+					نظرمشتریان
+				</span>
+
+				<!-- Qoutation slider -->
+				<div class="swiper-controls qoutation-slider-controls">
+					<a class="prev-arrow" href="#"></a>
+					<a class="next-arrow" href="#"></a>
+				</div>
+
+				<div class="clearfix"></div>
+
+				<div class="swiper-container qoutation-slider qoutation-slider--higher">
+					<div class="swiper-wrapper">
+
+						<!-- Client saying -->
+						<div class="swiper-slide">
+							<div class="client-says__item common-text">
+								<div class="author__photo triangled-box">
+									<img src="images/avatars/user-photo-4.jpg" alt=""/>
+									<div class="author__name">
+										مشتری
+									</div>
+								</div>
+								<p class="author__message">
+									به گزارش "ورزش سه"، چندی پیش از شروع جام جهانی 2002، یک افتر شیو روی پای سانتیاگو کانیزارس، دروازه بان تیم ملی اسپانیا افتاد و باعث مصدوم شدن او از ناحیه تاندون پا و از دست دادن جام جهانی 2002 شد و حال موندو دپورتیوو مدعی شده که مصدومیت مشابهی برای آلوارو موراتا رخ داده است
+								</p>
+							</div>
+						</div>
+						<!-- End Client saying -->
+
+					</div>
+				</div>
+				<!-- End Qoutation slider -->
+
+			</div>
+		</div>
+		<!-- End row -->
+	</section>
+	<!-- End page section -->
+
+	<!-- Begin page section -->
+	<!--<section class="container divided-section">
+        <div class="divider-circle divider-circle&#45;&#45;light"></div>
+        <div class="divider-vertical hidden-xs"></div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h2 class="section-title section-title&#45;&#45;smaller">Latest<span class="text-highlight">post</span></h2>
+
+                &lt;!&ndash; Latest post &ndash;&gt;
+                <article class="post post&#45;&#45;latest">
+                    <a href="single-post.html">
+                        <div class="post__image">
+                            <img src="images/blog/thumbs/post-photo-20.jpg" alt="">
+                        </div>
+                        <div class="post__description">
+                            <h2 class="post__title">Proin gravida dapibus metus, et pretium lorem accumsan suscipit.</h2>
+                            <p class="post__date">February 26, 2014</p>
+                            <div class="clearfix hidden-lg"></div>
+                            <p class="post__text">Maecenas in purus sit amet nisl condimentum venenatis. Morbi fringilla imperdiet nisi, a rhoncus eros iaculis sed. Nulla eget libero eros, vitae fringilla nisi. In hac habitasse platea dictumst.  Suspendisse viverra velit eu ante tristique adipiscing mollis sapien lobortis. Quisque gravida scelerisque vehicula.  In hac habitasse platea dictumst.<span class="post__more"><i class="icon-circle icon-circle&#45;&#45;small fa fa-arrow-right"></i></span></p>
+                        </div>
+                        <div class="divider-simple visible-xs"></div>
+                    </a>
+                </article>
+                &lt;!&ndash; End Latest post &ndash;&gt;
+            </div>
+            <div class="col-sm-6 choose-us">
+                <h2 class="section-title section-title&#45;&#45;smaller">Why choose<span class="text-highlight">Appic</span></h2>
+
+                &lt;!&ndash; Accordion &ndash;&gt;
+                <div class="panel-group accordion accordion&#45;&#45;secondary" id="accordion2">
+
+                    &lt;!&ndash; Accordion item &ndash;&gt;
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion2" href="#collapseFive">
+                                    <span class="marker"></span>
+                                      Sed ac lacus eu arcu lacinia dictum.
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse in" id="collapseFive">
+                              <div class="panel-body">
+                                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet quam augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi nisi, pulvinar a mattis quis, tincidunt sed risus. Quisque ipsum felis, fringilla et tristique eget, mattis quis massa.
+                            </div>
+                        </div>
+                    </div>
+                    &lt;!&ndash; End accordion item &ndash;&gt;
+
+                    &lt;!&ndash; Accordion item &ndash;&gt;
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseSix">
+                                    <span class="marker"></span>
+                                      Fusce lacinia purus in urna tristique auctor.
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapseSix">
+                              <div class="panel-body">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet quam augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi nisi, pulvinar a mattis quis, tincidunt sed risus. Quisque ipsum felis, fringilla et tristique eget, mattis quis massa.
+                              </div>
+                        </div>
+                      </div>
+                    &lt;!&ndash; End accordion item &ndash;&gt;
+
+                    &lt;!&ndash; Accordion item &ndash;&gt;
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseSeven">
+                                    <span class="marker"></span>
+                                      Fusce vitae turpis elit.
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapseSeven">
+                              <div class="panel-body">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet quam augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi nisi, pulvinar a mattis quis, tincidunt sed risus. Quisque ipsum felis, fringilla et tristique eget, mattis quis massa.
+                              </div>
+                        </div>
+                      </div>
+                    &lt;!&ndash; End accordion item &ndash;&gt;
+
+                    &lt;!&ndash; Accordion item &ndash;&gt;
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a class="collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseEight">
+                                    <span class="marker"></span>
+                                      Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+                                </a>
+                            </h4>
+                        </div>
+                        <div class="panel-collapse collapse" id="collapseEight">
+                            <div class="panel-body">
+                                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet quam augue. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus nisi nisi, pulvinar a mattis quis, tincidunt sed risus. Quisque ipsum felis, fringilla et tristique eget, mattis quis massa.
+                            </div>
+                        </div>
+                    </div>
+                    &lt;!&ndash; End accordion item &ndash;&gt;
+                </div>
+                &lt;!&ndash; End Accordion &ndash;&gt;
+
+            </div>
+        </div>
+        &lt;!&ndash; End row &ndash;&gt;
+        <div class="divider-circle divider-circle&#45;&#45;light divider-circle-margin"></div>
+    </section>-->
+	<!-- End page section -->
+
+	<!-- End main content -->
+
+	<!--Begin footer -->
+	<footer class="footer-wrapper">
+		<!--Begin footer widget-->
+		<div class="container footer-widgets">
+			<div class="row">
+				<div class="col-sm-12 widget-news" style="float: right">
+					<!--<h3 class="widget-title">News from APPIC</h3>-->
+					<div class="row">
+						<!--<div class="col-sm-6 col-md-12">
+                            <p class="widget-news__text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sit amet quam augue. Donec ut sem vel mauris sodales egestas.</p>
+                            &lt;!&ndash; subscribe form &ndash;&gt;
+                            <form class="subscribe-form" id="subscribe-form" name="subscribe-form" method="post" action="getEmail.php" novalidate>
+                                <input class="subscribe-input" id="input-email" name="input-email" type="email" placeholder="your email here">
+                                <button class="submit-button" id="submit-button" type="submit">
+                                    <i class="icon-circle icon-circle&#45;&#45;thin fa fa-arrow-right"></i>
+                                </button>
+                            </form>
+                        </div>-->
+						<div class="col-sm-12 col-md-12">
+							<address class="widget-contacts" style="font-family: Parkyar;">
+								<span class="widget-contacts__item"> 09359094497  <i class="icon-circle icon-circle--thin fa fa-phone"></i></span>
+								<span class="widget-contacts__item"><a href="mailto:appic@gmail.com"> parkyar@gmail.com  </a><i class="icon-circle icon-circle--thin fa fa-envelope"></i></span>
+			                    <span class="widget-contacts__item">
+									تهران هفت تیر خیابان مفتح شمالی کوچه نظامی
+									<i class="icon-circle icon-circle--thin fa fa-map-marker"></i></span>
+							</address>
+						</div>
+					</div>
+				</div>
+				<!--<div class="col-sm-6 col-md-4 col-lg-3 widget-tweets">
+                    <h3 class="widget-title">Latest Tweets</h3>
+                    <ul class="twitter_update_list" id="twitter-feed"></ul>
+                </div>
+                <div class="col-sm-6 col-md-3 col-lg-3 widget-flickr">
+                    <h3 class="widget-title">Flickr Stream</h3>
+                    <ul class="flickr" id="flickr"></ul>
+                </div>-->
+			</div>
+		</div>
+		<!--End footer widget -->
+
+		<!--Begin footer secondary -->
+		<div class="footer-secondary">
+
+			<div class="divider-circle"></div>
+
+			<div class="container">
+				<ul class="social">
+					<li class="social__item custom-tooltip tooltip--info" title="pinterest">
+						<a class="icon-circle fa fa-pinterest" href="http://pinterest.com/oliagozha/" target="_blank"></a>
+					</li>
+					<li class="social__item custom-tooltip tooltip--info" title="google">
+						<a class="icon-circle fa fa-google-plus" href="https://plus.google.com/u/0/100180333527158639883/posts" target="_blank"></a>
+					</li>
+					<li class="social__item custom-tooltip tooltip--info" title="linkedin">
+						<a class="icon-circle fa fa-linkedin" href="http://ua.linkedin.com/pub/olia-gozha/49/b91/268" target="_blank"></a>
+					</li>
+					<li class="social__item custom-tooltip tooltip--info" title="twitter">
+						<a class="icon-circle fa fa-twitter" href="http://twitter.com/@OliaGozha" target="_blank"></a>
+					</li>
+					<li class="social__item custom-tooltip tooltip--info" title="facebook">
+						<a class="icon-circle fa fa-facebook" href="http://www.facebook.com/people/@/http://www.facebook.com/olia.gozha" target="_blank"></a>
+					</li>
+				</ul>
+				<div class="copyright">
+					<small class="small">&copy; PARKYAR, 2016</small>
+				</div>
+			</div>
+		</div>
+		<!--End footer secondary -->
+	</footer>
+	<!--End footer -->
+</div>
+
+<!-- Panel for color scheme -->
+
+
+<!--End wrapper -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> <!--Script jQuery-->
+<script>
+	window.jQuery || document.write("<script src='external/jquery/jquery-1.11.0.min.js'/>")
+</script>
+<script src="external/jquery/jquery-migrate-1.2.1.min.js"></script>			<!--Script jQuery for old version jQuery-->
+<script src="external/bootstrap/js/bootstrap.min.js"></script>				<!--Bootstrap JavaScript-->
+<script src="external/jquery-event/jquery.event.drag-2.2.js"></script>		<!--Script jquery event Drag-->
+<script src="external/jquery-event/jquery.event.drop-2.2.js"></script>		<!--Script jquery event Drop-->
+<script src="external/jquery-easing/jquery.easing.1.3.js"></script>			<!--Script jquery Easing-->
+<script src="external/jquery-roundabout/jquery.roundabout.min.js"></script>	<!--Script Roundabout-->
+<script src="external/swiper/idangerous.swiper.min.js"></script>			<!--Script Swiper slider -->
+<script src="external/jquery-twitter/jquery.twitter.js"></script>			<!--Script Twitter-->
+<script src="external/jflickrfeed/jflickrfeed.js"></script>					<!--Script Widget Flikr-->
+<script src="external/gozha-nav/jquery.mobile.menu.js"></script>			<!--Script Mobile menu-->
+<script src="external/modernizr/modernizr.custom.91224.js"></script>		<!--Script Modernizr-->
+<script src="external/colorbox/jquery.colorbox.js"></script>				<!--Script Сolorbox-->
+<script src="external/jquery-cookie/jquery.cookie.js"></script>				<!--Script Сookie-->
+<script src="js/form.js"></script>											<!--Script Forms -->
+<script src="js/custom.js"></script>										<!--Script Custom-->
+
+<script>
+	$(document).ready(function() {
+
+		init_ButtonInfo();
+
+		init_Button ();
+
+		init_Roundabout();
+
+		init_DecoratedSlider();
+
+		init_QoutationSlider();
+
+		init_ServicesInfo();
+	});
+</script>
 
 </body>
 </html>
