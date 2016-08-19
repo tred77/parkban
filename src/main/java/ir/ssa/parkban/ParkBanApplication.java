@@ -1,6 +1,7 @@
 package ir.ssa.parkban;
 
 import ir.ssa.parkban.vertical.core.domain.springcustom.springdata.CustomJpaRepositoryFactoryBean;
+
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;

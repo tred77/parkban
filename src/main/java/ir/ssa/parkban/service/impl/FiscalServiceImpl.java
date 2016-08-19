@@ -6,10 +6,7 @@ import ir.ssa.parkban.domain.entities.Vehicle;
 import ir.ssa.parkban.domain.enums.ParkChargeType;
 import ir.ssa.parkban.domain.filters.*;
 import ir.ssa.parkban.repository.*;
-import ir.ssa.parkban.service.dto.entity.ChargeDocDto;
-import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
-import ir.ssa.parkban.service.dto.entity.ParkChargeFiscalDocDto;
-import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
+import ir.ssa.parkban.service.dto.entity.*;
 import ir.ssa.parkban.domain.entities.ParkPrice;
 import ir.ssa.parkban.service.bean.BaseService;
 import ir.ssa.parkban.service.bean.FiscalService;
@@ -52,6 +49,12 @@ public class FiscalServiceImpl implements FiscalService {
 
     @Autowired
     ChargeDocDAO chargeDocDAO;
+
+    @Autowired
+    ParkUnSettlementDAO parkUnSettlementDAO;
+
+    @Autowired
+    RegionDailySettlementDAO regionDailySettlementDAO;
 
     @Override
     public void insertParkPrice(@Validated @NotNull Long regionId, List<ParkPriceDto> parkPriceDto) {
@@ -228,5 +231,19 @@ public class FiscalServiceImpl implements FiscalService {
     @Override
     public ParkPriceDto findParkPriceById(long id) {
         return ObjectMapper.map(parkPriceDAO.findOne(id),ParkPriceDto.class);
+    }
+
+    @Override
+    public PagingList<ParkUnSettlementDto> findAllParkUnSettlement(ParkUnSettlementFilter filter) {
+        BaseService.setEntityGraph(parkUnSettlementDAO,filter,"findAll");
+        Page page = parkUnSettlementDAO.findAll(filter.getCriteriaExpression(),filter.getPageable());
+        return ObjectMapper.mapPagedList(page,ParkUnSettlementDto.class);
+    }
+
+    @Override
+    public PagingList<RegionDailySettlementDto> findAllRegionDailySettlement(RegionDailySettlementFilter filter) {
+        BaseService.setEntityGraph(regionDailySettlementDAO,filter,"findAll");
+        Page page = regionDailySettlementDAO.findAll(filter.getCriteriaExpression(),filter.getPageable());
+        return ObjectMapper.mapPagedList(page,RegionDailySettlementDto.class);
     }
 }

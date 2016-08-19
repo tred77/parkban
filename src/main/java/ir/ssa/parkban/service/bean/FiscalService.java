@@ -1,15 +1,9 @@
 package ir.ssa.parkban.service.bean;
 
-import ir.ssa.parkban.domain.filters.ChargeDocFilter;
-import ir.ssa.parkban.domain.filters.ParkChargeFilter;
-import ir.ssa.parkban.service.dto.entity.ChargeDocDto;
-import ir.ssa.parkban.service.dto.entity.ParkChargeDto;
-import ir.ssa.parkban.service.dto.entity.ParkChargeFiscalDocDto;
-import ir.ssa.parkban.service.dto.entity.ParkPriceDto;
-import ir.ssa.parkban.domain.filters.ParkPriceFilter;
+import ir.ssa.parkban.domain.filters.*;
+import ir.ssa.parkban.service.dto.entity.*;
 import ir.ssa.parkban.vertical.core.domain.PagingList;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -51,5 +45,11 @@ public interface FiscalService extends BaseService {
     void deleteParkPrice(ParkPriceDto parkPriceDto);
 
     ParkPriceDto findParkPriceById(long id);
+
+    /** Park Unsettled**/
+
+    PagingList<ParkUnSettlementDto> findAllParkUnSettlement(ParkUnSettlementFilter filter);
+
+    PagingList<RegionDailySettlementDto> findAllRegionDailySettlement( RegionDailySettlementFilter filter);
 
 }
