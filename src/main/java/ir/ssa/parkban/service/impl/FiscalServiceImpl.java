@@ -242,10 +242,8 @@ public class FiscalServiceImpl implements FiscalService {
 
     @Override
     public PagingList<RegionDailySettlementDto> findAllRegionDailySettlement(RegionDailySettlementFilter filter) {
-
-        BaseService.setEntityGraph(parkUnSettlementDAO,filter,"findAll");
+        BaseService.setEntityGraph(regionDailySettlementDAO,filter,"findAll");
         Page page = regionDailySettlementDAO.findAll(filter.getCriteriaExpression(),filter.getPageable());
         return ObjectMapper.mapPagedList(page,RegionDailySettlementDto.class);
-
     }
 }
