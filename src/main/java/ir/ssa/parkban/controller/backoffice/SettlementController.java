@@ -36,7 +36,7 @@ public class SettlementController {
 
     /******************** Park settlement **********************************/
 
-    @RequestMapping(value = "/findAllParkUnSettlement", method = RequestMethod.POST)
+    @RequestMapping(value = "/findAllParkSettlement", method = RequestMethod.POST)
     public PagingList<ParkSettlementDto> findAllParkSettlement(@RequestBody ParkSettlementFilter filter){
         filter.addGraphPath("region");
         return settlementService.findAllParkSettlement(filter);
