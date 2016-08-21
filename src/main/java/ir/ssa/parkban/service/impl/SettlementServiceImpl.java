@@ -16,16 +16,11 @@ import ir.ssa.parkban.service.bean.SettlementService;
 import ir.ssa.parkban.service.dto.entity.ParkUnSettlementDto;
 import ir.ssa.parkban.service.dto.entity.RegionDailySettlementDto;
 import ir.ssa.parkban.vertical.core.domain.PagingList;
-import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
-import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilterOperation;
 import ir.ssa.parkban.vertical.core.util.DateUtils.DateUtils;
 import ir.ssa.parkban.vertical.core.util.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
-
-import java.util.Date;
 import java.util.List;
 
 /**
