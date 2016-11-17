@@ -1,7 +1,5 @@
 package ir.ssa.parkban.domain.entities;
 
-import ir.ssa.parkban.domain.enums.ParkSettlementStatus;
-
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
@@ -12,6 +10,7 @@ import java.util.Date;
  */
 @Entity(name = "TBL_PARK_SETTLEMENT")
 @SequenceGenerator(initialValue = 1, name = "base_seq", sequenceName = "PARK_SETTLEMENT_SEQ")
+@NamedStoredProcedureQueries({@NamedStoredProcedureQuery(name = "Do_Settlement",procedureName = "DO_SETTLEMENT")})
 public class ParkSettlement extends DomainEntity {
 
     @Size(max = 10)
@@ -25,10 +24,6 @@ public class ParkSettlement extends DomainEntity {
     @JoinColumn(name = "REGION_ID")
     private Region region;
 
-    @Column(name = "STATUS")
-    @Enumerated(EnumType.STRING)
-    private ParkSettlementStatus parkSettlementStatus;
-
     /**
      * park duration in minute
      */
@@ -41,6 +36,8 @@ public class ParkSettlement extends DomainEntity {
     @Column(name = "PARK_COST")
     private BigDecimal parkCost;
 
+    @Column(name = "SETTLED_DATE")
+    private Date settledDate;
 
     public Date getParkDate() {
         return parkDate;
@@ -48,14 +45,6 @@ public class ParkSettlement extends DomainEntity {
 
     public void setParkDate(Date parkDate) {
         this.parkDate = parkDate;
-    }
-
-    public ParkSettlementStatus getParkSettlementStatus() {
-        return parkSettlementStatus;
-    }
-
-    public void setParkSettlementStatus(ParkSettlementStatus parkSettlementStatus) {
-        this.parkSettlementStatus = parkSettlementStatus;
     }
 
     public String getVehicleNumber() {
@@ -88,5 +77,13 @@ public class ParkSettlement extends DomainEntity {
 
     public void setParkCost(BigDecimal parkCost) {
         this.parkCost = parkCost;
+    }
+
+    public Date getSettledDate() {
+        return settledDate;
+    }
+
+    public void setSettledDate(Date settledDate) {
+        this.settledDate = settledDate;
     }
 }

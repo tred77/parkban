@@ -50,11 +50,6 @@ public class FiscalServiceImpl implements FiscalService {
     @Autowired
     ChargeDocDAO chargeDocDAO;
 
-    @Autowired
-    ParkUnSettlementDAO parkUnSettlementDAO;
-
-    @Autowired
-    RegionDailySettlementDAO regionDailySettlementDAO;
 
     @Override
     public void insertParkPrice(@Validated @NotNull Long regionId, List<ParkPriceDto> parkPriceDto) {
@@ -233,17 +228,5 @@ public class FiscalServiceImpl implements FiscalService {
         return ObjectMapper.map(parkPriceDAO.findOne(id),ParkPriceDto.class);
     }
 
-    @Override
-    public PagingList<ParkUnSettlementDto> findAllParkUnSettlement(ParkUnSettlementFilter filter) {
-        BaseService.setEntityGraph(parkUnSettlementDAO,filter,"findAll");
-        Page page = parkUnSettlementDAO.findAll(filter.getCriteriaExpression(),filter.getPageable());
-        return ObjectMapper.mapPagedList(page,ParkUnSettlementDto.class);
-    }
 
-    @Override
-    public PagingList<RegionDailySettlementDto> findAllRegionDailySettlement(RegionDailySettlementFilter filter) {
-        BaseService.setEntityGraph(regionDailySettlementDAO,filter,"findAll");
-        Page page = regionDailySettlementDAO.findAll(filter.getCriteriaExpression(),filter.getPageable());
-        return ObjectMapper.mapPagedList(page,RegionDailySettlementDto.class);
-    }
 }

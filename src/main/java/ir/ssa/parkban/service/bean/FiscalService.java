@@ -46,10 +46,5 @@ public interface FiscalService extends BaseService {
 
     ParkPriceDto findParkPriceById(long id);
 
-    /** Park Unsettled**/
-
-    PagingList<ParkUnSettlementDto> findAllParkUnSettlement(ParkUnSettlementFilter filter);
-
-    PagingList<RegionDailySettlementDto> findAllRegionDailySettlement( RegionDailySettlementFilter filter);
 
 }
