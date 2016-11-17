@@ -36,7 +36,7 @@ public abstract class EnumFilter<T extends Enum<T>> implements Filter {
         Arrays.stream(this.values).forEach(e->{
             vals.add(e.name());
         });
-        return (String[]) vals.toArray();
+        return vals.toArray(new String[vals.size()]);
 
     }
 
