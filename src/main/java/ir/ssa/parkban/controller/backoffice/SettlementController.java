@@ -1,9 +1,11 @@
 package ir.ssa.parkban.controller.backoffice;
 
+import ir.ssa.parkban.domain.filters.ParkSettlementFilter;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
 import ir.ssa.parkban.domain.filters.ParkUnSettlementFilter;
 import ir.ssa.parkban.domain.filters.RegionDailySettlementFilter;
 import ir.ssa.parkban.service.bean.SettlementService;
+import ir.ssa.parkban.service.dto.entity.ParkSettlementDto;
 import ir.ssa.parkban.service.dto.entity.ParkTimeDto;
 import ir.ssa.parkban.service.dto.entity.ParkUnSettlementDto;
 import ir.ssa.parkban.service.dto.entity.RegionDailySettlementDto;
@@ -33,6 +35,12 @@ public class SettlementController {
     }
 
     /******************** Park settlement **********************************/
+
+    @RequestMapping(value = "/findAllParkSettlement", method = RequestMethod.POST)
+    public PagingList<ParkSettlementDto> findAllParkSettlement(@RequestBody ParkSettlementFilter filter){
+        filter.addGraphPath("region");
+        return settlementService.findAllParkSettlement(filter);
+    }
 
     @RequestMapping(value = "/findAllParkUnSettlement", method = RequestMethod.POST)
     public PagingList<ParkUnSettlementDto> findAllParkUnSettlement(@RequestBody ParkUnSettlementFilter filter){

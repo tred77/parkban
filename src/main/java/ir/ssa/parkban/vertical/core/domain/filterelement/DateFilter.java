@@ -34,6 +34,10 @@ public class DateFilter implements Filter {
         return values;
     }
 
+    public Date getValue(){
+        return values!=null?values[0]:null;
+    }
+
     public void setValues(Date[] dates) {
         this.values = dates;
         List<Date> lDate = new ArrayList<>(Arrays.asList(dates));

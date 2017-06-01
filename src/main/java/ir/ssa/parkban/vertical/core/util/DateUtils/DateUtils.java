@@ -1,5 +1,9 @@
 package ir.ssa.parkban.vertical.core.util.DateUtils;
 
+import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilter;
+import ir.ssa.parkban.vertical.core.domain.filterelement.DateFilterOperation;
+import org.springframework.util.ObjectUtils;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -42,6 +46,18 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         calendar.add(Calendar.DATE, -1);
         Date lastDayOfMonth = calendar.getTime();
         return lastDayOfMonth;
+    }
+
+    public static DateFilter convertToRangeDateIfEquals(DateFilter date){
+        if(!ObjectUtils.isEmpty(date)){
+            if(date.getElementOp().equals(DateFilterOperation.EQUAL) && !ObjectUtils.isEmpty(date.getValue())){
+                DateFilter dateFilter = new DateFilter();
+                dateFilter.setEnumElementOp(DateFilterOperation.BETWEEN);
+                dateFilter.setValues(new Date[]{DateUtils.getPreviousDay(date.getValue()),DateUtils.getNextDay(date.getValue())});
+                return dateFilter;
+            }
+        }
+        return date;
     }
 
 

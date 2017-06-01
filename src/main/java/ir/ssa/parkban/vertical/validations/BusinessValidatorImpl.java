@@ -113,7 +113,7 @@ public class BusinessValidatorImpl implements BusinessValidator {
 
     private Object getPropertyValueOf(String propertyPath,Object obj){
 
-        String[] fieldNames = propertyPath.split(".");
+        String[] fieldNames = propertyPath.split("\\.");
         if(ObjectUtils.isEmpty(fieldNames)){
             fieldNames = new String[]{propertyPath};
         }

@@ -1,7 +1,9 @@
 package ir.ssa.parkban.service.bean;
 
+import ir.ssa.parkban.domain.filters.ParkSettlementFilter;
 import ir.ssa.parkban.domain.filters.ParkUnSettlementFilter;
 import ir.ssa.parkban.domain.filters.RegionDailySettlementFilter;
+import ir.ssa.parkban.service.dto.entity.ParkSettlementDto;
 import ir.ssa.parkban.service.dto.entity.ParkTimeDto;
 import ir.ssa.parkban.domain.filters.ParkTimeFilter;
 import ir.ssa.parkban.service.dto.entity.ParkUnSettlementDto;
@@ -23,6 +25,8 @@ public interface SettlementService extends BaseService {
     List<ParkTimeDto> findAllParkTimes(ParkTimeFilter parkTimeFilter);
 
     /** Park Unsettled**/
+
+    PagingList<ParkSettlementDto> findAllParkSettlement(ParkSettlementFilter filter);
 
     PagingList<ParkUnSettlementDto> findAllParkUnSettlement(ParkUnSettlementFilter filter);
 
